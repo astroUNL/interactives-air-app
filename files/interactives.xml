@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<interactives>
+      <section name="IntroConcepts">
+	        <online>
+			<rankingtask name="Scale">
+				<description/>
+				<filename>scale/scale.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Planet Order">
+				<description/>
+				<filename>scale/planetOrder.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Planet Groups">
+				<description/>
+				<filename>scale/planetGroups.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>	
+		</online>
+	</section>
+	<section name="Kepler's Laws">
+		<online>
+			<rankingtask name="Kepler's 1st Law">
+				<description/>
+				<filename>kepler/KeplerFirstLaw.swf</filename>
+				<width>750</width>
+				<height>400</height>			
+			</rankingtask>
+			<rankingtask name="Kepler's 2nd Law">
+				<description/>
+				<filename>kepler/KeplerSecondLaw.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Kepler's 3rd Law">
+				<description/>
+				<filename>kepler/KeplerThirdLaw.swf</filename>
+				<width>750</width>
+				<height>400</height>			
+			</rankingtask>
+		</online>
+		<paper>
+			<rankingtask name="Kepler's Laws, Orbital Motion, Exercise 1">
+				<description/>
+				<filename>kepler/paper/Kepler_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Kepler's Laws, Orbital Motion, Exercise 2">
+				<description/>
+				<filename>kepler/paper/Kepler_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Kepler's Laws, Orbital Motion, Exercise 3">
+				<description/>
+				<filename>kepler/paper/Kepler_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Kepler's Laws, Orbital Motion, Exercise 4">
+				<description/>
+				<filename>kepler/paper/Kepler_4.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Kepler's Laws, Orbital Motion, Exercise 5">
+				<description/>
+				<filename>kepler/paper/Kepler_5.pdf</filename>	
+			</rankingtask>
+		</paper>		
+	</section>
+	<section name="Moon Phases">
+		<online>
+			<rankingtask name="Percent of Illumination">
+				<description/>
+				<filename>lunar/PercentOfIllumination.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Phase Order">
+				<description/>
+				<filename>lunar/PhaseOrder.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Phase Order, Geometric View">
+				<description/>
+				<filename>lunar/PhaseOrder_GeometricView.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Phase Order, Multiple Views">
+				<description/>
+				<filename>lunar/PhaseOrder_MultipleViews.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Earth Times">
+				<description/>
+				<filename>lunar/EarthTimes.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Earth Times 3D">
+				<description/>
+				<filename>lunar/EarthTimes3D.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Meridian Times">
+				<description/>
+				<filename>lunar/MeridianTimes.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Rising Setting Times">
+				<description/>
+				<filename>lunar/RisingSettingTimes.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Flat Horizon View, Same Phase">
+				<description/>
+				<filename>lunar/Flat_Horizon_View_SamePhase.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Flat Horizon View, Same Start Time">
+				<description/>
+				<filename>lunar/Flat_Horizon_View_sameStartTime.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Flat Horizon View, All Differences">
+				<description/>
+				<filename>lunar/Flat_Horizon_View_AllDifferences.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Phase Order, 3D Sun Fixed">
+				<description/>
+				<filename>lunar/PhaseOrder_3DSunFixed.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Phase Order, 3D Sun Variable">
+				<description/>
+				<filename>lunar/PhaseOrder_3DSunVariable.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Lunar Sorting Task 1">
+				<description/>
+				<filename>lunar/Lunar1_ST.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>
+			<rankingtask name="Lunar Sorting Task 2">
+				<description/>
+				<filename>lunar/Lunar2_ST.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>
+			<rankingtask name="Lunar Sorting Task 3">
+				<description/>
+				<filename>lunar/Lunar3_ST.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>
+		</online>
+		<paper>
+			<rankingtask name="Phases of the Moon, Exercise 1">
+				<description/>
+				<filename>lunar/paper/MoonPhase_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Phases of the Moon, Exercise 2">
+				<description/>
+				<filename>lunar/paper/MoonPhase_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Phases of the Moon, Exercise 3">
+				<description/>
+				<filename>lunar/paper/MoonPhase_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Phases of the Moon, Exercise 4">
+				<description/>
+				<filename>lunar/paper/MoonPhase_4.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Phases of the Moon, Exercise 5">
+				<description/>
+				<filename>lunar/paper/MoonPhase_5.pdf</filename>	
+			</rankingtask>
+		</paper>
+	</section>
+	<section name="The Seasons">
+		<online>
+			<rankingtask name="Seasons 1, Distance">
+				<description/>
+				<filename>seasons/Season1_Distance.swf</filename>
+				<width>750</width>
+				<height>650</height>				
+			</rankingtask>
+			<rankingtask name="Seasons 2, Flashlight">
+				<description/>
+				<filename>seasons/Season2_Flashlight.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Seasons 3, Illuminated Areas">
+				<description/>
+				<filename>seasons/Season3_illuminatedAreas.swf</filename>
+				<width>750</width>
+				<height>650</height>				
+			</rankingtask>
+			<rankingtask name="Seasons 4, Time">
+				<description/>
+				<filename>seasons/Season4_Time.swf</filename>
+				<width>750</width>
+				<height>650</height>				
+			</rankingtask>
+			<rankingtask name="Seasons 5, Tilt">
+				<description/>
+				<filename>seasons/Season5_Tilt.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+		</online>
+		<paper>
+			<rankingtask name="The Seasons, Exercise 1">
+				<description/>
+				<filename>seasons/paper/Seasons_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="The Seasons, Exercise 2">
+				<description/>
+				<filename>seasons/paper/Seasons_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="The Seasons, Exercise 3">
+				<description/>
+				<filename>seasons/paper/Seasons_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="The Seasons, Exercise 4">
+				<description/>
+				<filename>seasons/paper/Seasons_4.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="The Seasons, Exercise 5">
+				<description/>
+				<filename>seasons/paper/Seasons_5.pdf</filename>	
+			</rankingtask>
+		</paper>
+	</section>
+	<section name="Sun Paths">
+		<online>
+			<rankingtask name="1. Ecliptic">
+				<description/>
+				<filename>sunpaths/1_Ecliptic.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+			<rankingtask name="2. Latitude of Direct Rays">
+				<description/>
+				<filename>sunpaths/2_LatitudeOfDirectRays.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+			<rankingtask name="3. Rising and Setting Azimuths A">
+				<description/>
+				<filename>sunpaths/3_RisingAndSettingAzimuthsA.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+			<rankingtask name="4. Rising and Setting Azimuths B">
+				<description/>
+				<filename>sunpaths/4_RisingAndSettingAzimuthsB.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+			<rankingtask name="5. Noontime Altitude">
+				<description/>
+				<filename>sunpaths/5_NoontimeAltitude.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+			<rankingtask name="6. Celestial Sphere">
+				<description/>
+				<filename>sunpaths/6_CelestialSphere.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+		</online>
+	</section>
+	<section name="Gravity">
+		<paper>
+			<rankingtask name="Gravity, Exercise 1">
+				<description/>
+				<filename>gravity/paper/Gravity_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Gravity, Exercise 2">
+				<description/>
+				<filename>gravity/paper/Gravity_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Gravity, Exercise 3">
+				<description/>
+				<filename>gravity/paper/Gravity_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Gravity, Exercise 4">
+				<description/>
+				<filename>gravity/paper/Gravity_4.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Gravity, Exercise 5">
+				<description/>
+				<filename>gravity/paper/Gravity_5.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Gravity, Exercise 6">
+				<description/>
+				<filename>gravity/paper/Gravity_6.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Gravity, Exercise 7">
+				<description/>
+				<filename>gravity/paper/Gravity_7.pdf</filename>	
+			</rankingtask>
+		</paper>
+		<online>
+			<rankingtask name="Force of Gravity 1">
+				<description/>
+				<filename>gravity/ForceOfGravity1.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Force of Gravity 2">
+				<description/>
+				<filename>gravity/ForceOfGravity2.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Force of Gravity 3A">
+				<description/>
+				<filename>gravity/ForceOfGravity3A.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Force of Gravity 3B">
+				<description/>
+				<filename>gravity/ForceOfGravity3B.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Force of Gravity 3C">
+				<description/>
+				<filename>gravity/ForceOfGravity3C.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Force of Gravity 3D">
+				<description/>
+				<filename>gravity/ForceOfGravity3D.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+		</online>
+	</section>
+	<section name="Motions of the Sky">
+     <online>
+			<rankingtask name="Motions of the Sky 1">
+				<description/>
+				<filename>motions/MotionoftheSky1.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Motions of the Sky 2">
+				<description/>
+				<filename>motions/MotionoftheSky2.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Motions of the Sky 3 ST">
+				<description/>
+				<filename>motions/MotionoftheSky3_ST.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>
+		</online>
+    	<paper>
+			<rankingtask name="Motion of the Sky, Exercise 1">
+				<description/>
+				<filename>motions/paper/SkyMotion_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Motion of the Sky, Exercise 2">
+				<description/>
+				<filename>motions/paper/SkyMotion_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Motion of the Sky, Exercise 3">
+				<description/>
+				<filename>motions/paper/SkyMotion_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Motion of the Sky, Exercise 4">
+				<description/>
+				<filename>motions/paper/SkyMotion_4.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Motion of the Sky, Exercise 5">
+				<description/>
+				<filename>motions/paper/SkyMotion_5.pdf</filename>	
+			</rankingtask>
+		</paper>
+	</section>
+	<section name="Doppler Shift">
+    	<online>
+			<rankingtask name="Doppler Shift 1">
+				<description/>
+				<filename>doppler/DopplerShift1.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Doppler Shift 2">
+				<description/>
+				<filename>doppler/DopplerShift2.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Doppler Shift 3">
+				<description/>
+				<filename>doppler/DopplerShift3.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Doppler Shift 4">
+				<description/>
+				<filename>doppler/DopplerShift4.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Doppler Shift 5">
+				<description/>
+				<filename>doppler/DopplerShift5.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>
+		</online>
+    	<paper>
+			<rankingtask name="Doppler Shift, Exercise 1">
+				<description/>
+				<filename>doppler/paper/Doppler_1.pdf</filename>
+			</rankingtask>
+			<rankingtask name="Doppler Shift, Exercise 2">
+				<description/>
+				<filename>doppler/paper/Doppler_2.pdf</filename>
+            </rankingtask>
+			<rankingtask name="Doppler Shift, Exercise 3">
+				<description/>
+				<filename>doppler/paper/Doppler_3.pdf</filename>
+            </rankingtask>
+			<rankingtask name="Doppler Shift, Exercise 4">
+				<description/>
+				<filename>doppler/paper/Doppler_4.pdf</filename>
+            </rankingtask>
+		</paper>
+ 	</section>
+	<section name="Luminosity of Stars">
+	    <online>
+			<rankingtask name="Luminosity 1">
+				<description/>
+				<filename>luminosity/Luminosity1_Of_Stars.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Luminosity 2">
+				<description/>
+				<filename>luminosity/Luminosity2_HR_Diagram.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Luminosity 3">
+				<description/>
+				<filename>luminosity/Luminosity3_HR_Diagram.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Luminosity 4">
+				<description/>
+				<filename>luminosity/Luminosity4_HR_Diagram.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Luminosity 5">
+				<description/>
+				<filename>luminosity/Luminosity5_Table.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+		</online>
+		<paper>
+			<rankingtask name="Luminosity of Stars, Exercise 1">
+				<description/>
+				<filename>luminosity/paper/Luminosity_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Luminosity of Stars, Exercise 2">
+				<description/>
+				<filename>luminosity/paper/Luminosity_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Luminosity of Stars, Exercise 3">
+				<description/>
+				<filename>luminosity/paper/Luminosity_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Luminosity of Stars, Exercise 4">
+				<description/>
+				<filename>luminosity/paper/Luminosity_4.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Luminosity of Stars, Exercise 5">
+				<description/>
+				<filename>luminosity/paper/Luminosity_5.pdf</filename>	
+			</rankingtask>
+		</paper>
+	</section>
+	<section name="Magnitudes">
+	 <online>
+			<rankingtask name="Magnitudes 1">
+				<description/>
+				<filename>magnitudes/Magnitude1_Distance.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Magnitudes 2">
+				<description/>
+				<filename>magnitudes/Magnitude2_InverseSquare.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Magnitudes 3a">
+				<description/>
+				<filename>magnitudes/Magnitude3a_SameDistance.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Magnitudes 3b">
+				<description/>
+				<filename>magnitudes/Magnitude3b_SameLuminosity.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Magnitudes 3c">
+				<description/>
+				<filename>magnitudes/Magnitude3c_SameApparent.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Magnitudes 4">
+				<description/>
+				<filename>magnitudes/Magnitude4_TenParsecs.swf</filename>
+				<width>750</width>
+				<height>500</height>
+			</rankingtask>
+			<rankingtask name="Magnitudes 5">
+				<description/>
+				<filename>magnitudes/Magnitude5_DistanceModulusTable.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+		</online>
+		<paper>
+			<rankingtask name="Apparent and Absolute Magnitude, Exercise 1">
+				<description/>
+				<filename>magnitudes/paper/app_abso_mag_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Apparent and Absolute Magnitude, Exercise 2">
+				<description/>
+				<filename>magnitudes/paper/app_abso_mag_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Apparent and Absolute Magnitude, Exercise 3">
+				<description/>
+				<filename>magnitudes/paper/app_abso_mag_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Apparent and Absolute Magnitude, Exercise 4">
+				<description/>
+				<filename>magnitudes/paper/app_abso_mag_4.pdf</filename>	
+			</rankingtask>
+		</paper>
+	</section>	
+	<section name="Stellar Evolution">
+		<paper>
+			<rankingtask name="Stellar Evolution, Exercise 1">
+				<description/>
+				<filename>evolution/paper/StellarEvolution_1.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Stellar Evolution, Exercise 2">
+				<description/>
+				<filename>evolution/paper/StellarEvolution_2.pdf</filename>		
+			</rankingtask>
+			<rankingtask name="Stellar Evolution, Exercise 3">
+				<description/>
+				<filename>evolution/paper/StellarEvolution_3.pdf</filename>	
+			</rankingtask>
+			<rankingtask name="Stellar Evolution, Exercise 4">
+				<description/>
+				<filename>evolution/paper/StellarEvolution_4.pdf</filename>	
+			</rankingtask>
+		</paper>
+	</section>
+	<section name="Atmospheric Retention">
+		<online>
+			<rankingtask name="Atmosphere 1">
+				<description/>
+				<filename>atmosphere/Atmospheric1_EscapeVelocity.swf</filename>
+				<width>750</width>
+				<height>400</height>	
+			</rankingtask>
+			<rankingtask name="Atmosphere 2">
+				<description/>
+				<filename>atmosphere/Atmospheric2_GasSpeed.swf</filename>
+				<width>750</width>
+				<height>650</height>	
+			</rankingtask>
+			<rankingtask name="Atmosphere 3">
+				<description/>
+				<filename>atmosphere/Atmospheric3_EscapingParticles.swf</filename>
+				<width>750</width>
+				<height>500</height>	
+			</rankingtask>
+			<rankingtask name="Atmosphere 4">
+				<description/>
+				<filename>atmosphere/Atmospheric4_SpeedTemp.swf</filename>
+				<width>750</width>
+				<height>650</height>	
+			</rankingtask>
+			<rankingtask name="Atmosphere 5">
+				<description/>
+				<filename>atmosphere/Atmospheric5_SpeedDistributions.swf</filename>
+				<width>750</width>
+				<height>650</height>	
+			</rankingtask>
+		</online>
+	</section>
+	<section name="Angular Diameter">
+		<online>
+			<rankingtask name="Angular Diameter 1">
+				<description/>
+				<filename>angulardiameter/AngularDiameter1_PoolTable.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+			<rankingtask name="Angular Diameter 2">
+				<description/>
+				<filename>angulardiameter/AngularDiameter2_GymBalls.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Angular Diameter 3a">
+				<description/>
+				<filename>angulardiameter/AngularDiameter3_Table.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+        </online>
+    </section>
+    	<section name="Stellar Velocity">
+		<online>
+           	<rankingtask name="Stellar Velocity 1">
+				<description/>
+				<filename>stellarvelocity/stellarVelocity1.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Stellar Velocity 2">
+				<description/>
+				<filename>stellarvelocity/stellarVelocity2.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Stellar Velocity 3">
+				<description/>
+				<filename>stellarvelocity/stellarVelocity3.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+			<rankingtask name="Stellar Velocity 4">
+				<description/>
+				<filename>stellarvelocity/stellarVelocity4.swf</filename>
+				<width>750</width>
+				<height>650</height>
+			</rankingtask>
+		</online>
+	</section>
+	<section name="Miscellaneous">
+		<paper>
+			<rankingtask name="Stellar Evolution and Lookback Time, Exercise 1">
+				<description/>
+				<filename>misc/paper/StellarLookback_1.pdf</filename>	
+			</rankingtask>
+		</paper>
+		<online>
+			<rankingtask name="Scientific Method">
+				<description/>
+				<filename>misc/ScientificMethod.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+			<rankingtask name="Spherical Density">
+				<description/>
+				<filename>misc/Density.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>	
+			<rankingtask name="Planet Density">
+				<description/>
+				<filename>misc/planetDensity.swf</filename>
+				<width>750</width>
+				<height>400</height>				
+			</rankingtask>
+           		<rankingtask name="Telescope Properties">
+				<description/>
+				<filename>misc/Telescope1.swf</filename>
+				<width>750</width>
+				<height>400</height>
+			</rankingtask>
+		</online>
+	</section>
+ </interactives>
+
+
+
+
+
+
+

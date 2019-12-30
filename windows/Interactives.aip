@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="16.3" version="16.3" Modules="professional" RootPath="." Language="en" Id="{1882EB14-62D5-456F-895E-D2EAECFA9ACD}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="HiddenItems" Value="AppXProductDetailsComponent;AppXDependenciesComponent;AppXAppDetailsComponent;AppXVisualAssetsComponent;AppXCapabilitiesComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent;MsiJavaComponent;MsiDriverPackagesComponent;UserAccountsComponent;ScheduledTasksComponent;SqlConnectionComponent;AutorunComponent;FirewallExceptionComponent;GameUxComponent;MsiDirectEditorComponent;SharePointSlnComponent;SilverlightSlnComponent;MultipleInstancesComponent;SccmComponent;ActSyncAppComponent;FixupComponent"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This file installs the astro.unl.edu Interactives astronomy education program." ValueLocId="*"/>
+    <ROW Property="ARPURLINFOABOUT" Value="http://astro.unl.edu"/>
+    <ROW Property="Manufacturer" Value="AstroUNL"/>
+    <ROW Property="ProductCode" Value="1033:{49FACE9C-534B-42CF-897E-C4F8F60827BA} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="Interactives"/>
+    <ROW Property="ProductVersion" Value="0.1" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{54464826-174D-4D25-BC82-9DBA0D5B7F0F}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003 RTM, Windows XP/2003 SP1, Windows XP SP2 x86" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="AIR_Dir" Directory_Parent="METAINF_Dir" DefaultDir="AIR"/>
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="AdobeAIR_Dir" Directory_Parent="APPDIR" DefaultDir="ADOBEA~1|Adobe AIR"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="Licenses_Dir" Directory_Parent="Resources_Dir" DefaultDir="Licenses"/>
+    <ROW Directory="METAINF_Dir" Directory_Parent="APPDIR" DefaultDir="META-INF"/>
+    <ROW Directory="Resources_Dir" Directory_Parent="__Dir" DefaultDir="RESOUR~1|Resources"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="Versions_Dir" Directory_Parent="AdobeAIR_Dir" DefaultDir="Versions"/>
+    <ROW Directory="WebKit_Dir" Directory_Parent="Resources_Dir" DefaultDir="WebKit"/>
+    <ROW Directory="__Dir" Directory_Parent="Versions_Dir" DefaultDir="1.0"/>
+    <ROW Directory="angulardiameter_Dir" Directory_Parent="files_Dir" DefaultDir="ANGULA~1|angulardiameter"/>
+    <ROW Directory="atmosphere_Dir" Directory_Parent="files_Dir" DefaultDir="ATMOSP~1|atmosphere"/>
+    <ROW Directory="cairo_Dir" Directory_Parent="Licenses_Dir" DefaultDir="cairo"/>
+    <ROW Directory="doppler_Dir" Directory_Parent="files_Dir" DefaultDir="doppler"/>
+    <ROW Directory="evolution_Dir" Directory_Parent="files_Dir" DefaultDir="EVOLUT~1|evolution"/>
+    <ROW Directory="files_Dir" Directory_Parent="APPDIR" DefaultDir="files"/>
+    <ROW Directory="gravity_Dir" Directory_Parent="files_Dir" DefaultDir="gravity"/>
+    <ROW Directory="kepler_Dir" Directory_Parent="files_Dir" DefaultDir="kepler"/>
+    <ROW Directory="lookback_Dir" Directory_Parent="files_Dir" DefaultDir="lookback"/>
+    <ROW Directory="luminosity_Dir" Directory_Parent="files_Dir" DefaultDir="LUMINO~1|luminosity"/>
+    <ROW Directory="lunar_Dir" Directory_Parent="files_Dir" DefaultDir="lunar"/>
+    <ROW Directory="magnitudes_Dir" Directory_Parent="files_Dir" DefaultDir="MAGNIT~1|magnitudes"/>
+    <ROW Directory="misc_Dir" Directory_Parent="files_Dir" DefaultDir="misc"/>
+    <ROW Directory="motions_Dir" Directory_Parent="files_Dir" DefaultDir="motions"/>
+    <ROW Directory="paper_10_Dir" Directory_Parent="seasons_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_1_Dir" Directory_Parent="evolution_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_2_Dir" Directory_Parent="gravity_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_3_Dir" Directory_Parent="kepler_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_4_Dir" Directory_Parent="lookback_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_5_Dir" Directory_Parent="luminosity_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_6_Dir" Directory_Parent="lunar_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_7_Dir" Directory_Parent="magnitudes_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_8_Dir" Directory_Parent="misc_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_9_Dir" Directory_Parent="motions_Dir" DefaultDir="paper"/>
+    <ROW Directory="paper_Dir" Directory_Parent="doppler_Dir" DefaultDir="paper"/>
+    <ROW Directory="pcre2_Dir" Directory_Parent="Licenses_Dir" DefaultDir="pcre2"/>
+    <ROW Directory="pixman_Dir" Directory_Parent="Licenses_Dir" DefaultDir="pixman"/>
+    <ROW Directory="scale_Dir" Directory_Parent="files_Dir" DefaultDir="scale"/>
+    <ROW Directory="seasons_Dir" Directory_Parent="files_Dir" DefaultDir="seasons"/>
+    <ROW Directory="stellarvelocity_Dir" Directory_Parent="files_Dir" DefaultDir="STELLA~1|stellarvelocity"/>
+    <ROW Directory="sunpaths_Dir" Directory_Parent="files_Dir" DefaultDir="sunpaths"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="APPDIR" ComponentId="{6E4DCCE2-5463-4A81-82C0-0BEE5F26EA1C}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="AdobeAIR.dll" ComponentId="{70659EA8-FAE0-4E2B-A5FA-CD11E72681F4}" Directory_="__Dir" Attributes="256" KeyPath="AdobeAIR.dll"/>
+    <ROW Component="AngularDiameter1_PoolTable.swf" ComponentId="{E409F60B-A937-4665-A274-BE5E1D1AE124}" Directory_="angulardiameter_Dir" Attributes="0" KeyPath="AngularDiameter1_PoolTable.swf" Type="0"/>
+    <ROW Component="Atmospheric1_EscapeVelocity.swf" ComponentId="{7D015F17-F331-4155-9CD5-87467A1CA325}" Directory_="atmosphere_Dir" Attributes="0" KeyPath="Atmospheric1_EscapeVelocity.swf" Type="0"/>
+    <ROW Component="COPYING" ComponentId="{93E2086E-7677-4458-8E3C-8B886D3602E5}" Directory_="cairo_Dir" Attributes="0" KeyPath="COPYING" Type="0"/>
+    <ROW Component="COPYING_1" ComponentId="{9BFCDEA0-3070-4E83-A47E-7DF492689B20}" Directory_="pcre2_Dir" Attributes="0" KeyPath="COPYING_1" Type="0"/>
+    <ROW Component="COPYING_2" ComponentId="{DD41C346-DD3D-4E5F-9551-3A6DE7AAF074}" Directory_="pixman_Dir" Attributes="0" KeyPath="COPYING_2" Type="0"/>
+    <ROW Component="CaptiveAppEntry.exe" ComponentId="{999DA205-EDBB-4B7B-95B4-DFF62AF2AAF7}" Directory_="Resources_Dir" Attributes="256" KeyPath="CaptiveAppEntry.exe"/>
+    <ROW Component="Density.swf" ComponentId="{B24041A9-0E59-492E-8FA6-7FA344299302}" Directory_="misc_Dir" Attributes="0" KeyPath="Density.swf" Type="0"/>
+    <ROW Component="DopplerShift1.swf" ComponentId="{56A3F2BB-B4EB-47B1-B993-D57783EDBEB5}" Directory_="doppler_Dir" Attributes="0" KeyPath="DopplerShift1.swf" Type="0"/>
+    <ROW Component="Doppler_1.pdf" ComponentId="{2371DC50-0EAB-4B08-BD1C-A58664EF1075}" Directory_="paper_Dir" Attributes="0" KeyPath="Doppler_1.pdf" Type="0"/>
+    <ROW Component="EarthTimes.swf" ComponentId="{71D5818B-7BC7-4C6C-88C4-0B203DCE5517}" Directory_="lunar_Dir" Attributes="0" KeyPath="EarthTimes.swf" Type="0"/>
+    <ROW Component="ForceOfGravity1.swf" ComponentId="{4F7A052F-7166-4A6B-8D4B-407A7B6A925B}" Directory_="gravity_Dir" Attributes="0" KeyPath="ForceOfGravity1.swf" Type="0"/>
+    <ROW Component="GradingInfo.swf" ComponentId="{97AAA8CF-0855-4C4D-82D5-6374EE0C0C25}" Directory_="magnitudes_Dir" Attributes="0" KeyPath="GradingInfo.swf_4" Type="0"/>
+    <ROW Component="GradingInfo.swf_1" ComponentId="{7B4F0201-5129-4350-9A4A-248B2C909907}" Directory_="motions_Dir" Attributes="0" KeyPath="GradingInfo.swf_5" Type="0"/>
+    <ROW Component="Gravity_1.pdf" ComponentId="{81EEB7BC-9514-4B6B-99DD-F3D46B14F566}" Directory_="paper_2_Dir" Attributes="0" KeyPath="Gravity_1.pdf" Type="0"/>
+    <ROW Component="Interactives.exe" ComponentId="{5703B128-FC37-46C9-8425-CFB06732B3C2}" Directory_="APPDIR" Attributes="256" KeyPath="Interactives.exe"/>
+    <ROW Component="KeplerFirstLaw.swf" ComponentId="{DE99B9E4-F7A7-431C-8779-24B4BF1218B1}" Directory_="kepler_Dir" Attributes="0" KeyPath="KeplerFirstLaw.swf" Type="0"/>
+    <ROW Component="Kepler_1.pdf" ComponentId="{DCAB36E4-AE35-44B9-9609-41EAB1E11D20}" Directory_="paper_3_Dir" Attributes="0" KeyPath="Kepler_1.pdf" Type="0"/>
+    <ROW Component="LGPLLicense.txt" ComponentId="{8CC51051-A53A-43FE-9AE0-F5BFBE80EC87}" Directory_="WebKit_Dir" Attributes="0" KeyPath="LGPLLicense.txt" Type="0"/>
+    <ROW Component="Luminosity1_Of_Stars.swf" ComponentId="{C45D5FD4-36C7-4B5A-A468-A48A20CCBC02}" Directory_="luminosity_Dir" Attributes="0" KeyPath="Luminosity1_Of_Stars.swf" Type="0"/>
+    <ROW Component="Luminosity_1.pdf" ComponentId="{4A3D26B0-DD89-440C-A1C1-81F9E858232E}" Directory_="paper_5_Dir" Attributes="0" KeyPath="Luminosity_1.pdf" Type="0"/>
+    <ROW Component="MoonPhase_1.pdf" ComponentId="{FE5A99B0-3A3A-4184-B0C2-59A3890C9635}" Directory_="paper_6_Dir" Attributes="0" KeyPath="MoonPhase_1.pdf" Type="0"/>
+    <ROW Component="NPSWF32.dll" ComponentId="{2AA07011-6D35-4714-BEDC-CAEE64A407F0}" Directory_="Resources_Dir" Attributes="0" KeyPath="NPSWF32.dll"/>
+    <ROW Component="NPSWF64.dll" ComponentId="{562645B5-8665-4ACB-9A65-0045565D4D6A}" Directory_="Resources_Dir" Attributes="256" KeyPath="NPSWF64.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{92E2FB14-AB4A-4E76-AA73-885A1ED02E53}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{CB1E5B40-50F6-4F09-8575-37903541877C}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Season1_Distance.swf" ComponentId="{BE8C6D8D-AA9D-46C0-B757-8A48E10136E4}" Directory_="seasons_Dir" Attributes="0" KeyPath="Season1_Distance.swf" Type="0"/>
+    <ROW Component="Seasons_1.pdf" ComponentId="{9307B3AC-1E19-4891-9167-7DB8E942D8ED}" Directory_="paper_10_Dir" Attributes="0" KeyPath="Seasons_1.pdf" Type="0"/>
+    <ROW Component="SkyMotion_1.pdf" ComponentId="{7CF706B8-F201-4AEC-947D-CF79E8353262}" Directory_="paper_9_Dir" Attributes="0" KeyPath="SkyMotion_1.pdf" Type="0"/>
+    <ROW Component="StellarEvolution_1.pdf" ComponentId="{45853AB4-FA9F-43ED-9846-299FC52EEA90}" Directory_="paper_1_Dir" Attributes="0" KeyPath="StellarEvolution_1.pdf" Type="0"/>
+    <ROW Component="StellarLookback_1.pdf" ComponentId="{85D6F8C3-652F-49DC-92EF-73662DCC3718}" Directory_="paper_4_Dir" Attributes="0" KeyPath="StellarLookback_1.pdf" Type="0"/>
+    <ROW Component="StellarLookback_1.pdf_1" ComponentId="{6D2EE057-0BBA-4AF7-9DC1-E56FE55D7589}" Directory_="paper_8_Dir" Attributes="0" KeyPath="StellarLookback_1.pdf_1" Type="0"/>
+    <ROW Component="WebKit.dll" ComponentId="{43E86688-0AF4-4574-953B-9AB2D0D2267F}" Directory_="Resources_Dir" Attributes="256" KeyPath="WebKit.dll"/>
+    <ROW Component="_Ecliptic.swf" ComponentId="{26E3BD28-F53A-47E4-A595-E3A3769FA3D9}" Directory_="sunpaths_Dir" Attributes="0" KeyPath="_Ecliptic.swf" Type="0"/>
+    <ROW Component="app_abso_mag_1.pdf" ComponentId="{B7E089C8-1A83-4EEB-A2B8-00C9068D2F5D}" Directory_="paper_7_Dir" Attributes="0" KeyPath="app_abso_mag_1.pdf" Type="0"/>
+    <ROW Component="application.xml" ComponentId="{46BA6089-4D93-4AEB-A90A-F67115B0818C}" Directory_="AIR_Dir" Attributes="0" KeyPath="application.xml" Type="0"/>
+    <ROW Component="interactives.xml" ComponentId="{2F926E8E-5184-489E-9B43-5C0050B3BE56}" Directory_="files_Dir" Attributes="0" KeyPath="interactives.xml" Type="0"/>
+    <ROW Component="main.swf" ComponentId="{4F6B3642-9538-4153-A895-03BD267133D5}" Directory_="APPDIR" Attributes="0" KeyPath="main.swf" Type="0"/>
+    <ROW Component="planetGroups.swf" ComponentId="{6E81933F-52A5-4A45-8DB4-69ED48083E19}" Directory_="scale_Dir" Attributes="0" KeyPath="planetGroups.swf" Type="0"/>
+    <ROW Component="signatures.xml" ComponentId="{C47EC1D2-C200-4751-A312-52F13D6431F2}" Directory_="METAINF_Dir" Attributes="0" KeyPath="signatures.xml" Type="0"/>
+    <ROW Component="stellarVelocity1.swf" ComponentId="{B2C1D0C1-B814-432C-A360-281170AECECA}" Directory_="stellarvelocity_Dir" Attributes="0" KeyPath="stellarVelocity1.swf" Type="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="AdobeAIR.dll" Component_="AdobeAIR.dll" FileName="ADOBEA~1.DLL|Adobe AIR.dll" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Adobe AIR.dll" SelfReg="false"/>
+    <ROW File="CaptiveAppEntry.exe" Component_="CaptiveAppEntry.exe" FileName="CAPTIV~1.EXE|CaptiveAppEntry.exe" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\CaptiveAppEntry.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="COPYING" Component_="COPYING" FileName="COPYING" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\Licenses\cairo\COPYING" SelfReg="false"/>
+    <ROW File="COPYINGLGPL2.1" Component_="COPYING" FileName="COPYIN~1.1|COPYING-LGPL-2.1" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\Licenses\cairo\COPYING-LGPL-2.1" SelfReg="false"/>
+    <ROW File="COPYINGMPL1.1" Component_="COPYING" FileName="COPYIN~2.1|COPYING-MPL-1.1" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\Licenses\cairo\COPYING-MPL-1.1" SelfReg="false"/>
+    <ROW File="COPYING_1" Component_="COPYING_1" FileName="COPYING" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\Licenses\pcre2\COPYING" SelfReg="false"/>
+    <ROW File="COPYING_2" Component_="COPYING_2" FileName="COPYING" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\Licenses\pixman\COPYING" SelfReg="false"/>
+    <ROW File="NPSWF32.dll" Component_="NPSWF32.dll" FileName="NPSWF32.dll" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\NPSWF32.dll" SelfReg="false"/>
+    <ROW File="NPSWF64.dll" Component_="NPSWF64.dll" FileName="NPSWF64.dll" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\NPSWF64.dll" SelfReg="false"/>
+    <ROW File="LGPLLicense.txt" Component_="LGPLLicense.txt" FileName="LGPLLI~1.TXT|LGPL License.txt" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\WebKit\LGPL License.txt" SelfReg="false"/>
+    <ROW File="NoticeWebKit.txt" Component_="LGPLLicense.txt" FileName="NOTICE~1.TXT|Notice WebKit.txt" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\WebKit\Notice WebKit.txt" SelfReg="false"/>
+    <ROW File="WebKit.dll" Component_="WebKit.dll" FileName="WebKit.dll" Attributes="0" SourcePath="..\output\Interactives\Adobe AIR\Versions\1.0\Resources\WebKit.dll" SelfReg="false"/>
+    <ROW File="AngularDiameter1_PoolTable.swf" Component_="AngularDiameter1_PoolTable.swf" FileName="ANGULA~1.SWF|AngularDiameter1_PoolTable.swf" Attributes="0" SourcePath="..\output\Interactives\files\angulardiameter\AngularDiameter1_PoolTable.swf" SelfReg="false"/>
+    <ROW File="AngularDiameter2_GymBalls.swf" Component_="AngularDiameter1_PoolTable.swf" FileName="ANGULA~2.SWF|AngularDiameter2_GymBalls.swf" Attributes="0" SourcePath="..\output\Interactives\files\angulardiameter\AngularDiameter2_GymBalls.swf" SelfReg="false"/>
+    <ROW File="AngularDiameter3_Table.swf" Component_="AngularDiameter1_PoolTable.swf" FileName="ANGULA~3.SWF|AngularDiameter3_Table.swf" Attributes="0" SourcePath="..\output\Interactives\files\angulardiameter\AngularDiameter3_Table.swf" SelfReg="false"/>
+    <ROW File="GradingInfo.swf" Component_="AngularDiameter1_PoolTable.swf" FileName="GRADIN~1.SWF|GradingInfo.swf" Attributes="0" SourcePath="..\output\Interactives\files\angulardiameter\GradingInfo.swf" SelfReg="false"/>
+    <ROW File="Atmospheric1_EscapeVelocity.swf" Component_="Atmospheric1_EscapeVelocity.swf" FileName="ATMOSP~1.SWF|Atmospheric1_EscapeVelocity.swf" Attributes="0" SourcePath="..\output\Interactives\files\atmosphere\Atmospheric1_EscapeVelocity.swf" SelfReg="false"/>
+    <ROW File="Atmospheric2_GasSpeed.swf" Component_="Atmospheric1_EscapeVelocity.swf" FileName="ATMOSP~2.SWF|Atmospheric2_GasSpeed.swf" Attributes="0" SourcePath="..\output\Interactives\files\atmosphere\Atmospheric2_GasSpeed.swf" SelfReg="false"/>
+    <ROW File="Atmospheric3_EscapingParticles.swf" Component_="Atmospheric1_EscapeVelocity.swf" FileName="ATMOSP~3.SWF|Atmospheric3_EscapingParticles.swf" Attributes="0" SourcePath="..\output\Interactives\files\atmosphere\Atmospheric3_EscapingParticles.swf" SelfReg="false"/>
+    <ROW File="Atmospheric4_SpeedTemp.swf" Component_="Atmospheric1_EscapeVelocity.swf" FileName="ATMOSP~4.SWF|Atmospheric4_SpeedTemp.swf" Attributes="0" SourcePath="..\output\Interactives\files\atmosphere\Atmospheric4_SpeedTemp.swf" SelfReg="false"/>
+    <ROW File="Atmospheric5_SpeedDistributions.swf" Component_="Atmospheric1_EscapeVelocity.swf" FileName="ATMOSP~5.SWF|Atmospheric5_SpeedDistributions.swf" Attributes="0" SourcePath="..\output\Interactives\files\atmosphere\Atmospheric5_SpeedDistributions.swf" SelfReg="false"/>
+    <ROW File="GradingInfo.swf_1" Component_="Atmospheric1_EscapeVelocity.swf" FileName="GRADIN~1.SWF|GradingInfo.swf" Attributes="0" SourcePath="..\output\Interactives\files\atmosphere\GradingInfo.swf" SelfReg="false"/>
+    <ROW File="DopplerShift1.swf" Component_="DopplerShift1.swf" FileName="DOPPLE~1.SWF|DopplerShift1.swf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\DopplerShift1.swf" SelfReg="false"/>
+    <ROW File="DopplerShift2.swf" Component_="DopplerShift1.swf" FileName="DOPPLE~2.SWF|DopplerShift2.swf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\DopplerShift2.swf" SelfReg="false"/>
+    <ROW File="DopplerShift3.swf" Component_="DopplerShift1.swf" FileName="DOPPLE~3.SWF|DopplerShift3.swf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\DopplerShift3.swf" SelfReg="false"/>
+    <ROW File="DopplerShift4.swf" Component_="DopplerShift1.swf" FileName="DOPPLE~4.SWF|DopplerShift4.swf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\DopplerShift4.swf" SelfReg="false"/>
+    <ROW File="DopplerShift5.swf" Component_="DopplerShift1.swf" FileName="DOPPLE~5.SWF|DopplerShift5.swf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\DopplerShift5.swf" SelfReg="false"/>
+    <ROW File="GradingInfo.swf_2" Component_="DopplerShift1.swf" FileName="GRADIN~1.SWF|GradingInfo.swf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\GradingInfo.swf" SelfReg="false"/>
+    <ROW File="Doppler_1.pdf" Component_="Doppler_1.pdf" FileName="DOPPLE~1.PDF|Doppler_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\paper\Doppler_1.pdf" SelfReg="false"/>
+    <ROW File="Doppler_2.pdf" Component_="Doppler_1.pdf" FileName="DOPPLE~2.PDF|Doppler_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\paper\Doppler_2.pdf" SelfReg="false"/>
+    <ROW File="Doppler_3.pdf" Component_="Doppler_1.pdf" FileName="DOPPLE~3.PDF|Doppler_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\paper\Doppler_3.pdf" SelfReg="false"/>
+    <ROW File="Doppler_4.pdf" Component_="Doppler_1.pdf" FileName="DOPPLE~4.PDF|Doppler_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\doppler\paper\Doppler_4.pdf" SelfReg="false"/>
+    <ROW File="StellarEvolution_1.pdf" Component_="StellarEvolution_1.pdf" FileName="STELLA~1.PDF|StellarEvolution_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\evolution\paper\StellarEvolution_1.pdf" SelfReg="false"/>
+    <ROW File="StellarEvolution_2.pdf" Component_="StellarEvolution_1.pdf" FileName="STELLA~2.PDF|StellarEvolution_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\evolution\paper\StellarEvolution_2.pdf" SelfReg="false"/>
+    <ROW File="StellarEvolution_3.pdf" Component_="StellarEvolution_1.pdf" FileName="STELLA~3.PDF|StellarEvolution_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\evolution\paper\StellarEvolution_3.pdf" SelfReg="false"/>
+    <ROW File="StellarEvolution_4.pdf" Component_="StellarEvolution_1.pdf" FileName="STELLA~4.PDF|StellarEvolution_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\evolution\paper\StellarEvolution_4.pdf" SelfReg="false"/>
+    <ROW File="ForceOfGravity1.swf" Component_="ForceOfGravity1.swf" FileName="FORCEO~1.SWF|ForceOfGravity1.swf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\ForceOfGravity1.swf" SelfReg="false"/>
+    <ROW File="ForceOfGravity2.swf" Component_="ForceOfGravity1.swf" FileName="FORCEO~2.SWF|ForceOfGravity2.swf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\ForceOfGravity2.swf" SelfReg="false"/>
+    <ROW File="ForceOfGravity3A.swf" Component_="ForceOfGravity1.swf" FileName="FORCEO~3.SWF|ForceOfGravity3A.swf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\ForceOfGravity3A.swf" SelfReg="false"/>
+    <ROW File="ForceOfGravity3B.swf" Component_="ForceOfGravity1.swf" FileName="FORCEO~4.SWF|ForceOfGravity3B.swf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\ForceOfGravity3B.swf" SelfReg="false"/>
+    <ROW File="ForceOfGravity3C.swf" Component_="ForceOfGravity1.swf" FileName="FORCEO~5.SWF|ForceOfGravity3C.swf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\ForceOfGravity3C.swf" SelfReg="false"/>
+    <ROW File="ForceOfGravity3D.swf" Component_="ForceOfGravity1.swf" FileName="FORCEO~6.SWF|ForceOfGravity3D.swf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\ForceOfGravity3D.swf" SelfReg="false"/>
+    <ROW File="Gravity_1.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~1.PDF|Gravity_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_1.pdf" SelfReg="false"/>
+    <ROW File="Gravity_2.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~2.PDF|Gravity_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_2.pdf" SelfReg="false"/>
+    <ROW File="Gravity_3.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~3.PDF|Gravity_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_3.pdf" SelfReg="false"/>
+    <ROW File="Gravity_4.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~4.PDF|Gravity_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_4.pdf" SelfReg="false"/>
+    <ROW File="Gravity_5.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~5.PDF|Gravity_5.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_5.pdf" SelfReg="false"/>
+    <ROW File="Gravity_6.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~6.PDF|Gravity_6.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_6.pdf" SelfReg="false"/>
+    <ROW File="Gravity_7.pdf" Component_="Gravity_1.pdf" FileName="GRAVIT~7.PDF|Gravity_7.pdf" Attributes="0" SourcePath="..\output\Interactives\files\gravity\paper\Gravity_7.pdf" SelfReg="false"/>
+    <ROW File="interactives.xml" Component_="interactives.xml" FileName="INTERA~1.XML|interactives.xml" Attributes="0" SourcePath="..\output\Interactives\files\interactives.xml" SelfReg="false"/>
+    <ROW File="KeplerFirstLaw.swf" Component_="KeplerFirstLaw.swf" FileName="KEPLER~1.SWF|KeplerFirstLaw.swf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\KeplerFirstLaw.swf" SelfReg="false"/>
+    <ROW File="KeplerSecondLaw.swf" Component_="KeplerFirstLaw.swf" FileName="KEPLER~2.SWF|KeplerSecondLaw.swf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\KeplerSecondLaw.swf" SelfReg="false"/>
+    <ROW File="KeplerThirdLaw.swf" Component_="KeplerFirstLaw.swf" FileName="KEPLER~3.SWF|KeplerThirdLaw.swf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\KeplerThirdLaw.swf" SelfReg="false"/>
+    <ROW File="Kepler_1.pdf" Component_="Kepler_1.pdf" FileName="Kepler_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\paper\Kepler_1.pdf" SelfReg="false"/>
+    <ROW File="Kepler_2.pdf" Component_="Kepler_1.pdf" FileName="Kepler_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\paper\Kepler_2.pdf" SelfReg="false"/>
+    <ROW File="Kepler_3.pdf" Component_="Kepler_1.pdf" FileName="Kepler_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\paper\Kepler_3.pdf" SelfReg="false"/>
+    <ROW File="Kepler_4.pdf" Component_="Kepler_1.pdf" FileName="Kepler_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\paper\Kepler_4.pdf" SelfReg="false"/>
+    <ROW File="Kepler_5.pdf" Component_="Kepler_1.pdf" FileName="Kepler_5.pdf" Attributes="0" SourcePath="..\output\Interactives\files\kepler\paper\Kepler_5.pdf" SelfReg="false"/>
+    <ROW File="StellarLookback_1.pdf" Component_="StellarLookback_1.pdf" FileName="STELLA~1.PDF|StellarLookback_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\lookback\paper\StellarLookback_1.pdf" SelfReg="false"/>
+    <ROW File="Luminosity1_Of_Stars.swf" Component_="Luminosity1_Of_Stars.swf" FileName="LUMINO~1.SWF|Luminosity1_Of_Stars.swf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\Luminosity1_Of_Stars.swf" SelfReg="false"/>
+    <ROW File="Luminosity2_HR_Diagram.swf" Component_="Luminosity1_Of_Stars.swf" FileName="LUMINO~2.SWF|Luminosity2_HR_Diagram.swf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\Luminosity2_HR_Diagram.swf" SelfReg="false"/>
+    <ROW File="Luminosity3_HR_Diagram.swf" Component_="Luminosity1_Of_Stars.swf" FileName="LUMINO~3.SWF|Luminosity3_HR_Diagram.swf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\Luminosity3_HR_Diagram.swf" SelfReg="false"/>
+    <ROW File="Luminosity4_HR_Diagram.swf" Component_="Luminosity1_Of_Stars.swf" FileName="LUMINO~4.SWF|Luminosity4_HR_Diagram.swf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\Luminosity4_HR_Diagram.swf" SelfReg="false"/>
+    <ROW File="Luminosity5_Table.swf" Component_="Luminosity1_Of_Stars.swf" FileName="LUMINO~5.SWF|Luminosity5_Table.swf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\Luminosity5_Table.swf" SelfReg="false"/>
+    <ROW File="Luminosity_1.pdf" Component_="Luminosity_1.pdf" FileName="LUMINO~1.PDF|Luminosity_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\paper\Luminosity_1.pdf" SelfReg="false"/>
+    <ROW File="Luminosity_2.pdf" Component_="Luminosity_1.pdf" FileName="LUMINO~2.PDF|Luminosity_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\paper\Luminosity_2.pdf" SelfReg="false"/>
+    <ROW File="Luminosity_3.pdf" Component_="Luminosity_1.pdf" FileName="LUMINO~3.PDF|Luminosity_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\paper\Luminosity_3.pdf" SelfReg="false"/>
+    <ROW File="Luminosity_4.pdf" Component_="Luminosity_1.pdf" FileName="LUMINO~4.PDF|Luminosity_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\paper\Luminosity_4.pdf" SelfReg="false"/>
+    <ROW File="Luminosity_5.pdf" Component_="Luminosity_1.pdf" FileName="LUMINO~5.PDF|Luminosity_5.pdf" Attributes="0" SourcePath="..\output\Interactives\files\luminosity\paper\Luminosity_5.pdf" SelfReg="false"/>
+    <ROW File="EarthTimes.swf" Component_="EarthTimes.swf" FileName="EARTHT~1.SWF|EarthTimes.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\EarthTimes.swf" SelfReg="false"/>
+    <ROW File="EarthTimes3D.swf" Component_="EarthTimes.swf" FileName="EARTHT~2.SWF|EarthTimes3D.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\EarthTimes3D.swf" SelfReg="false"/>
+    <ROW File="Flat_Horizon_View_AllDifferences.swf" Component_="EarthTimes.swf" FileName="FLAT_H~1.SWF|Flat_Horizon_View_AllDifferences.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\Flat_Horizon_View_AllDifferences.swf" SelfReg="false"/>
+    <ROW File="Flat_Horizon_View_SamePhase.swf" Component_="EarthTimes.swf" FileName="FLAT_H~2.SWF|Flat_Horizon_View_SamePhase.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\Flat_Horizon_View_SamePhase.swf" SelfReg="false"/>
+    <ROW File="Flat_Horizon_View_sameStartTime.swf" Component_="EarthTimes.swf" FileName="FLAT_H~3.SWF|Flat_Horizon_View_sameStartTime.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\Flat_Horizon_View_sameStartTime.swf" SelfReg="false"/>
+    <ROW File="GradingInfo.swf_3" Component_="EarthTimes.swf" FileName="GRADIN~1.SWF|GradingInfo.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\GradingInfo.swf" SelfReg="false"/>
+    <ROW File="Lunar1_ST.swf" Component_="EarthTimes.swf" FileName="LUNAR1~1.SWF|Lunar1_ST.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\Lunar1_ST.swf" SelfReg="false"/>
+    <ROW File="Lunar2_ST.swf" Component_="EarthTimes.swf" FileName="LUNAR2~1.SWF|Lunar2_ST.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\Lunar2_ST.swf" SelfReg="false"/>
+    <ROW File="Lunar3_ST.swf" Component_="EarthTimes.swf" FileName="LUNAR3~1.SWF|Lunar3_ST.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\Lunar3_ST.swf" SelfReg="false"/>
+    <ROW File="MeridianTimes.swf" Component_="EarthTimes.swf" FileName="MERIDI~1.SWF|MeridianTimes.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\MeridianTimes.swf" SelfReg="false"/>
+    <ROW File="MoonPhase_1.pdf" Component_="MoonPhase_1.pdf" FileName="MOONPH~1.PDF|MoonPhase_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\paper\MoonPhase_1.pdf" SelfReg="false"/>
+    <ROW File="MoonPhase_2.pdf" Component_="MoonPhase_1.pdf" FileName="MOONPH~2.PDF|MoonPhase_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\paper\MoonPhase_2.pdf" SelfReg="false"/>
+    <ROW File="MoonPhase_3.pdf" Component_="MoonPhase_1.pdf" FileName="MOONPH~3.PDF|MoonPhase_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\paper\MoonPhase_3.pdf" SelfReg="false"/>
+    <ROW File="MoonPhase_4.pdf" Component_="MoonPhase_1.pdf" FileName="MOONPH~4.PDF|MoonPhase_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\paper\MoonPhase_4.pdf" SelfReg="false"/>
+    <ROW File="MoonPhase_5.pdf" Component_="MoonPhase_1.pdf" FileName="MOONPH~5.PDF|MoonPhase_5.pdf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\paper\MoonPhase_5.pdf" SelfReg="false"/>
+    <ROW File="PercentOfIllumination.swf" Component_="EarthTimes.swf" FileName="PERCEN~1.SWF|PercentOfIllumination.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\PercentOfIllumination.swf" SelfReg="false"/>
+    <ROW File="PhaseOrder.swf" Component_="EarthTimes.swf" FileName="PHASEO~1.SWF|PhaseOrder.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\PhaseOrder.swf" SelfReg="false"/>
+    <ROW File="PhaseOrder_3DSunFixed.swf" Component_="EarthTimes.swf" FileName="PHASEO~2.SWF|PhaseOrder_3DSunFixed.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\PhaseOrder_3DSunFixed.swf" SelfReg="false"/>
+    <ROW File="PhaseOrder_3DSunVariable.swf" Component_="EarthTimes.swf" FileName="PHASEO~3.SWF|PhaseOrder_3DSunVariable.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\PhaseOrder_3DSunVariable.swf" SelfReg="false"/>
+    <ROW File="PhaseOrder_GeometricView.swf" Component_="EarthTimes.swf" FileName="PHASEO~4.SWF|PhaseOrder_GeometricView.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\PhaseOrder_GeometricView.swf" SelfReg="false"/>
+    <ROW File="PhaseOrder_MultipleViews.swf" Component_="EarthTimes.swf" FileName="PHASEO~5.SWF|PhaseOrder_MultipleViews.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\PhaseOrder_MultipleViews.swf" SelfReg="false"/>
+    <ROW File="RisingSettingTimes.swf" Component_="EarthTimes.swf" FileName="RISING~1.SWF|RisingSettingTimes.swf" Attributes="0" SourcePath="..\output\Interactives\files\lunar\RisingSettingTimes.swf" SelfReg="false"/>
+    <ROW File="GradingInfo.swf_4" Component_="GradingInfo.swf" FileName="GRADIN~1.SWF|GradingInfo.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\GradingInfo.swf" SelfReg="false"/>
+    <ROW File="Magnitude1_Distance.swf" Component_="GradingInfo.swf" FileName="MAGNIT~1.SWF|Magnitude1_Distance.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude1_Distance.swf" SelfReg="false"/>
+    <ROW File="Magnitude2_InverseSquare.swf" Component_="GradingInfo.swf" FileName="MAGNIT~2.SWF|Magnitude2_InverseSquare.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude2_InverseSquare.swf" SelfReg="false"/>
+    <ROW File="Magnitude3a_SameDistance.swf" Component_="GradingInfo.swf" FileName="MAGNIT~3.SWF|Magnitude3a_SameDistance.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude3a_SameDistance.swf" SelfReg="false"/>
+    <ROW File="Magnitude3b_SameLuminosity.swf" Component_="GradingInfo.swf" FileName="MAGNIT~4.SWF|Magnitude3b_SameLuminosity.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude3b_SameLuminosity.swf" SelfReg="false"/>
+    <ROW File="Magnitude3c_SameApparent.swf" Component_="GradingInfo.swf" FileName="MAGNIT~5.SWF|Magnitude3c_SameApparent.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude3c_SameApparent.swf" SelfReg="false"/>
+    <ROW File="Magnitude4_TenParsecs.swf" Component_="GradingInfo.swf" FileName="MAGNIT~6.SWF|Magnitude4_TenParsecs.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude4_TenParsecs.swf" SelfReg="false"/>
+    <ROW File="Magnitude5_DistanceModulusTable.swf" Component_="GradingInfo.swf" FileName="MAGNIT~7.SWF|Magnitude5_DistanceModulusTable.swf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\Magnitude5_DistanceModulusTable.swf" SelfReg="false"/>
+    <ROW File="app_abso_mag_1.pdf" Component_="app_abso_mag_1.pdf" FileName="APP_AB~1.PDF|app_abso_mag_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\paper\app_abso_mag_1.pdf" SelfReg="false"/>
+    <ROW File="app_abso_mag_2.pdf" Component_="app_abso_mag_1.pdf" FileName="APP_AB~2.PDF|app_abso_mag_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\paper\app_abso_mag_2.pdf" SelfReg="false"/>
+    <ROW File="app_abso_mag_3.pdf" Component_="app_abso_mag_1.pdf" FileName="APP_AB~3.PDF|app_abso_mag_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\paper\app_abso_mag_3.pdf" SelfReg="false"/>
+    <ROW File="app_abso_mag_4.pdf" Component_="app_abso_mag_1.pdf" FileName="APP_AB~4.PDF|app_abso_mag_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\magnitudes\paper\app_abso_mag_4.pdf" SelfReg="false"/>
+    <ROW File="Density.swf" Component_="Density.swf" FileName="Density.swf" Attributes="0" SourcePath="..\output\Interactives\files\misc\Density.swf" SelfReg="false"/>
+    <ROW File="StellarLookback_1.pdf_1" Component_="StellarLookback_1.pdf_1" FileName="STELLA~1.PDF|StellarLookback_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\misc\paper\StellarLookback_1.pdf" SelfReg="false"/>
+    <ROW File="planetDensity.swf" Component_="Density.swf" FileName="PLANET~1.SWF|planetDensity.swf" Attributes="0" SourcePath="..\output\Interactives\files\misc\planetDensity.swf" SelfReg="false"/>
+    <ROW File="ScientificMethod.swf" Component_="Density.swf" FileName="SCIENT~1.SWF|ScientificMethod.swf" Attributes="0" SourcePath="..\output\Interactives\files\misc\ScientificMethod.swf" SelfReg="false"/>
+    <ROW File="Telescope1.swf" Component_="Density.swf" FileName="TELESC~1.SWF|Telescope1.swf" Attributes="0" SourcePath="..\output\Interactives\files\misc\Telescope1.swf" SelfReg="false"/>
+    <ROW File="GradingInfo.swf_5" Component_="GradingInfo.swf_1" FileName="GRADIN~1.SWF|GradingInfo.swf" Attributes="0" SourcePath="..\output\Interactives\files\motions\GradingInfo.swf" SelfReg="false"/>
+    <ROW File="MotionoftheSky1.swf" Component_="GradingInfo.swf_1" FileName="MOTION~1.SWF|MotionoftheSky1.swf" Attributes="0" SourcePath="..\output\Interactives\files\motions\MotionoftheSky1.swf" SelfReg="false"/>
+    <ROW File="MotionoftheSky2.swf" Component_="GradingInfo.swf_1" FileName="MOTION~2.SWF|MotionoftheSky2.swf" Attributes="0" SourcePath="..\output\Interactives\files\motions\MotionoftheSky2.swf" SelfReg="false"/>
+    <ROW File="MotionoftheSky3_ST.swf" Component_="GradingInfo.swf_1" FileName="MOTION~3.SWF|MotionoftheSky3_ST.swf" Attributes="0" SourcePath="..\output\Interactives\files\motions\MotionoftheSky3_ST.swf" SelfReg="false"/>
+    <ROW File="SkyMotion_1.pdf" Component_="SkyMotion_1.pdf" FileName="SKYMOT~1.PDF|SkyMotion_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\motions\paper\SkyMotion_1.pdf" SelfReg="false"/>
+    <ROW File="SkyMotion_2.pdf" Component_="SkyMotion_1.pdf" FileName="SKYMOT~2.PDF|SkyMotion_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\motions\paper\SkyMotion_2.pdf" SelfReg="false"/>
+    <ROW File="SkyMotion_3.pdf" Component_="SkyMotion_1.pdf" FileName="SKYMOT~3.PDF|SkyMotion_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\motions\paper\SkyMotion_3.pdf" SelfReg="false"/>
+    <ROW File="SkyMotion_4.pdf" Component_="SkyMotion_1.pdf" FileName="SKYMOT~4.PDF|SkyMotion_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\motions\paper\SkyMotion_4.pdf" SelfReg="false"/>
+    <ROW File="SkyMotion_5.pdf" Component_="SkyMotion_1.pdf" FileName="SKYMOT~5.PDF|SkyMotion_5.pdf" Attributes="0" SourcePath="..\output\Interactives\files\motions\paper\SkyMotion_5.pdf" SelfReg="false"/>
+    <ROW File="planetGroups.swf" Component_="planetGroups.swf" FileName="PLANET~1.SWF|planetGroups.swf" Attributes="0" SourcePath="..\output\Interactives\files\scale\planetGroups.swf" SelfReg="false"/>
+    <ROW File="planetOrder.swf" Component_="planetGroups.swf" FileName="PLANET~2.SWF|planetOrder.swf" Attributes="0" SourcePath="..\output\Interactives\files\scale\planetOrder.swf" SelfReg="false"/>
+    <ROW File="scale.swf" Component_="planetGroups.swf" FileName="scale.swf" Attributes="0" SourcePath="..\output\Interactives\files\scale\scale.swf" SelfReg="false"/>
+    <ROW File="Seasons_1.pdf" Component_="Seasons_1.pdf" FileName="SEASON~1.PDF|Seasons_1.pdf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\paper\Seasons_1.pdf" SelfReg="false"/>
+    <ROW File="Seasons_2.pdf" Component_="Seasons_1.pdf" FileName="SEASON~2.PDF|Seasons_2.pdf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\paper\Seasons_2.pdf" SelfReg="false"/>
+    <ROW File="Seasons_3.pdf" Component_="Seasons_1.pdf" FileName="SEASON~3.PDF|Seasons_3.pdf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\paper\Seasons_3.pdf" SelfReg="false"/>
+    <ROW File="Seasons_4.pdf" Component_="Seasons_1.pdf" FileName="SEASON~4.PDF|Seasons_4.pdf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\paper\Seasons_4.pdf" SelfReg="false"/>
+    <ROW File="Seasons_5.pdf" Component_="Seasons_1.pdf" FileName="SEASON~5.PDF|Seasons_5.pdf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\paper\Seasons_5.pdf" SelfReg="false"/>
+    <ROW File="Season1_Distance.swf" Component_="Season1_Distance.swf" FileName="SEASON~1.SWF|Season1_Distance.swf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\Season1_Distance.swf" SelfReg="false"/>
+    <ROW File="Season2_Flashlight.swf" Component_="Season1_Distance.swf" FileName="SEASON~2.SWF|Season2_Flashlight.swf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\Season2_Flashlight.swf" SelfReg="false"/>
+    <ROW File="Season3_illuminatedAreas.swf" Component_="Season1_Distance.swf" FileName="SEASON~3.SWF|Season3_illuminatedAreas.swf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\Season3_illuminatedAreas.swf" SelfReg="false"/>
+    <ROW File="Season4_Time.swf" Component_="Season1_Distance.swf" FileName="SEASON~4.SWF|Season4_Time.swf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\Season4_Time.swf" SelfReg="false"/>
+    <ROW File="Season5_Tilt.swf" Component_="Season1_Distance.swf" FileName="SEASON~5.SWF|Season5_Tilt.swf" Attributes="0" SourcePath="..\output\Interactives\files\seasons\Season5_Tilt.swf" SelfReg="false"/>
+    <ROW File="stellarVelocity1.swf" Component_="stellarVelocity1.swf" FileName="STELLA~1.SWF|stellarVelocity1.swf" Attributes="0" SourcePath="..\output\Interactives\files\stellarvelocity\stellarVelocity1.swf" SelfReg="false"/>
+    <ROW File="stellarVelocity2.swf" Component_="stellarVelocity1.swf" FileName="STELLA~2.SWF|stellarVelocity2.swf" Attributes="0" SourcePath="..\output\Interactives\files\stellarvelocity\stellarVelocity2.swf" SelfReg="false"/>
+    <ROW File="stellarVelocity3.swf" Component_="stellarVelocity1.swf" FileName="STELLA~3.SWF|stellarVelocity3.swf" Attributes="0" SourcePath="..\output\Interactives\files\stellarvelocity\stellarVelocity3.swf" SelfReg="false"/>
+    <ROW File="stellarVelocity4.swf" Component_="stellarVelocity1.swf" FileName="STELLA~4.SWF|stellarVelocity4.swf" Attributes="0" SourcePath="..\output\Interactives\files\stellarvelocity\stellarVelocity4.swf" SelfReg="false"/>
+    <ROW File="_Ecliptic.swf" Component_="_Ecliptic.swf" FileName="1_ECLI~1.SWF|1_Ecliptic.swf" Attributes="0" SourcePath="..\output\Interactives\files\sunpaths\1_Ecliptic.swf" SelfReg="false"/>
+    <ROW File="_LatitudeOfDirectRays.swf" Component_="_Ecliptic.swf" FileName="2_LATI~1.SWF|2_LatitudeOfDirectRays.swf" Attributes="0" SourcePath="..\output\Interactives\files\sunpaths\2_LatitudeOfDirectRays.swf" SelfReg="false"/>
+    <ROW File="_RisingAndSettingAzimuthsA.swf" Component_="_Ecliptic.swf" FileName="3_RISI~1.SWF|3_RisingAndSettingAzimuthsA.swf" Attributes="0" SourcePath="..\output\Interactives\files\sunpaths\3_RisingAndSettingAzimuthsA.swf" SelfReg="false"/>
+    <ROW File="_RisingAndSettingAzimuthsB.swf" Component_="_Ecliptic.swf" FileName="4_RISI~1.SWF|4_RisingAndSettingAzimuthsB.swf" Attributes="0" SourcePath="..\output\Interactives\files\sunpaths\4_RisingAndSettingAzimuthsB.swf" SelfReg="false"/>
+    <ROW File="_NoontimeAltitude.swf" Component_="_Ecliptic.swf" FileName="5_NOON~1.SWF|5_NoontimeAltitude.swf" Attributes="0" SourcePath="..\output\Interactives\files\sunpaths\5_NoontimeAltitude.swf" SelfReg="false"/>
+    <ROW File="_CelestialSphere.swf" Component_="_Ecliptic.swf" FileName="6_CELE~1.SWF|6_CelestialSphere.swf" Attributes="0" SourcePath="..\output\Interactives\files\sunpaths\6_CelestialSphere.swf" SelfReg="false"/>
+    <ROW File="Interactives.exe" Component_="Interactives.exe" FileName="INTERA~1.EXE|Interactives.exe" Attributes="0" SourcePath="..\output\Interactives\Interactives.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="main.swf" Component_="main.swf" FileName="main.swf" Attributes="0" SourcePath="..\output\Interactives\main.swf" SelfReg="false"/>
+    <ROW File="application.xml" Component_="application.xml" FileName="APPLIC~1.XML|application.xml" Attributes="0" SourcePath="..\output\Interactives\META-INF\AIR\application.xml" SelfReg="false"/>
+    <ROW File="hash" Component_="application.xml" FileName="hash" Attributes="0" SourcePath="..\output\Interactives\META-INF\AIR\hash" SelfReg="false"/>
+    <ROW File="signatures.xml" Component_="signatures.xml" FileName="SIGNAT~1.XML|signatures.xml" Attributes="0" SourcePath="..\output\Interactives\META-INF\signatures.xml" SelfReg="false"/>
+    <ROW File="mimetype" Component_="main.swf" FileName="mimetype" Attributes="0" SourcePath="..\output\Interactives\mimetype" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" PackageFolder="..\output\Setup Files" PackageFileName="[|ProductName] - v[|ProductVersion]" Languages="en" InstallationType="4" UseLargeSchema="true"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
+    <ROW DigitalCertificate="E:\unl-cert.p12" TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]" MultiBuildTarget="DefaultBuild:[ProgramMenuFolder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="AdobeAIR.dll"/>
+    <ROW Feature_="MainFeature" Component_="CaptiveAppEntry.exe"/>
+    <ROW Feature_="MainFeature" Component_="COPYING"/>
+    <ROW Feature_="MainFeature" Component_="COPYING_1"/>
+    <ROW Feature_="MainFeature" Component_="COPYING_2"/>
+    <ROW Feature_="MainFeature" Component_="NPSWF32.dll"/>
+    <ROW Feature_="MainFeature" Component_="NPSWF64.dll"/>
+    <ROW Feature_="MainFeature" Component_="LGPLLicense.txt"/>
+    <ROW Feature_="MainFeature" Component_="WebKit.dll"/>
+    <ROW Feature_="MainFeature" Component_="AngularDiameter1_PoolTable.swf"/>
+    <ROW Feature_="MainFeature" Component_="Atmospheric1_EscapeVelocity.swf"/>
+    <ROW Feature_="MainFeature" Component_="DopplerShift1.swf"/>
+    <ROW Feature_="MainFeature" Component_="Doppler_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="StellarEvolution_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="ForceOfGravity1.swf"/>
+    <ROW Feature_="MainFeature" Component_="Gravity_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="interactives.xml"/>
+    <ROW Feature_="MainFeature" Component_="KeplerFirstLaw.swf"/>
+    <ROW Feature_="MainFeature" Component_="Kepler_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="StellarLookback_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="Luminosity1_Of_Stars.swf"/>
+    <ROW Feature_="MainFeature" Component_="Luminosity_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="EarthTimes.swf"/>
+    <ROW Feature_="MainFeature" Component_="MoonPhase_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="GradingInfo.swf"/>
+    <ROW Feature_="MainFeature" Component_="app_abso_mag_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="Density.swf"/>
+    <ROW Feature_="MainFeature" Component_="StellarLookback_1.pdf_1"/>
+    <ROW Feature_="MainFeature" Component_="GradingInfo.swf_1"/>
+    <ROW Feature_="MainFeature" Component_="SkyMotion_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="planetGroups.swf"/>
+    <ROW Feature_="MainFeature" Component_="Seasons_1.pdf"/>
+    <ROW Feature_="MainFeature" Component_="Season1_Distance.swf"/>
+    <ROW Feature_="MainFeature" Component_="stellarVelocity1.swf"/>
+    <ROW Feature_="MainFeature" Component_="_Ecliptic.swf"/>
+    <ROW Feature_="MainFeature" Component_="Interactives.exe"/>
+    <ROW Feature_="MainFeature" Component_="main.swf"/>
+    <ROW Feature_="MainFeature" Component_="application.xml"/>
+    <ROW Feature_="MainFeature" Component_="signatures.xml"/>
+    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="Interactives" Directory_="SHORTCUTDIR" Name="INTERA~1|Interactives" Component_="Interactives.exe" Target="[#Interactives.exe]" Description="Interactives" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="Interactives_1" Directory_="DesktopFolder" Name="INTERA~1|Interactives" Component_="Interactives.exe" Target="[#Interactives.exe]" Description="Interactives" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
+    <ROW Directory_="APPDIR" SourcePath="..\output\Interactives" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6"/>
+  </COMPONENT>
+</DOCUMENT>
