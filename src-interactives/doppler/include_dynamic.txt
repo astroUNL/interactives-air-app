@@ -1,0 +1,947 @@
+﻿
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+// STAY OUT!!! - DO NOT CHANGE ANY CODE THAT FOLLOWS
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+function item_Initialize() {
+	initializationFlag = (myRoot.dynamicParamArray == null) ? true : false;
+	dynamicParamArray = myRoot.dynamicParamArray;
+	var itemNum = Number(this._name.split("_")[1]);
+	if (itemNum == 0) {
+		myRoot.helpClip.helpTextField.text += "itemNum: "+itemNum+"\r";
+
+		// Total number of sub images to be included, if zero then none
+		subTotal = myRoot.subTotal;
+
+		//creates the items & attaches them
+		item_Spawn();
+
+		
+		//sets all the constants
+		constantArray = item_Customize("constants", itemNum, itemObject);
+		if (not initializationFlag) {
+			trace("restoring constants: "+myRoot.constantArray);
+			var counter = 0;
+
+			for (var name in constantArray) {
+				if (constantArray[name].length>1) {
+					for (var j = 0; j<constantArray[name].length; j++) {
+
+							trace("restoring ["+name+"]: "+myRoot.constantArray[counter]);
+							constantArray[name][j] = myRoot.constantArray[counter];
+							if (String(Number(constantArray[name])) == constantArray[name]) {
+								constantArray[name] = Number(constantArray[name]);
+							}
+							counter++;
+					}
+				} else {
+
+					trace("restoring ["+name+"]: "+myRoot.constantArray[counter]);
+					constantArray[name] = myRoot.constantArray[counter];
+					if (String(Number(constantArray[name])) == constantArray[name]) {
+						constantArray[name] = Number(constantArray[name]);
+					}
+					counter++;
+				}
+			}
+		}
+		trace("letterArray constants: "+constantArray["letterArray"]);
+		//add custom ranking terms to dynamicItem_rankingTerms                         
+		item_Customize("rankingterms",itemNum,itemObject,constantArray);
+		myRoot.dynamicItem_rankingTerms = new Array();
+		for (var i = 0; i<rankingTerms.length; i++) {
+			myRoot.dynamicItem_rankingTerms.push(rankingTerms[i]);
+		}
+		//build myRoot.constantString
+		myRoot.constantString = "";
+		constantstringArray = new Array();
+		for (var name in constantArray) {
+			constantstringArray.push(constantArray[name]);
+		}
+		for (var i = 0; i<constantstringArray.length; i++) {
+			myRoot.constantString += constantstringArray[i];
+			myRoot.constantString += (i<(constantstringArray.length-1)) ? myRoot.responsedelim_0 : "";
+		}
+
+		//calling Param Set
+		trace("calling param set(), rationalle mode="+rationaleMode);
+		param_Set();
+		if (myRoot.dynamicItemPath == myRoot) {
+			myRoot.activity_LaunchEnd();
+			// continue with activity setup
+		} else {
+			myRoot.rationale_Display_Part2();
+		}
+	}
+}
+
+////////////////////////////////Creates Objects/////////////////////////
+function item_Spawn() {
+	myRoot.function_Report("item_Spawn","begin",2);
+	if (initializationFlag) {
+		myRoot.selectionArray = new Array();
+	}
+
+		trace("i:"+i);
+	///brought in from myRoot///
+	selectionTotal = myRoot.selectionTotal;
+	subOptions = myRoot.subOptions;
+	classUsed = myRoot.classUsed;
+
+	chosenOptions = new Array();
+
+	chosenOptions = myRoot.selectInOrder(subOptions[1], selectionTotal, 0);
+	trace("chosenOptions:"+subOptions[0]+selectionTotal+chosenOptions);
+	var subItem = new Array(subTotal);
+	for (var i = 0; i<selectionTotal; i++) {
+		trace("i:"+i);
+		var itemName = "item_"+i;
+		var itemObject = eval("myRoot."+itemName);
+
+		trace("itemObject:"+itemObject);
+		
+		if (myRoot.dynamicItemPath == myRoot) {
+			var subChoice = chosenOptions[i];
+		} else {
+			var subChoice = itemObject.index;
+		}
+		if (i>0) {
+			myRoot.dynamicItemPath.attachMovie(("item_"+myRoot.dynamicItemNum),itemName,myRoot.level++,itemObject);
+			//myRoot.dynamicItemPath.itemName.attachMovie(("item_" + myRoot.dynamicItemNum), ("sub"+itemName), myRoot.level++);
+			//subitemName="sub" + itemName;
+			itemName = String(myRoot.dynamicItemPath)+"."+itemName;
+			var itemObject = eval(itemName);
+			for (var j = 0; j<subTotal; j++) {
+				var subitemName = "subitem_"+j;
+				subItem[j] = itemObject.attachMovie(subitemName, subitemName, myRoot.level++);
+
+				trace("subitemName:"+subitemName);
+				trace("subitems:"+subItem[j]);
+				trace("sub option Number:"+subOptions[j]);
+
+				if (subOptions[1]>0 && j==0) {
+
+					var suboptName = "option_"+subChoice;
+					trace("OptionFlag:"+subChoice);
+					suboptName = subItem[j].attachMovie(suboptName, suboptName, myRoot.level++);
+					itemObject.index = subChoice;
+
+
+				}
+
+				if (classUsed[2]<>false) {
+					suboptNameClass = suboptName.attachMovie(classUsed[2], "classitem"+j, myRoot.level++);
+					trace("sub option Choice:"+subChoice);
+					trace("sub option:"+suboptName);
+					trace("sub option:"+suboptNameClass);
+				}
+			}			
+
+		} else {
+			//subitemName="sub" + itemName;
+			//subitem = itemObject.attachMovie(("item_"+myRoot.dynamicItemNum), subitemName, myRoot.level+100);
+			itemName = String(myRoot.dynamicItemPath)+"."+itemName;
+			var itemObject = eval(itemName);
+			trace("intial item:"+itemObject);
+			//subitem = itemObject.attachMovie(("item_"+myRoot.dynamicItemNum), subitemName, myRoot.level+100);
+
+			for (var j = 0; j<subTotal; j++) {
+				var subitemName = "subitem_"+j;
+				trace("subitemName1:"+subitemName);
+				subItem[j] = itemObject.attachMovie(subitemName, subitemName, myRoot.level++);
+				//subitem1 = itemObject.attachMovie((String(myRoot.dynamicItemPath)+"."+"subItem_1", "subitem1", myRoot.level+100, itemObject);
+				trace("subitemName:"+subitemName);
+				trace("subitems:"+subItem[j]);
+				trace("sub option Number:"+subOptions[j]);
+				if (subOptions[1]>0 && j==0) {
+
+					var suboptName = "option_"+subChoice;
+					trace("OptionFlag:"+subChoice);
+					suboptName = subItem[j].attachMovie(suboptName, suboptName, myRoot.level++);
+					itemObject.index = subChoice;
+
+				}
+				if (classUsed[2]<>false) {
+					suboptNameClass = suboptName.attachMovie(classUsed[2], "classitem"+j, myRoot.level++);
+					trace("sub option Choice:"+subChoice);
+					trace("sub option:"+suboptName);
+					trace("sub option:"+suboptNameClass);
+
+					suboptNameClass.eccentricity = myRoot.eccOptions[subChoice];
+					trace("sub ecc:"+suboptNameClass.eccentricity);
+				}
+			}
+		}
+		//subitemName=String(myRoot.dynamicItemPath) + "." + itemName + ".sub" + itemName;
+		// subitem = eval(itemName.subitemName);
+		trace("item and sub:"+itemName+subitemName);
+		//trace("item and sub:"+itemObject+subItem);
+		if (initializationFlag) {
+			myRoot.selectionArray.push(i);
+		}
+					if (classUsed[2]<>false) {
+						suboptNameClass = itemObject.attachMovie(classUsed[2], "classitem"+j, myRoot.level++);
+						trace("sub option Choice:"+subChoice);
+						trace("sub option:"+suboptName);
+						trace("sub option:"+suboptNameClass);
+						suboptNameClass.backgroundColor = 0xffffff;
+					}
+		trace("checking on it:"+eval(String(myRoot.dynamicItemPath)+".item_"+i));
+					
+	}
+	myRoot.itemTotal = selectionTotal;
+	myRoot.variable_Report("item_Spawn","defined","selectionArray,selectionTotal,itemTotal");
+	myRoot.function_Report("item_Spawn","end",2);
+
+}
+
+
+
+
+function miniItem_Spawn(itemObject, subItem, itemNum, subcolorValue, subScale) {
+	myRoot.function_Report("miniItem_Spawn","begin",2);
+	trace("Mini Spawn:");
+
+	var i=0;
+
+
+	/***** Spawn *****/
+	//mini1 = itemObject.duplicateMovieClip("mini_"+itemNum, 100+itemNum);
+	mini1 = itemObject.duplicateMovieClip("mini_"+itemNum, myRoot.level++);
+	var miniName = "minisubitem_"+i;
+	mini1.attachMovie("subitem_"+i,miniName,myRoot.level++,subItem);
+	miniName = mini1+"."+miniName;
+	var miniItem = eval(miniName);
+
+	/***** Options *****/
+	if (myRoot.subOptions[2]>0) {
+		//var subChoice = Math.floor(Math.random()*myRoot.subOptions);
+/*		var suboptName = "option_"+itemObject.index;
+		suboptName = mini1.attachMovie(suboptName, suboptName, myRoot.level++);
+		trace("Mini Options:"+itemObject.index+suboptName);*/
+		suboptName = myRoot.addOptions(mini1, itemObject.index);
+		suboptName.planet.swapDepths(myRoot.level++);
+		trace("***********Letter:"+letterArray[itemNum]);
+		if (letterArray[itemNum] == 'B') {
+			suboptName._rotation = 90;
+			trace("***********Letter:"+letterArray[itemNum]);
+		} else if (letterArray[itemNum] == 'C') {
+			suboptName._rotation = 180;
+			trace("***********Letter:"+letterArray[itemNum]);
+		} else if (letterArray[itemNum] == 'D') {
+			suboptName._rotation = 270;
+			trace("***********Letter:"+letterArray[itemNum]);
+		}
+	}
+
+	/***** Class *****/
+	if (myRoot.classUsed[2]<>false) {
+		suboptNameClass = suboptName.attachMovie(myRoot.classUsed[2], "classitem"+i, myRoot.level++);
+		trace("sub option Choice:"+itemObject.index);
+		trace("sub option:"+suboptName);
+		trace("sub option:"+suboptNameClass);
+	}
+
+	/***** Color *****/
+	var miniColor = new Color(miniItem.itemColor);
+	miniColor.setRGB(subcolorValue[i]);
+	trace("subcolorValue[i]:"+subcolorValue[i]);
+
+	/***** Text *****/
+	miniItem.constantTextField.text = subItem.constantTextField.text;
+
+	/***** Size *****/
+	mini1._xscale *= subScale[i][0];
+	mini1._yscale *= subScale[i][1];
+	trace("subScale[i][0]:"+subScale[i][0]);
+
+	myRoot.variable_Report("miniItem_Spawn","defined","itemObject, subitem");
+	myRoot.function_Report("miniItem_Spawn","end",2);
+	return mini1;
+
+}
+
+function param_Set() {
+	myRoot.function_Report("param_Set","begin",2);
+	myRoot.variable_Report("param_Set","referenced","");
+	myRoot.helpClip.helpTextField.text += "OriginIndex: "+myRoot.dynamicItem_OriginIndex+"\r";
+	myRoot.helpClip.helpTextField.text += "eduMode: "+myRoot.eduMode+"\r";
+	myRoot.helpClip.helpTextField.text += "dynamicMode: "+myRoot.dynamicMode+"\r";
+	myRoot.helpClip.helpTextField.text += "cyclicMode: "+myRoot.cyclicMode+"\r";
+	myRoot.helpClip.helpTextField.text += "rationaleMode: "+myRoot.rationaleMode+"\r";
+	myRoot.helpClip.helpTextField.text += "interactionMode: "+myRoot.interactionMode+"\r";
+	myRoot.helpClip.helpTextField.text += "lessonMode: "+myRoot.lessonMode+"\r";
+	myRoot.helpClip.helpTextField.text += "explanationMode: "+myRoot.explanationMode+"\r";
+	myRoot.helpClip.helpTextField.text += "itemSpacing: "+myRoot.itemSpacing+"\r";
+	myRoot.helpClip.helpTextField.text += "colorScheme: "+myRoot.colorScheme+"\r";
+	myRoot.helpClip.helpTextField.text += "fractionType: "+myRoot.fractionType+"\r";
+	myRoot.helpClip.helpTextField.text += "fixedDigits: "+myRoot.fixedDigits+"\r";
+	myRoot.helpClip.helpTextField.text += "itemAreaFlexible: "+myRoot.itemAreaFlexible+"\r";
+	myRoot.helpClip.helpTextField.text += "selectionData: "+myRoot.selectionData+"\r";
+	myRoot.helpClip.helpTextField.text += "gradeOption: "+myRoot.gradeOption+"\r";
+	myRoot.helpClip.helpTextField.text += "rankData: "+myRoot.rankData+"\r";
+	myRoot.helpClip.helpTextField.text += "rank_0: "+myRoot.rank_0+"\r";
+	myRoot.helpClip.helpTextField.text += "labels_0: "+myRoot.labels_0+"\r";
+	myRoot.helpClip.helpTextField.text += "rank_1: "+myRoot.rank_1+"\r";
+	myRoot.helpClip.helpTextField.text += "labels_1: "+myRoot.labels_1+"\r";
+	paramArray = new Array();
+	// generate parameters for all items
+	var valueOrder = new Array();
+	var valueInOrder = new Array();
+	for (var i = 0; i<selectionTotal; i++) {
+		var itemName = "item_"+i;
+		//var subitemName = "sub"+itemName;
+		itemName = String(myRoot.dynamicItemPath)+"."+itemName;
+		//var subitemName = itemName+"."+subitemName;
+		var itemObject = eval(itemName);
+		//var subitem = eval(subitemName);
+		var flag = true;
+		myRoot.helpClip.helpTextField.text += "\rDYNAMIC param_Set while #1\r";
+		while (flag) {
+			flag = false;
+			trace("customize i:"+i);
+			//var itemParamArray = item_Customize("parameters", i, itemObject, itemParamArray, subitem);
+			var itemParamArray = item_Customize("parameters", i, itemObject, itemParamArray);
+			trace("parameter Array:"+itemParamArray.itemValue);
+			if (not initializationFlag) {
+				var paramCounter = 0;
+				for (var name in itemParamArray) {
+					trace("item parameter Array1:"+paramCounter+name+itemParamArray[name]);
+					trace("dyna parameter Array1:"+i+myRoot.dynamicParamArray[i][paramCounter]);
+					//trace("parameter Array:"+itemParamArray[name][j]);
+					if (itemParamArray[name].length>1) {
+						for (var j = 0; j<itemParamArray[name].length; j++) {
+							trace("item parameter Array2:"+paramCounter+name+itemParamArray[name]);
+							trace("dyna parameter Array2:"+i+j+myRoot.dynamicParamArray[i][paramCounter]);
+							//trace("parameter Array:"+itemParamArray[name][j]);
+							itemParamArray[name][j] = myRoot.dynamicParamArray[i][paramCounter];
+							//trace("parameter Array:"+itemParamArray[name][j]);
+							trace("item parameter Array3:"+itemParamArray[name][j]+name+paramCounter);
+							trace("dyna parameter Array3:"+myRoot.dynamicParamArray[i][paramCounter]);
+							paramCounter++;
+						}
+					} else {
+						itemParamArray[name] = myRoot.dynamicParamArray[i][paramCounter];
+						trace("item parameter Array4:"+itemParamArray[name]+name+paramCounter);
+						trace("dyna parameter Array4:"+myRoot.dynamicParamArray[i][paramCounter]);
+						paramCounter++;
+					}
+					trace("parameter Array:"+itemParamArray[name]+name+paramCounter);
+				}
+			}
+			trace("rationalle mode="+myRoot.rationaleMode);
+
+			// make sure there are no dups             
+			trace("customize i:"+i);
+			for (var i2 = 0; i2<i; i2++) {
+				var item2Name = "item_"+i2;
+				var item2Object = eval("myRoot."+item2Name);
+				trace("item Value Compare:"+itemParamArray.itemValue+paramArray[i2].itemValue);
+				trace("i:"+i+i2);
+				myRoot.helpClip.helpTextField.text += i2+") "+itemParamArray.itemValue+" : "+paramArray[i2].itemValue+"\r";
+				if (!myRoot.equivMode) {
+					if (itemParamArray.itemValue == paramArray[i2].itemValue) {
+						trace(itemParamArray.itemValue+" , "+paramArray[i2].itemValue);
+						flag = true;
+						break;
+					}
+				}
+				if (myRoot.uniqueMode) {
+					trace("uniqueArray="+itemParamArray.uniqueArray+" , "+paramArray[0].uniqueArray);
+					for(var u1 = 0;u1<itemParamArray.uniqueArray.length;u1++)
+					{
+						trace("uniqueArray checking="+itemParamArray.uniqueArray[u1]+" , "+paramArray[0].uniqueArray[u1]);
+					if (itemParamArray.uniqueArray[u1] == paramArray[i2].uniqueArray[u1]) {
+						trace("uniqueArray equal="+itemParamArray.uniqueArray+" & "+paramArray[i2].uniqueArray);
+						flag = true;
+						break;
+					}
+					}
+				}
+			}
+			trace("customize:"+flag);
+		}
+		//Figuring out order of values
+		valueOrder.push(itemParamArray.itemValue);
+		valueInOrder.push(itemParamArray.itemValue);
+		trace("customize:"+flag);
+		paramArray.push(itemParamArray);
+	}
+	trace("*** CONSTANTS AND PARAMS ***");
+	paramFullArray = new Array(selectionTotal);
+	for (var i = 0; i<selectionTotal; i++) {
+		paramFullArray[i] = new Array();
+		for (var name in constantArray) {
+			paramFullArray[i][name] = constantArray[name];
+			trace("adding constant ["+name+"]: "+paramFullArray[i][name]);
+		}
+		for (name in paramArray[i]) {
+			paramFullArray[i][name] = paramArray[i][name];
+			trace("adding param ["+name+"]: "+paramFullArray[i][name]);
+		}
+	}
+	if (myRoot.equivMode) {
+
+		//equivData = "0|1|2;3";
+		trace("equiv value Order="+valueOrder);
+		var endArray = true;
+		trace("equiv value Order="+valueInOrder);
+		valueInOrder.sort();
+		trace("equiv value Order="+valueInOrder);
+		valueInOrder.sort(sortOrderTrace);
+		trace("equiv value Order="+valueInOrder);
+		myRoot.equivData = "";
+		for (var i = 0; i<selectionTotal-1; i++) {
+			if ((valueInOrder[i] == valueInOrder[i+1])) {
+				myRoot.equivData += i+";";
+			} else {
+				endArray = false;
+				myRoot.equivData += i+"|";
+			}
+		}
+		myRoot.equivData += i++;
+		//myRoot.equivData = (endArray) ? myRoot.equivData+"|"+0 : myRoot.equivData;
+		trace("equiv data="+myRoot.equivData);
+		myRoot.equivArray = myRoot.toArray_Convert(myRoot.equivData, myRoot.delim_0, myRoot.delim_1, true);
+		trace("equiv data="+myRoot.equivArray);
+		myRoot.equivButtonArray = myRoot.toEquivArray_Convert(myRoot.equivData, myRoot.delim_0, myRoot.delim_1, true);
+		trace("equiv data="+myRoot.equivButtonArray);
+		myRoot.equivButtonSelect = new Array(myRoot.equivButtonArray.length);
+
+	}
+	myRoot.rank_Select();
+	if (myRoot.equivMode) {
+
+		if (myRoot.equivArray[0][0].length == undefined) {
+			var tempArray = myRoot.equivArray;
+			var tempArray2 = myRoot.equivOrder;
+			myRoot.equivArray = new Array();
+			myRoot.equivOrder = new Array();
+			tempArray.sort();
+			tempArray2.sort();
+			for (var i = 0; i<selectionTotal; i++) {
+				myRoot.equivArray.push(tempArray);
+				myRoot.equivOrder.push(tempArray2);
+				trace("no Array="+myRoot.equivArray);
+			}
+		}
+
+	}
+	if (myRoot.pictureMode) {
+		trace("myRoot.picItemIndex="+myRoot.picItemIndex);
+		trace("value Order="+valueOrder);
+		var tempOrder = new Array(valueOrder.length);
+		var picOrder = new Array(valueOrder.length);
+		picOrder[0] = myRoot.picItemIndex[0];
+		tempOrder[0] = 0;
+		for (var i = 1; i<selectionTotal; i++) {
+			if (valueOrder[i-1]>valueOrder[i]) {
+				var temp1 = valueOrder[i];
+				valueOrder[i] = valueOrder[i-1];
+				valueOrder[i-1] = temp1;
+				tempOrder[i] = tempOrder[i-1];
+				tempOrder[i-1] = i;
+				for (var j = i; j>0; j--) {
+					if (valueOrder[j-1]>valueOrder[j]) {
+						var temp1 = valueOrder[j];
+						valueOrder[j] = valueOrder[j-1];
+						valueOrder[j-1] = temp1;
+						var temp1 = tempOrder[j];
+						tempOrder[j] = tempOrder[j-1];
+						tempOrder[j-1] = temp1;
+					}
+
+				}
+			} else {
+				tempOrder[i] = i;
+			}
+			picOrder[i] = myRoot.picItemIndex[i];
+		}
+		trace("Order="+tempOrder);
+		trace("value Order="+picOrder);
+		for (var i = 0; i<selectionTotal; i++) {
+			myRoot.picItemIndex[i] = picOrder[tempOrder[i]];
+		}
+		trace("value Order="+picOrder);
+		trace("myRoot.picItemIndex="+myRoot.picItemIndex);
+	}
+
+	paramArray.sort(sortOrder);
+	paramFullArray.sort(sortOrder);
+
+	// incorporate parameters into display
+	dynamicParamArray = new Array(selectionTotal);
+	itemLabelArray = new Array(selectionTotal);
+
+	
+	for (var i = 0; i<selectionTotal; i++) {
+		var itemName = "item_"+i;
+		//var subName = "sub"+itemName;
+		itemName = String(myRoot.dynamicItemPath)+"."+itemName;
+		//subName = itemName+"."+subName;
+		var itemObject = eval(itemName);
+		//var subitem = eval(subName);
+		itemStartingLabel = itemFeedbackLabel="";
+		//item_Customize("display",i,itemObject,paramFullArray[i],subitem);
+		trace("item_Customize Display Object="+itemObject);
+
+		
+		item_Customize("display",i,itemObject,paramFullArray[i]);
+		itemObject.itemValue = paramArray[i].itemValue;
+		itemObject.itemValueIndex = myRoot.itemValueIndex_Get(paramArray[i].itemValue);
+		itemObject.imageWidth = itemObject._width;
+		itemObject.imageHeight = itemObject._height;
+		var boundsObject = itemObject.getBounds(this);
+		itemObject.xMin = boundsObject.xMin;
+		itemObject.xMax = boundsObject.xMax;
+		itemObject.yMin = boundsObject.yMin;
+		itemObject.yMax = boundsObject.yMax;
+		//subitem._y = itemObject._y+500;
+		//itemObject._y = itemObject._y-1000;
+
+
+
+		if (_parent.hitAreaForced) {
+			myRoot.itemHitArea_Create(itemObject);
+		}
+		itemLabelArray[i] = [itemStartingLabel, itemFeedbackLabel];
+
+	}
+
+	dynamicString_Build();
+
+	if (myRoot.cyclicMode) {
+		myRoot.cyclic_Setup();
+		myRoot.rankOrder_Cycle();
+
+	}
+	for (var i = 0; i<itemLabelArray.length; i++) {
+		myRoot.itemLabels.push(new Array());
+		for (var j = 0; j<itemLabelArray[i].length; j++) {
+			myRoot.itemLabels[i].push(itemLabelArray[i][j]);
+		}
+	}
+	for (var i = 0; i<selectionTotal; i++) {
+		trace("itemValue: "+paramArray[i].itemValue);
+	}
+	myRoot.itemLabels_Setup();
+	// scramble until initial grade meets requirements
+	flag = true;
+	if (initializationFlag) {
+		trace("dynamic scramble");
+		myRoot.helpClip.helpTextField.text += "DYNAMIC param_Set while #2\r";
+		while (flag) {
+			flag = false;
+			var selectionArray = new Array();
+			for (var i = 0; i<paramArray.length; i++) {
+				selectionArray.splice(Math.floor(Math.random()*(i+1)),0,myRoot.selectionArray[i]);
+			}
+			myRoot.selectionArray = selectionArray;
+			var grade = myRoot.grade_Get();
+			trace("new grade: "+grade);
+			// re-scramble if initial grade is too high
+			if (grade>myRoot.highGrade) {
+				flag = true;
+			}
+		}
+	}
+	myRoot.function_Report("param_Set","end",1);
+}
+
+function items_Update() {
+	paramArray = new Array();
+	for (var i = 0; i<selectionTotal; i++) {
+		var itemName = "item_"+i;
+		itemName = String(myRoot.dynamicItemPath)+"."+itemName;
+		var itemObject = eval(itemName);
+		var itemParamArray = item_Customize("parameters", i, itemObject, "updating");
+		paramArray.push(itemParamArray);
+	}
+	dynamicString_Build();
+}
+function dynamicString_Build() {
+	// build dynamicParamArray
+	dynamicParamArray = new Array(selectionTotal);
+	for (var i = 0; i<selectionTotal; i++) {
+		dynamicParamArray[i] = new Array();
+		for (var name in paramArray[i]) {
+			dynamicParamArray[i].push(paramArray[i][name]);
+		}
+	}
+
+	// build dynamicString
+	myRoot.dynamicString = "";
+	myRoot.dynamicParamArray = new Array();
+	for (var i = 0; i<dynamicParamArray.length; i++) {
+		if (dynamicParamArray[i].length>0) {
+			for (var j = 0; j<dynamicParamArray[i].length; j++) {
+				myRoot.dynamicString += dynamicParamArray[i][j];
+				trace("dynamicParamArray: "+dynamicParamArray[i][j]);
+				myRoot.dynamicString += (j<(dynamicParamArray[i].length-1)) ? myRoot.responsedelim_0 : "";
+			}
+		} else {
+			myRoot.dynamicString += dynamicParamArray[i];
+		}
+		myRoot.dynamicString += (i<(dynamicParamArray.length-1)) ? myRoot.responsedelim_1 : "";
+	}
+}
+
+
+function color_Change(colorSelect,subArray) {
+	var colorUnit = 128;
+	var subIndex = new Array();
+	var i=0;
+	if(subArray<>undefined)
+	{
+		subArray= [2, 3, 4, 5, 6, 7, 8, 9];
+	}
+	trace("subarray:"+subArray+subArray.length);
+	subIndex.push(Math.floor(Math.random()*subArray.length));
+	subIndex.push(Math.floor(Math.random()*subArray.length));
+	if (colorSelect == 4) {
+	trace("Check Color4:"+colorValue);
+	trace("Check Color4:"+subIndex);
+//Pastel Colors
+		switch (subIndex[i]) {
+			case 0 :
+				//red
+				colorValue = (16749202);
+				break;
+			case 1 :
+				//orange
+				colorValue = (16759688);
+				break;
+			case 2 :
+				//yellow
+				colorValue = (16776584);
+				break;
+			case 3 :
+				//green - 88FF88
+				colorValue = (8978312);
+				break;
+			case 4 :
+				//blue - 5F5FFE
+				colorValue = (6250494);
+				break;
+			case 5 :
+				//violet - 9E5FFE
+				colorValue = (10379262);
+				break;
+			case 6 :
+				//pink - FD81FE
+				colorValue = (16613886);
+				break;
+			case 7 :
+				//aqua - 92FEFD
+				colorValue = (9633533);
+				break;
+			case 8 :
+				//ltgreen - 3D7E43
+				colorValue = (4030019);
+				break;
+			case 9 :
+				//ht pink - FE5F9E
+				colorValue = (16670622);
+				break;
+			default:
+				var colorValue = ((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 2))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 1))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 0));
+				break;
+
+		}
+	} else if (colorSelect == 3) {
+	trace("Check Color3:"+colorValue);
+	//colorSize is how many colors in the scheme if 3 then 3*3*3 = 27 possibilities
+		colorSize = 1.5;
+		colorScheme = (Math.floor(256/colorSize));
+		var r = (Math.floor(Math.random()*colorSize))*colorScheme;
+		var g = (Math.floor(Math.random()*colorSize))*colorScheme;
+		var b = (Math.floor(Math.random()*colorSize))*colorScheme;
+		if ((r == g) && (b == 0) && (g == b)) {
+			var colorValue = (51*65536)+(g*256)+(colorScheme);
+			colorValue = ((r*65536)+(colorScheme*256)+(colorScheme));
+		} else if ((r == g) && (g == b)) {
+			var colorValue = (r*65536)+(g*256)+(b+colorScheme);
+		} else {
+			var colorValue = ((r*65536)+(g*256)+(b));
+		}
+	} else if (colorSelect == 2) {
+			trace("Check Color2:"+colorValue);
+		var colorValue = ((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 2))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 1))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 0));
+		colorValue = (((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 2))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 1))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 0)));
+	} else if (colorSelect == 1) {
+	trace("Check Color1:"+colorValue);
+//Bright Colors
+		var colorValue = ((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 2))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 1))+((Math.floor(Math.random()*2)+1)*colorUnit*Math.pow(256, 0));
+		switch (subIndex[i]) {
+			case 0 :
+				//red - FF0000
+				colorValue = (16711680);
+				break;
+			case 1 :
+				//orange - FF6600
+				colorValue = (16737792);
+				break;
+			case 2 :
+				//yellow - FFFF00
+				colorValue = (16776960);
+				break;
+			case 3 :
+				//green - 00FF00
+				colorValue = (65280);
+				break;
+			case 4 :
+				//blue - 0000FF
+				colorValue = (255);
+				break;
+			case 5 :
+				//violet - 6600FF
+				colorValue = (6684927);
+				break;
+			case 6 :
+				//pink - FF00FF
+				colorValue = (16711935);
+				break;
+			case 7 :
+				//aqua - 00FFFF
+				colorValue = (65535);
+				break;
+			case 8 :
+				//ltgreen - 0066FF
+				colorValue = (26367);
+				break;
+			case 9 :
+				//ht pink - FF0066
+				colorValue = (16711782);
+				break;
+			case 10 :
+				//purple
+				subcolorValue.push(6684774);
+				break;
+			case 11 :
+				//coral
+				subcolorValue.push(16737894);
+				break;
+			case 12 :
+				//light yellow
+				subcolorValue.push(16777113);
+				break;
+			case 13 :
+				//dark green
+				subcolorValue.push(26112);
+				break;
+			case 14 :
+				//dark blue
+				subcolorValue.push(102);
+				break;
+			case 15 :
+				//rose
+				subcolorValue.push(10027110);
+				break;
+			default :
+				//lavendar
+				subcolorValue.push(7168669);
+				break;
+
+		}
+	} else {
+	trace("Check Color else:"+colorValue);
+		var subcolorObject = new Color(subItem.itemColor);
+		colorValue = (subcolorObject.getRGB());
+	}
+	trace("Check Color:"+colorValue);
+	return colorValue;
+
+}
+
+
+
+function create_letterArray(letterAmount) {
+	trace("letterArray: "+letterAmount);
+	var tempArray = new Array(letterAmount);
+	var letterArray = new Array();
+	for (var i = 0; i<letterAmount; i++) {
+		tempArray[i] = i;
+		trace("letterArray: "+tempArray[i]);
+	}
+	for (var i = 0; i<letterAmount; i++) {
+		var tempindex = Math.floor(Math.random()*tempArray.length);
+		trace("letterArray: "+tempindex+tempArray[tempindex]);
+		switch (tempArray[tempindex]) {
+			case 0 :
+				letterArray.push("A");
+				break;
+			case 1 :
+				letterArray.push("B");
+				break;
+			case 2 :
+				letterArray.push("C");
+				break;
+			case 3 :
+				letterArray.push("D");
+				break;
+			case 4 :
+				letterArray.push("E");
+				break;
+			case 5 :
+				letterArray.push("F");
+				break;
+			case 6 :
+				letterArray.push("G");
+				break;
+			case 7 :
+				letterArray.push("H");
+				break;
+			case 8 :
+				letterArray.push("I");
+				break;
+			case 9 :
+				letterArray.push("J");
+				break;
+		}
+		trace("letterArray: "+letterArray[i]);
+		tempArray.splice(tempindex,1);
+	}
+	return letterArray;
+}
+
+
+function create_letternumberArray(letterAmount) {
+	trace("letterArray: "+letterAmount);
+	var tempArray = new Array(letterAmount);
+	var letterArray = new Array();
+	var numberArray = new Array();
+	for (var i = 0; i<letterAmount; i++) {
+		tempArray[i] = i;
+		trace("letterArray: "+tempArray[i]);
+	}
+	for (var i = 0; i<letterAmount; i++) {
+		var tempindex = Math.floor(Math.random()*tempArray.length);
+		trace("letterArray: "+tempindex+tempArray[tempindex]);
+		switch (tempArray[tempindex]) {
+			case 0 :
+				letterArray.push("A");
+				numberArray.push(0);
+				break;
+			case 1 :
+				letterArray.push("B");
+				numberArray.push(1);
+				break;
+			case 2 :
+				letterArray.push("C");
+				numberArray.push(2);
+				break;
+			case 3 :
+				letterArray.push("D");
+				numberArray.push(3);
+				break;
+			case 4 :
+				letterArray.push("E");
+				numberArray.push(4);
+				break;
+			case 5 :
+				letterArray.push("F");
+				numberArray.push(5);
+				break;
+			case 6 :
+				letterArray.push("G");
+				numberArray.push(6);
+				break;
+			case 7 :
+				letterArray.push("H");
+				numberArray.push(7);
+				break;
+			case 8 :
+				letterArray.push("I");
+				numberArray.push(8);
+				break;
+			case 9 :
+				letterArray.push("J");
+				numberArray.push(9);
+				break;
+		}
+		trace("letterArray: "+letterArray[i]);
+		tempArray.splice(tempindex,1);
+	}
+	return [letterArray, numberArray];
+}
+
+function text_Display(text2Parse) {
+	function_Report("text_Display","begin",0);
+	trace("letterArray constants: "+constantArray["letterArray"]+item1.itemIndex+item1.subArray_0);
+
+	//text2Parse is an array such as ["D%1%=$2$3$"]["itemIndex"]["itemScale"]["itemIndex"]
+	//spliting normal terms - ie not arrays
+	//subText = "letterArray| D=;itemScale;itemIndex";
+	trace("textParse: "+text2Parse);
+	tempTextArray = text2Parse[0].split("$");
+	trace("textParse: "+text2Parse);
+	trace("termString: "+tempTextArray);
+	var tempText = "";
+	for (var i = 0; i<tempTextArray.length; i++) {
+		if (Math.round(i/2)<>(i/2)) {
+			var tempTextArray2 = tempTextArray[i].split("%");
+			var termNum = Number(tempTextArray2[tempTextArray2.length-1]);
+			var termString = text2Parse[termNum];
+			trace("termString: "+termString);
+			for (var j = (tempTextArray2.length-2); j>=0; j--) {
+				var termNum = Number(tempTextArray2[j]);
+				termString = text2Parse[termNum][termString];
+				trace("termString: "+termString);
+			}
+			tempTextArray[i] = termString;
+		}
+		tempText += tempTextArray[i];
+	}
+	trace("temptext: "+tempText);
+	trace("textParse: "+text2Parse);
+	trace("termString: "+tempTextArray);
+	function_Report("text_Display","end",0);
+	return tempText;
+}
+
+function sortOrder(a, b) {
+	var val1 = a.itemValue;
+	var val2 = b.itemValue;
+	if (val1<val2) {
+		trace("sortorder val1 less: "+val1+val2);
+		return -1;
+	} else if (val1>val2) {
+		trace("sortorder val1 greater: "+val1+val2);
+		return 1;
+	} else {
+		trace("sortorder equal: "+val1+val2);
+		return 0;
+	}
+}
+
+function sortOrderTrace(a, b) {
+	var val1 = a;
+	var val2 = b;
+	if (val1<val2) {
+		trace("sortorder val1 less: "+val1+val2);
+		return -1;
+	} else if (val1>val2) {
+		trace("sortorder val1 greater: "+val1+val2);
+		return 1;
+	} else {
+		trace("sortorder equal: "+val1+val2);
+		return 0;
+	}
+}
+
+function sortOrderArray(a, b) {
+	var val1 = a[0];
+	var val2 = b[0];
+	if (val1+100<val2+100) {
+		trace("sortorder val1 less: "+val1+val2);
+		return -1;
+	} else if (val1+100>val2+100) {
+		trace("sortorder val1 greater: "+val1+val2);
+		return 1;
+	} else {
+		trace("sortorder equal: "+val1+val2);
+		return 0;
+	}
+}
+
+item_Initialize();
