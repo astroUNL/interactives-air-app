@@ -95,7 +95,7 @@ package astroUNL.interactives.views {
 		
 		protected function doDimensionsUpdate():void {
 			
-			_title.x = 0.5*(_panelWidth - _title.width);
+			//_title.x = 0.5*(_panelWidth - _title.width);
 		
 			// adjust the panes
 			_panesWidth = _panelWidth - 2*_navButtonSpacing;

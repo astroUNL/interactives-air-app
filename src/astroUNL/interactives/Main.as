@@ -44,8 +44,8 @@ package astroUNL.interactives {
 		}
 		
 		
-		protected const _minWidth:Number = 840;
-		protected const _minHeight:Number = 700;
+		protected const _minWidth:Number = 845;
+		protected const _minHeight:Number = 695;
 		
 		//protected const _homepageMargins:Object = {left: 20, right: 5, top: 10, bottom: 10};
 		protected const _sectionViewMargins:Object = {left: 20, right: 5, top: 15, bottom: 10};

@@ -32,8 +32,8 @@ package astroUNL.interactives.views {
 		protected var _panelWidth:Number;
 		protected var _panelHeight:Number;
 		protected var _navButtonSpacing:Number = 40;
-		protected var _panesTopMargin:Number = 40;
-		protected var _panesSideMargin:Number = 15;
+		protected var _panesTopMargin:Number = 17;
+		protected var _panesSideMargin:Number = 12;
 		protected var _panesBottomMargin:Number = 45;
 		protected var _panesWidth:Number;
 		protected var _panesHeight:Number;
@@ -71,7 +71,7 @@ package astroUNL.interactives.views {
 			addChild(_panes);
 			
 			_headingFormat = new TextFormat("Verdana", 15, 0x0, true);
-			_itemFormat = new TextFormat("Verdana", 14, 0x0);
+			_itemFormat = new TextFormat("Verdana", 15, 0x0);
 		
 			_standardHeading = createHeading("");
 			
@@ -99,6 +99,9 @@ package astroUNL.interactives.views {
 		
 		public function setDimensions(w:Number, h:Number):void {
 			if (w==_panelWidth && h==_panelHeight) return;
+			trace("Homepage setDimensions");
+			trace(" width: "+w);
+			trace(" height: "+h);
 			_panelWidth = w;
 			_panelHeight = h;
 			_dimensionsUpdateNeeded = true;
@@ -115,14 +118,14 @@ package astroUNL.interactives.views {
 		
 		protected function doDimensionsUpdate():void {
 			
-			var rightMargin:Number = 40;
+			//var rightMargin:Number = 40;
 		
-			_descriptionField.x = _panelWidth - _descriptionField.width - rightMargin;
-			_creditsField.x = _panelWidth - _creditsField.width - rightMargin;
-			_linkField.x = _panelWidth - _linkField.width - rightMargin;
-			_versionField.x = _panelWidth - _versionField.width - rightMargin;
+			//_descriptionField.x = _panelWidth - _descriptionField.width - rightMargin;
+			//_creditsField.x = _panelWidth - _creditsField.width - rightMargin;
+			//_linkField.x = _panelWidth - _linkField.width - rightMargin;
+			//_versionField.x = _panelWidth - _versionField.width - rightMargin;
 			
-			_title.x = 0.5*(_panelWidth - _title.width);
+			//_title.x = 0.5*(_panelWidth - _title.width);
 		
 			// adjust the panes
 			_panesWidth = _panelWidth - 2*_navButtonSpacing;

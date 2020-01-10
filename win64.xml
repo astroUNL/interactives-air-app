@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://ns.adobe.com/air/application/32.0">
 <id>astroUNL.interactives</id>
-<versionLabel>v0.1</versionLabel>
-<versionNumber>0.1</versionNumber>
-<copyright>Copyright 2019, UNL Astronomy Education Group</copyright>
+<versionLabel>v1.0</versionLabel>
+<versionNumber>1.0</versionNumber>
+<copyright>Copyright 2020, UNL Astronomy Education Group</copyright>
 <filename>Interactives</filename>
 <supportedProfiles>desktop extendedDesktop</supportedProfiles>
 <architecture>64</architecture>
 <initialWindow>
-<title>Interactives - v0.1</title>
+<title>Interactives - v1.0</title>
 <content>main.swf</content>
-<width>840</width>
-<height>700</height>
+<width>861</width>
+<height>734</height>
 <visible>true</visible>
 </initialWindow>
 </application>
