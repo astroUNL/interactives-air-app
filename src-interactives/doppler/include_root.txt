@@ -1007,41 +1007,41 @@ function stageButton_functions() {
 
 		trace("termPerStage"+termPerStage);
 		nextstageButtonClip.swapDepths(15000+level++);
-		nextstageButtonClip.select_0.onRelease = itemObject.onReleaseOutside=function () {
+		nextstageButtonClip.select_0.onRelease = nextstageButtonClip.select_0.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = 0;
 			prevRankNum =0;
 			activity_Reset();
 		};
 
-		nextstageButtonClip.select_1.onRelease = itemObject.onReleaseOutside=function () {
+		nextstageButtonClip.select_1.onRelease = nextstageButtonClip.select_1.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = termPerStage;
 			prevRankNum =termPerStage;
 			activity_Reset();
 		};
 
-		nextstageButtonClip.select_2.onRelease = itemObject.onReleaseOutside=function () {
+		nextstageButtonClip.select_2.onRelease = nextstageButtonClip.select_2.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = termPerStage*2;
 			prevRankNum =termPerStage*2;
 			activity_Reset();
 		};
-		stageGraph.select_0.onRelease = itemObject.onReleaseOutside=function () {
+		stageGraph.select_0.onRelease = stageGraph.select_0.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = 0;
 			prevRankNum =0;
 			activity_Reset();
 		};
 
-		stageGraph.select_1.onRelease = itemObject.onReleaseOutside=function () {
+		stageGraph.select_1.onRelease = stageGraph.select_1.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = termPerStage;
 			prevRankNum =termPerStage;
 			activity_Reset();
 		};
 
-		stageGraph.select_2.onRelease = itemObject.onReleaseOutside=function () {
+		stageGraph.select_2.onRelease = stageGraph.select_2.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = termPerStage*2;
 			prevRankNum = termPerStage*2;
@@ -1588,7 +1588,7 @@ function item_Display() {
 
 					}
 				};
-				equivButton.onRelease = itemObject.onReleaseOutside=function () {
+				equivButton.onRelease = equivButton.onReleaseOutside=function () {
 					if (not manipulationmodeFlag) {
 					}
 				};
@@ -1602,21 +1602,21 @@ function item_Display() {
 
 		stageButton_functions()
 		/*
-		stageGraph.select_0.onRelease = itemObject.onReleaseOutside=function () {
+		stageGraph.select_0.onRelease = stageGraph.select_0.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = 0;
 			prevRankNum =0;
 			activity_Reset();
 		};
 
-		stageGraph.select_1.onRelease = itemObject.onReleaseOutside=function () {
+		stageGraph.select_1.onRelease = stageGraph.select_1.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = 2;
 			prevRankNum =2;
 			activity_Reset();
 		};
 
-		stageGraph.select_2.onRelease = itemObject.onReleaseOutside=function () {
+		stageGraph.select_2.onRelease = stageGraph.select_2.onReleaseOutside=function () {
 			sameStage = true;
 			rankNum = 4;
 			prevRankNum =4;
