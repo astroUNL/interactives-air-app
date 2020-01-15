@@ -1456,7 +1456,7 @@ function item_Display() {
 
 					}
 				};
-				equivButton.onRelease = itemObject.onReleaseOutside=function () {
+				equivButton.onRelease = equivButton.onReleaseOutside=function () {
 					if (not manipulationmodeFlag) {
 					}
 				};
