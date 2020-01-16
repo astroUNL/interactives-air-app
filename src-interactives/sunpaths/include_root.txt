@@ -1,0 +1,2549 @@
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+// STAY OUT!!! - DO NOT CHANGE ANY CODE THAT FOLLOWS
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+function activity_Initialize() {
+	activity_Setup();
+	myRoot_Setup();
+	if (not eduMode) {
+		clipboard_Setup();
+	}
+	activity_LaunchBegin();
+}
+
+function activity_LaunchBegin() {
+	//allow the following edu servers to communicate with this file
+	System.security.allowDomain("unl.edu");
+	System.security.allowDomain("brownstone.net");
+	System.security.allowDomain("calculus.unl.edu");
+	System.security.allowDomain("webtests1.unl.edu:8026");
+	
+	//for debuging in EDU
+	helpClip.swapDepths(50000);
+	helpClip.helpTextField.text = "";
+	helpClip.helpTextField.text += "response: " + response + "\r";
+
+	// disable the right click zoom menu
+	Stage.showMenu = false;
+	
+	// hide things, move things
+	itemArea._visible = false;
+	activityBorder._visible = false;
+
+	flagDragging = false;
+	flagMouseDown = false;
+	tryagainButtonClip._visible = false;
+	tryagainButtonClip.tryagainButton.tabEnabled = false;
+	gradeTextField.removeTextField();
+	
+	locked = data_Test(locked);
+	
+	manipulationMode = data_Test(manipulationMode);
+	if (manipulationMode <> true) {
+		manipulationModeClip._visible = false;
+	} else {
+		manipulationModeClip._visible = true;
+	}
+	
+	lessonMode = data_Test(lessonMode);
+	if (lessonMode <> true) {
+		lessonbuttonClip._visible = false;
+	} else {
+		lessonbuttonClip._visible = true;
+	}
+	lessonbuttonClip.lessonButton.tabEnabled = false;
+	gradinginfoButton_Setup();
+	bigN.swapDepths(15000);
+	bigN.tabEnabled = false;
+	gradinginfoButtonClip.swapDepths(15001);
+	lessonbuttonClip.swapDepths(15002);
+
+	// starting level
+	level = 10;
+	
+	// convert input parameters to proper format
+	answerFlag = (response == "answer") ? true : false;
+	dynamicMode = data_Test(dynamicMode);
+	cyclicMode = data_Test(cyclicMode);
+	rationaleMode = data_Test(rationaleMode);
+	trace("rationaleMode: " + rationaleMode);
+	explanationMode = data_Test(explanationMode);
+	itemAreaFlexible = data_Test(itemAreaFlexible);
+	hitAreaForced = data_Test(hitAreaForced);
+	gradeOption = (data_Test(gradeOption)) ? Number(String(gradeOption)) : gradeOptionDefault;
+	responseArray = response.split(responsedelim_1);
+	selectionArray = (data_Test(response)) ? responseArray[0].split(responsedelim_0) : null;
+	trace("selectionArray: " + selectionArray);
+	rankNum = (data_Test(response)) ? responseArray[1] : null;
+	cyclicStart = (data_Test(response)) ? responseArray[2] : null;
+	rationaleString = (data_Test(response)) ? responseArray[3] : "";
+	rationalebuttonClip.gotoAndStop(1);
+	rationalebuttonClip.rationaleButton.tabEnabled = false;
+	rationalebuttonClip._visible = false;
+	rationaleButton_Update();
+	constantArray = (responseArray.length > 4) ? responseArray[4].split(responsedelim_0) : null;
+	trace("constantArray: " + constantArray);
+	dynamicParamArray = responseArray.slice(5);
+	trace("dynamicParamArray: " + dynamicParamArray);
+	helpClip.helpTextField.text += "dynamicParamArray: " + dynamicParamArray + "\r";
+	dynamicParamArray = (responseArray.length > 5) ? dynamicParamArray_Construct(dynamicParamArray) : dynamicParamArray_Construct(null);
+	trace("dynamicParamArray: " + dynamicParamArray);
+	helpClip.helpTextField.text += "dynamicParamArray: " + dynamicParamArray + "\r";
+	rankArray = toArray_Convert(rankData, delim_0, delim_1, true);
+
+	// color scheme setup
+	colorScheme = Number(String(colorScheme));
+	backgroundHardEdged = data_Test(backgroundHardEdged);
+	colorSchemeName = "colorScheme_" + colorScheme;
+	colorSchemeObject = eval(colorSchemeName);
+	colorSchemeArray = [];
+	colorSchemeArray.push(colorSchemeObject.colorBackground);
+	colorSchemeArray.push(colorSchemeObject.colorTextBody);
+	colorSchemeArray.push(colorSchemeObject.colorTextTitle);
+	colorSchemeArray.push(colorSchemeObject.colorTextHighlight1);
+	colorSchemeArray.push(colorSchemeObject.colorTextHighlight2);
+	colorSchemeArray.push(colorSchemeObject.colorTextHighlight3);
+	colorSchemeArray.push(colorSchemeObject.colorTextHighlight4);
+	itemlabelTextStyleHTML = "<p align='center'><b><font face='Verdana' size='14' color='#" + colorSchemeObject.colorTextBody + "'>";
+	rationaleinstructionsTextStyleHTML = "<p align='center'><b><font face='Verdana' size='14' color='#" + colorSchemeObject.colorTextTitle + "'>"
+	var colorName = "0x" + colorSchemeObject.colorBackground;
+	var colorObject = new Color(backgroundClip);
+	colorObject.setRGB(colorName);
+	if (backgroundHardEdged) {
+		backgroundClip.lineStyle(0,0,0);
+		backgroundClip.beginFill(colorName);
+		backgroundClip.moveTo(-backgroundClip._width / 2,-backgroundClip._height / 2);
+		backgroundClip.lineTo(backgroundClip._width / 2,-backgroundClip._height / 2);
+		backgroundClip.lineTo(backgroundClip._width / 2,backgroundClip._height / 2);
+		backgroundClip.lineTo(-backgroundClip._width / 2,backgroundClip._height / 2);
+		backgroundClip.endFill();
+	}
+
+	if (keyListener == null) {
+		keyListener_Setup();
+	}
+	
+	if (manipulationMode) {
+		trace("setting up listeners");
+		// mouse listener setup
+		if (mouseListener == null) {
+			mouseListener_Setup();
+		}
+		
+		manipulationMode_Display();
+		manipulationModeClip.timeStart = new Date();
+		manipulationModeClip.counter = 0;
+		manipulationModeClip.onEnterFrame = function () {
+			this.timeCurrent = new Date();
+			if ((this.timeCurrent.getTime() - this.timeStart.getTime()) > 300) {
+				this.boxClip.gotoAndStop((this.boxClip._currentframe == 1) + 1);
+				this.timeStart = new Date();
+				this.counter++;
+				if (this.counter > 10) {
+					this.boxClip.gotoAndStop(1);
+					delete this.onEnterFrame;
+				}
+			}
+		}
+	}
+
+	// lock setup
+	lock_Toggle((locked or answerFlag), (locked * 10000) + (answerFlag * 10000), (answerFlag * 100));
+	grademeButton._visible = !locked;
+	grademeButton.tabEnabled = false;
+
+	// EDU mode setup
+	if (eduMode) {
+		bigN._visible = false;
+		grademeButton._visible = false;
+		tryagainButtonClip._visible = false;
+	}
+
+	// grading info (algorithm) setup
+	algDescription.gotoAndStop(gradeOption);
+	algDescription.swapDepths(30000);
+	var algClose = eval("algDescription.close_" + (gradeOption - 1));
+	algClose.tabEnabled = false;
+
+	// load dynamic items
+	if (dynamicMode) {
+		function_Report("dynamic_Load", "begin", 0);
+		rangeBegin = (data_Test(rangeBegin)) ? Number(rangeBegin) : 0;
+		rangeEnd = (data_Test(rangeEnd)) ? Number(rangeEnd) : 0;
+		selectionTotal = (data_Test(selectionData)) ? Number(String(selectionData)) : selectionDefault;
+		dynamicItemNum = (Math.floor(Math.random()*(rangeEnd-rangeBegin+1)))+rangeBegin;
+		var dynamicItemName = "item_"+dynamicItemNum;
+		dynamicItemPath = myRoot;
+		variable_Report("dynamic_Load", "defined", "rangeBegin,rangeEnd,selectionTotal");
+		myRoot.attachMovie(dynamicItemName, "item_0", level++);
+		item_0.myRoot = myRoot;
+		function_Report("dynamic_Load", "end", 0);
+
+	} else {
+		
+		//load static items
+		function_Report("item_Load", "begin", 0);
+		// attach items until no more found
+		var flag = true;
+		var counter = 0;
+		helpClip.helpTextField.text += "item_Load while\r";
+		while (flag == true) {
+			itemName = "item_" + counter;
+			myRoot.attachMovie(itemName, itemName, level++);
+			var itemObject = item_Get(counter);
+			itemObject.numberTextField.text = counter;
+			itemObject._visible = false;
+			itemObject._xscale = itemObject._yscale = 100;
+			itemObject.itemValueIndex = counter;
+			itemObject.imageWidth = itemObject._width;
+			itemObject.imageHeight = itemObject._height;
+			var boundsObject = itemObject.getBounds(itemObject);
+			itemObject.xMin = boundsObject.xMin;
+			itemObject.xMax = boundsObject.xMax;
+			itemObject.yMin = boundsObject.yMin;
+			itemObject.yMax = boundsObject.yMax;
+			trace("coords: [" + itemObject.xMin + "," + itemObject.xMax + "] [" + itemObject.yMin + "," + itemObject.yMax + "]");
+			if (hitAreaForced) {
+				itemHitArea_Create(itemObject);
+			}
+			if (itemObject == null) {
+				flag = false;
+			} else {
+				counter++;
+			}
+		}
+		itemTotal = counter;
+		variable_Report("item_Load", "defined", "itemTotal");
+		function_Report("item_Load", "end", 0);
+
+		rank_Select();			// choose ranking method
+		if (selectionArray == null) {
+			item_Select();			// choose items
+		} else {
+			selectionTotal = selectionArray.length;
+			rankOrder_Prune();
+		}
+		itemLabels_Setup();
+		if (cyclicMode) {
+			cyclic_Setup();
+			rankOrder_Cycle();
+		}
+		activity_LaunchEnd();	// continue with launch
+	}
+}
+
+function activity_LaunchEnd() {
+	rangeLabels_Display();		// display the labels that describe the range
+	instructions_Display();		// display instructions
+	if (itemAreaFlexible) {
+		itemArea_Set();			// adjust itemArea to instructions length (and label size?)
+	}
+	item_Display();				// position items
+	if (locked) {
+		feedback_Display();		// show feedback if activity is locked
+	}
+	response_Set();	// set response string
+	trace("=========");
+	trace("=========");
+}
+
+function activity_Reset() {
+	function_Report("activity_Reset", "begin", 0);
+	lesson_Remove();
+	bigN.restart();
+	for (var i = 0; i<itemTotal; i++) {
+		var itemName = "item_"+i;
+		var itemObject = eval(itemName);
+		itemObject.removeMovieClip();
+		trace(itemObject);
+	}
+	for (var i = 0; i<selectionTotal; i++) {
+		var rankName = "rankNum_"+i;
+		var rankObject = eval(rankName);
+		rankObject.removeTextField();
+	}
+	grademeButton._visible = true;
+	tryagainButtonClip._visible = false;
+	response = null;
+	locked = null;
+	function_Report("activity_Reset", "end", 0);
+	activity_LaunchBegin();
+}
+
+function alg_Hide() {
+	algDescription._visible = false;
+	lock_Toggle(false,10000,0);}
+
+function array_Choose(inputArray,chooseTotal) {
+	trace("inputArray: " + inputArray);
+	trace("chooseTotal: " + chooseTotal);
+	var tempArray = [];
+	for (var i = 0; i < inputArray.length; i++) {
+		tempArray.splice(Math.floor(Math.random() * (i + 1)),0,inputArray[i]);
+	}
+	trace("tempArray: " + tempArray);
+	return tempArray.slice(0,chooseTotal);
+}
+
+function array_Reduce(inputArray) {
+	trace("reducing: " + inputArray);
+	inputArray.sort();
+	var flag = true;
+	var counter = 0;
+	while (flag) {
+		var flagCompare = (inputArray[counter] == inputArray[counter + 1]);
+		inputArray.splice(counter,flagCompare);
+		counter = counter + (not flagCompare);
+		flag = (counter < inputArray.length);
+	}
+	trace("reduced to: " + inputArray);
+	return inputArray;
+}
+
+function bigN_Activate() {
+	getURL("http://astro.unl.edu", "_blank");
+}
+
+function clipboard_Copy() {
+	var qu_TopicNameFinal = clipboardClip.topicnameTextField.text;
+	var qu_TopicNumFinal = clipboardClip.topicnumTextField.text;
+	var qu_QuestionNameFinal = clipboardClip.questionnameTextField.text;
+	var qu_QuestionNumFinal = clipboardClip.questionnumTextField.text;
+	var qu_PathFinal = clipboardClip.pathTextField.text;
+	var lineBreak = String.fromCharCode(13) + String.fromCharCode(10);
+	var clipboardTextTemp = "";
+	if (Number(qu_QuestionNumFinal) == 1) {
+		clipboardTextTemp += "qu." + qu_TopicNumFinal + ".topic=" + qu_TopicNameFinal + "@" + lineBreak + lineBreak;
+	}
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".name=" + qu_QuestionNameFinal + "@" + lineBreak;
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".movie=http://" + qu_PathFinal + "@" + lineBreak;
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".mode=Flash@" + lineBreak;
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".width=" + Stage.width + "@" + lineBreak;
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".height=" + Stage.height + "@" + lineBreak;
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".answer=answer@" + lineBreak;
+	clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".grading=client@" + lineBreak;
+	for (var i = 0; i < clipboardArray.length; i++) {
+		trace(clipboardArray[i].varName + "=" + clipboardArray[i].varValue);
+		if ((clipboardArray[i].varName.split("_")[0] <> "qu") and (clipboardArray[i].varName.substr(0,6).toLowerCase() <> "myroot")) {
+			clipboardTextTemp += "qu." + qu_TopicNumFinal + "." + qu_QuestionNumFinal + ".param." + clipboardArray[i].varName + "=" + clipboardArray[i].varValue + "@" + lineBreak;
+		}
+	}
+	clipboardTextTemp += lineBreak;
+	var clipboardText = "";
+	for (var i = 0; i < clipboardTextTemp.length; i++) {
+		if (clipboardTextTemp.charAt(i) <> "\\") {
+			clipboardText += clipboardTextTemp.charAt(i);
+		}
+	}
+	System.setClipboard(clipboardText);
+	clipboardClip.removeMovieClip();
+}
+
+function clipboard_Options() {
+	lock_Toggle(true, 80000, 50);
+	var clipboardLevel = 90000;
+	var numT = 1;
+	var numQ = 1;
+	myRoot.createEmptyMovieClip("clipboardClip",clipboardLevel++);
+	clipboardClip.beginFill(0xFFFFFF,100);
+	clipboardClip.lineStyle(1,0x000000,100);
+	clipboardClip.moveTo(0,0);
+	clipboardClip.lineTo(525,0);
+	clipboardClip.lineTo(525,160);
+	clipboardClip.lineTo(0,160);
+	clipboardClip.endFill();
+	
+	clipboardClip.createTextField("topicnamelabelTextField",clipboardLevel++,20,10,100,20);
+	clipboardClip.topicnamelabelTextField.text = "TOPIC NAME:";
+	clipboardClip.topicnamelabelTextField.setTextFormat(clipboardlabelFormat);
+	clipboardClip.topicnamelabelTextField.embedFonts = true;
+	clipboardClip.topicnamelabelTextField.selectable = false;
+	clipboardClip.topicnamelabelTextField.autoSize = "right";
+	
+	clipboardClip.createTextField("topicnamewarningTextField",clipboardLevel++,30,30,400,20);
+	clipboardClip.topicnamewarningTextField.text = "TOPIC NAME will NOT be copied to clipboard when QUESTION NUM is greater than 1";
+	clipboardClip.topicnamewarningTextField.selectable = false;
+	clipboardClip.topicnamewarningTextField.setTextFormat(clipboardwarningFormat);
+	clipboardClip.topicnamewarningTextField.embedFonts = true;
+	
+	clipboardClip.createTextField("topicnameTextField",clipboardLevel++,clipboardClip.topicnamelabelTextField._x + clipboardClip.topicnamelabelTextField._width + 10,clipboardClip.topicnamelabelTextField._y,200,20);
+	clipboardClip.topicnameTextField.border = true;
+	clipboardClip.topicnameTextField.type = "input";
+	clipboardClip.topicnameTextField.maxChars = 40;
+	clipboardClip.topicnameTextField.text = qu_TopicName;
+	clipboardClip.topicnameTextField.setTextFormat(clipboardinputFormat);
+	clipboardClip.topicnameTextField.embedFonts = true;
+	Selection.setFocus("clipboardClip.topicnameTextField");
+	Selection.setSelection(0,0);
+	clipboardClip.topicnameTextField.tabIndex = 1;
+	
+	clipboardClip.createTextField("topicnumlabelTextField",clipboardLevel++,clipboardClip.topicnameTextField._x + clipboardClip.topicnameTextField._width + 20,clipboardClip.topicnameTextField._y,100,20);
+	clipboardClip.topicnumlabelTextField.text = "TOPIC NUM:";
+	clipboardClip.topicnumlabelTextField.setTextFormat(clipboardlabelFormat);
+	clipboardClip.topicnumlabelTextField.embedFonts = true;
+	clipboardClip.topicnumlabelTextField.selectable = false;
+	clipboardClip.topicnumlabelTextField.autoSize = "right";
+	
+	clipboardClip.createTextField("topicnumTextField",clipboardLevel++,clipboardClip.topicnumlabelTextField._x + clipboardClip.topicnumlabelTextField._width + 10,clipboardClip.topicnumlabelTextField._y,30,20);
+	clipboardClip.topicnumTextField.border = true;
+	clipboardClip.topicnumTextField.type = "input";
+	clipboardClip.topicnumTextField.maxChars = 3;
+	clipboardClip.topicnumTextField.text = qu_TopicNum;
+	clipboardClip.topicnumTextField.setTextFormat(clipboardinputFormat);
+	clipboardClip.topicnumTextField.embedFonts = true;
+	Selection.setFocus("clipboardClip.topicnumTextField");
+	Selection.setSelection(0,0);
+	clipboardClip.topicnumTextField.tabIndex = 2;
+	
+	clipboardClip.createTextField("questionnamelabelTextField",clipboardLevel++,20,60,100,20);
+	clipboardClip.questionnamelabelTextField.text = "QUESTION NAME:";
+	clipboardClip.questionnamelabelTextField.setTextFormat(clipboardlabelFormat);
+	clipboardClip.questionnamelabelTextField.embedFonts = true;
+	clipboardClip.questionnamelabelTextField.selectable = false;
+	clipboardClip.questionnamelabelTextField.autoSize = "right";
+	
+	clipboardClip.createTextField("questionnameTextField",clipboardLevel++,clipboardClip.questionnamelabelTextField._x + clipboardClip.questionnamelabelTextField._width + 10,clipboardClip.questionnamelabelTextField._y,200,20);
+	clipboardClip.questionnameTextField.border = true;
+	clipboardClip.questionnameTextField.type = "input";
+	clipboardClip.questionnameTextField.maxChars = 40;
+	clipboardClip.questionnameTextField.text = qu_QuestionName;
+	clipboardClip.questionnameTextField.setTextFormat(clipboardinputFormat);
+	clipboardClip.questionnameTextField.embedFonts = true;
+	Selection.setFocus("clipboardClip.questionnameTextField");
+	Selection.setSelection(0,0);
+	clipboardClip.questionnameTextField.tabIndex = 3;
+	
+	clipboardClip.createTextField("questionnumlabelTextField",clipboardLevel++,clipboardClip.questionnameTextField._x + clipboardClip.questionnameTextField._width + 20,clipboardClip.questionnameTextField._y,100,20);
+	clipboardClip.questionnumlabelTextField.text = "QUESTION NUM:";
+	clipboardClip.questionnumlabelTextField.setTextFormat(clipboardlabelFormat);
+	clipboardClip.questionnumlabelTextField.embedFonts = true;
+	clipboardClip.questionnumlabelTextField.selectable = false;
+	clipboardClip.questionnumlabelTextField.autoSize = "right";
+	
+	clipboardClip.createTextField("questionnumTextField",clipboardLevel++,clipboardClip.questionnumlabelTextField._x + clipboardClip.questionnumlabelTextField._width + 10,clipboardClip.questionnumlabelTextField._y,30,20);
+	clipboardClip.questionnumTextField.border = true;
+	clipboardClip.questionnumTextField.type = "input";
+	clipboardClip.questionnumTextField.maxChars = 3;
+	clipboardClip.questionnumTextField.text = qu_QuestionNum;
+	clipboardClip.questionnumTextField.setTextFormat(clipboardinputFormat);
+	clipboardClip.questionnumTextField.embedFonts = true;
+	Selection.setFocus("clipboardClip.questionnumTextField");
+	Selection.setSelection(0,0);
+	clipboardClip.questionnumTextField.tabIndex = 4;
+	
+	clipboardClip.createTextField("pathlabelTextField",clipboardLevel++,20,90,100,20);
+	clipboardClip.pathlabelTextField.text = "EDU PATH:";
+	clipboardClip.pathlabelTextField.setTextFormat(clipboardlabelFormat);
+	clipboardClip.pathlabelTextField.embedFonts = true;
+	clipboardClip.pathlabelTextField.selectable = false;
+	clipboardClip.pathlabelTextField.autoSize = "right";
+	
+	myURL = myRoot._url.split("/");
+	myURL = unescape(myURL[myURL.length - 1]);
+	
+	clipboardClip.createTextField("pathTextField",clipboardLevel++,clipboardClip.pathlabelTextField._x + clipboardClip.pathlabelTextField._width + 10,clipboardClip.pathlabelTextField._y,360,20);
+	clipboardClip.pathTextField.border = true;
+	clipboardClip.pathTextField.type = "input";
+	clipboardClip.pathTextField.maxChars = 200;
+	clipboardClip.pathTextField.text = qu_QuestionPath + myURL;
+	clipboardClip.pathTextField.setTextFormat(clipboardinputFormat);
+	clipboardClip.pathTextField.embedFonts = true;
+	Selection.setFocus("clipboardClip.pathTextField");
+	Selection.setSelection(0,0);
+	clipboardClip.pathTextField.tabIndex = 5;
+	
+	Selection.setFocus(null);
+	
+	clipboardClip.createEmptyMovieClip("copyButton",clipboardLevel++);
+	clipboardClip.copyButton.createEmptyMovieClip("buttonBackground",clipboardLevel++);
+	clipboardClip.copyButton.buttonBackground.beginFill(0xDDDDDD,100);
+	clipboardClip.copyButton.buttonBackground.lineStyle(1,0x000000,0);
+	clipboardClip.copyButton.buttonBackground.moveTo(0,0);
+	clipboardClip.copyButton.buttonBackground.lineTo(360,0);
+	clipboardClip.copyButton.buttonBackground.lineTo(360,25);
+	clipboardClip.copyButton.buttonBackground.lineTo(0,25);
+	clipboardClip.copyButton.buttonBackground.endFill();
+	
+	clipboardClip.copyButton.createTextField("buttonlabelTextField",clipboardLevel++,0,0,100,20);
+	clipboardClip.copyButton.buttonlabelTextField.selectable = false;	
+	clipboardClip.copyButton.buttonlabelTextField.text = "COPY TO CLIPBOARD";
+	clipboardClip.copyButton.buttonlabelTextField.setTextFormat(pagenumFormat);
+	clipboardClip.copyButton.buttonlabelTextField.embedFonts = true;
+	clipboardClip.copyButton.buttonlabelTextField.autoSize = true;
+	clipboardClip.copyButton.buttonlabelTextField._x = (clipboardClip.copyButton._width - clipboardClip.copyButton.buttonlabelTextField._width) / 2;
+	clipboardClip.copyButton.buttonlabelTextField._y = ((clipboardClip.copyButton._height - clipboardClip.copyButton.buttonlabelTextField._height) / 2) - 2;
+	clipboardClip.copyButton._x = (clipboardClip._width - clipboardClip.copyButton._width) / 2;
+	clipboardClip.copyButton._y = clipboardClip.pathTextField._y + clipboardClip.pathTextField._height + 20;
+	
+	clipboardClip.copyButton.onRollOver = function() {
+		this.buttonColor = new Color(this.buttonBackground);
+		this.buttonColor.setRGB(0xFFFF00);
+	}
+	clipboardClip.copyButton.onRollOut = function() {
+		this.buttonColor = new Color(this.buttonBackground);
+		this.buttonColor.setRGB(0xDDDDDD);
+	}
+	clipboardClip.copyButton.onRelease = function () {
+		myRoot.clipboard_Copy();
+		myRoot.lock_Toggle(false);
+	}
+	clipboardClip.copyButton.tabEnabled = false;
+	clipboardClip._x = (Stage.width - clipboardClip._width) / 2;
+	clipboardClip._y = (Stage.height - clipboardClip._height) / 2;
+}
+
+function clipboard_Setup() {
+	function_Report("clipboard_Setup", "begin", 0);
+	var clipboardArrayTemp = new Array();
+	var counter = 0;
+	for (name in myRoot) {
+		clipboardArrayTemp.unshift({varName:name,varValue:eval(name)});
+		var varValue = null;
+		if (name == "lessonMode") {
+			varValue = "false";
+		}
+		if (name == "eduMode") {
+			varValue = "true";
+		}
+		if (varValue <> null) {
+			clipboardArrayTemp[0].varValue = varValue;
+		}
+		counter++;
+		if (name == "eduMode") {
+			break;
+		}
+	}
+	clipboardArray = clipboardArrayTemp;
+
+	function_Report("clipboard_Setup", "end", 0);
+}
+
+// setup for cyclic
+function cyclic_Setup() {
+	function_Report("cyclic_Setup", "begin", 0);
+	if (cyclicStart == null) {
+		if (dynamicMode) {
+			cyclicStart = Math.floor(Math.random()*itemValues.length);
+		} else {
+			cyclicStart = Math.floor(Math.random()*itemTotal);
+		}
+	}
+	variable_Report("cyclic_Setup", "defined", "cyclicStart");
+	function_Report("cyclic_Setup", "end", 0);
+}
+
+// returns false if dataInput is "nothing" -- "", null, or undefined
+function data_Test(dataObject) {
+	if ((dataObject == "") or (dataObject == null) or (dataObject == undefined) or (dataObject == "false") or (dataObject == false) or (dataObject == 0) or (dataObject == "0")) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+// find dragObject's position, where 0 is leftmost item, 1 is second item from left, etc.
+function dragPosition_Get(dragObject) {
+	for (var i = 0; i < dragPositionArray.length; i++) {
+		var directionMult = (dragPositionOld > i) ? 1 : -1;
+		var threshhold = (dragObject.itemWidthScaled + itemSpacingFinal) / 4;
+		trace("threshhold #1:" + threshhold);
+		if (dragObject._x < (dragPositionArray[i]._x + (directionMult * threshhold))) {
+			break;
+		}
+	}
+	return i;
+}
+
+// record positions of undragged items
+function dragPosition_Set(dragObject) {
+	dragPositionArray = new Array();
+	for (var i = 0; i<selectionTotal; i++) {
+		var itemObject = item_Get(selectionArray[i]);
+		if (itemObject<>dragObject) {
+			dragPositionArray.push(itemObject);
+		}
+	}
+}
+
+function drag_Process(dragObject) {
+	dragPosition_Set(dragObject);
+	var dragPosition = dragPosition_Get(dragObject);
+	if ((dragPosition<>dragPositionOld)) {
+		// if position has changed, change drag item's position in selectionArray
+		if (dragPositionOld<>null) {
+			var dragNum = selectionArray[dragPositionOld];
+			selectionArray.splice(dragPositionOld, 1);
+			dragPositionOld = dragPosition;
+			selectionArray.splice(dragPosition, 0, dragNum);
+			// when dragPosition changes, move displaced item to new location
+			item_RepositionSetup(dragObject);
+		} else {
+			dragPositionOld = dragPosition;
+		}
+	}
+}
+
+function drag_Start(dragObject) {
+	function_Report("drag_Start", "begin", 1);
+	flagDragging = true;
+	if ((flagShiftDown) and (manipulationMode)) {
+		trace("start dragging component");
+		componentObject.startDragging();
+	} else {
+		if (manipulationMode) {
+			componentObject.stopDragging();
+		}
+		dragObject.swapDepths(level++);
+		if (dragObject.newX == null) {
+			dragObject.newX = dragObject._x;
+		}
+		dragObject.startDrag(false, 0, dragObject._y, myRoot_width, dragObject._y);
+		item_Fade(dragObject, true);
+		// record positions of undragged items
+		dragPosition_Set(dragObject);
+		dragPositionOld = dragPosition_Set(dragObject);
+		// compare position of dragged item to undragged items, stop when to left of item
+		dragObject.onEnterFrame = function() {
+			drag_Process(this);
+		}
+	}
+	function_Report("drag_Start", "end", 1);
+}
+
+function drag_Stop(dragObject) {
+	function_Report("drag_Stop", "begin", 1);
+	trace("flagShiftDown: "+flagShiftDown);
+	trace("manipulationMode: "+manipulationMode);
+	if (flagShiftDown and manipulationMode) {
+		componentObject.stopDragging();
+		item_0.items_Update();
+	} else {
+		dragObject.stopDrag();
+		delete dragObject.onEnterFrame;
+		if ((dragObject.newX<>null) and (Math.abs(dragObject._x-dragObject.newX)>itemDeltaX)) {
+			dragObject.directionMult = (dragObject._x<dragObject.newX) ? 1 : -1;
+			dragObject.onEnterFrame = function() {
+				item_Reposition(this);
+			};
+		} else {
+			dragObject._x = dragObject.newX;
+		}
+		item_Fade(dragObject, false);
+	}
+	flagDragging = false;
+	response_Set();
+	variable_Report("drag_Stop", "defined", "response");
+	function_Report("drag_Stop", "end", 1);
+}
+
+function draw_Circle(mc,x,y,r) {
+	mc.moveTo(x+r, y);
+	mc.curveTo(r+x, Math.tan(Math.PI/8)*r+y, Math.sin(Math.PI/4)*r+x, Math.sin(Math.PI/4)*r+y);
+	mc.curveTo(Math.tan(Math.PI/8)*r+x, r+y, x, r+y);
+	mc.curveTo(-Math.tan(Math.PI/8)*r+x, r+y, -Math.sin(Math.PI/4)*r+x, Math.sin(Math.PI/4)*r+y);
+	mc.curveTo(-r+x, Math.tan(Math.PI/8)*r+y, -r+x, y);
+	mc.curveTo(-r+x, -Math.tan(Math.PI/8)*r+y, -Math.sin(Math.PI/4)*r+x, -Math.sin(Math.PI/4)*r+y);
+	mc.curveTo(-Math.tan(Math.PI/8)*r+x, -r+y, x, -r+y);
+	mc.curveTo(Math.tan(Math.PI/8)*r+x, -r+y, Math.sin(Math.PI/4)*r+x, -Math.sin(Math.PI/4)*r+y);
+	mc.curveTo(r+x, -Math.tan(Math.PI/8)*r+y, r+x, y)
+}
+
+// retrieves dynamicString portion of response and converts it to an array
+function dynamicParamArray_Construct(dynamicParamArray) {
+	function_Report("dynamicParamArray_Construct", "begin", 2);
+	trace("dynamicParamArray: "+dynamicParamArray);
+	trace("dynamicParamArray.length: " + dynamicParamArray.length);
+	if (dynamicParamArray <> null) {
+		for (var i = 0; i < dynamicParamArray.length; i++) {
+			dynamicParamArray[i] = dynamicParamArray[i].split(responsedelim_0);
+			if (dynamicParamArray[i].length > 0) {
+				for (var j = 0; j < dynamicParamArray[i].length; j++) {
+					if (dynamicParamArray[i][j] = String(Number(String(dynamicParamArray[i][j])))) {
+						dynamicParamArray[i][j] = Number(dynamicParamArray[i][j]);
+					}
+				}
+			} else {
+				if (dynamicParamArray[i] = String(Number(String(dynamicParamArray[i])))) {
+					dynamicParamArray[i] = Number(dynamicParamArray[i]);
+				}
+			}
+			trace("dynamicParamArray[i]: " + dynamicParamArray[i]);
+//			if (dynamicPararmArray[i][0] == null) {
+//				var dynamicParamArrayTemp = dynamicParamArray[i];
+//				dynamicParamArray[i] = new Array();
+//				dynamicParamArray[i].push(dynamicParamArrayTemp);
+//			}
+		}
+	}
+	function_Report("dynamicParamArray_Construct", "end", 2);
+	return dynamicParamArray;
+}
+
+function feedback_Display() {
+	function_Report("feedback_Display", "begin", 0);
+	variable_Report("feedback_Display", "referenced", "selectionTotal,selectionArray");
+//	rationaleButtonClip._visible = false;
+	for (var i = 0; i < selectionTotal; i++) {
+		var itemObject = item_Get(selectionArray[i]);
+		itemFeedback_Display(itemObject, i);
+		var rankName = "rankNum_"+i;
+		myRoot.createTextField(rankName, level++, itemObject._x, (itemObject._y+itemObject.yMin-25), 50, 20);
+		var rankObject = eval(rankName);
+		rankObject.embedFonts = true;
+		rankObject.selectable = false;
+		for (var j = 0; j<selectionTotal; j++) {
+			if (selectionArray[i] == rankOrder[j]) {
+				break;
+			}
+		}
+		rankObject.text = (j+1);
+		if (i == j) {
+			var colorName = "0x" + colorSchemeObject.colorTextHighlight3;
+			var rankColor = new Color(rankObject);
+			rankColor.setRGB(colorName);
+		} else {
+			var colorName = "0x" + colorSchemeObject.colorTextHighlight1;
+			var rankColor = new Color(rankObject);
+			rankColor.setRGB(colorName);
+		}
+		rankObject.setTextFormat(rankFormat);
+		rankObject.autoSize = "center";
+		rankObject._x = itemObject._x-(rankObject._width/2);
+		trace("RANKOBJECT @ "+rankObject._x+","+rankObject._y);
+	}
+	function_Report("feedback_Display", "end", 0);
+}
+
+function grade_Display() {
+	lock_Toggle(true, 10000, 0);
+	locked = true;
+	grademeButton._visible = false;
+//	lessonbuttonClip._visible = false;
+	if (eduMode<>true) {
+		tryagainButtonClip._visible = true;
+		tryagainButtonClip.swapDepths(15003);
+	}
+	if (explanationMode) {
+		rationalebuttonClip._visible = true;
+		rationalebuttonClip.swapDepths(15004);
+		rationalebuttonClip.gotoAndStop(2);
+		rationalebuttonClip.tabEnabled = false;
+	} else {
+		rationalebuttonClip._visible = false;
+	}
+	myRoot.createTextField("gradeTextField", level++, 0, 0, 50, 20);
+	gradeTextField = eval("myRoot.gradeTextField");
+	gradeTextField.embedFonts = true;
+	gradeTextField.multiline = true;
+	gradeTextField.selectable = false;
+	gradeTextField.text = "Your score is: "+(grade_Get()*100)+"%"
+	gradeTextField.setTextFormat(instructionsFormat);
+	var gradeColor = new Color(gradeTextField);
+	gradeColor.setRGB(Number("0x" + colorSchemeObject.colorTextBody));
+	gradeTextField.autoSize = "center";
+	while (textWidth <> gradeTextField._width) {
+		var textWidth = gradeTextField._width;
+	}
+	gradeTextField._x = (myRoot_width - gradeTextField._width) / 2;
+	gradeTextField._y = (explanationMode) ? rationalebuttonClip._y - gradeTextField._height : myRoot_height - gradeTextField._height - 5;
+	if (grade == 1) {
+		bigN.pop();
+	}
+	feedback_Display();
+}
+
+function grade_Get() {
+	function_Report("grade_Get", "begin", 1);
+	var numCorrect = 0;
+	// for gradeOption == 1 or == 2, count number of items in correct order
+	if (gradeOption<=3) {
+		for (var i = 0; i<selectionTotal; i++) {
+			if (selectionArray[i] == rankOrder[i]) {
+				numCorrect++;
+			}
+		}
+		// for gradeOption == 1, all items must be in correct order for credit
+		if (gradeOption == 1) {
+			function_Report("grade_Get", "end", 1);
+			return Number(numCorrect == selectionTotal);
+			// for gradeOption == 2, credit based on percentage of items in correct order
+		} else if (gradeOption == 2) {
+			function_Report("grade_Get", "end", 1);
+			return math_computeFixedDigits((numCorrect/selectionTotal), 3);
+		} else if (gradeOption == 3) {
+			for (var i = 0; i<selectionTotal; i++) {
+				if ((selectionArray[i] == rankOrder[i-1]) or (selectionArray[i] == rankOrder(i+1))) {
+					numCorrect = numCorrect+0.5;
+				}
+			}
+			function_Report("grade_Get", "end", 1);
+			return math_computeFixedDigits((numCorrect/selectionTotal), 3);
+		}
+	} else if (gradeOption == 4) {
+		for (var i = 0; i<selectionTotal; i++) {
+			for (var j = 0; j<selectionTotal; j++) {
+				if (selectionArray[i] == rankOrder[j]) {
+					break;
+				}
+			}
+			for (var i2 = 0; i2<i; i2++) {
+				for (var j2 = 0; j2<j; j2++) {
+					numCorrect += (selectionArray[i2] == rankOrder[j2]);
+				}
+			}
+			for (var i2 = (i+1); i2<selectionTotal; i2++) {
+				for (var j2 = (j+1); j2<selectionTotal; j2++) {
+					numCorrect += (selectionArray[i2] == rankOrder[j2]);
+				}
+			}
+		}
+		trace("numCorrect: " + numCorrect);
+		trace("selectionTotal: " + selectionTotal);
+		function_Report("grade_Get", "end", 1);
+		grade = math_computeFixedDigits((numCorrect/(selectionTotal*(selectionTotal-1))), 3);
+		return grade;
+	}
+}
+
+function gradinginfoButton_Setup() {
+	gradinginfoButtonClip.gradinginfoButton.onRelease = function() {
+		myRoot.algDescription._visible = true;
+		myRoot.lock_Toggle(true, 20000, 50);
+	}
+	gradinginfoButtonClip.gradinginfoButton.tabEnabled = false;
+}
+
+function instructions_Display() {
+    function_Report("instructions_Display", "begin", 0);
+    var instructionsTextTemp = instructionsText;
+    instructionsArray = instructionsTextTemp.split("%");
+    instructionsTextTemp = "";
+    for (var i = 0; i < instructionsArray.length; i++) {
+        if (Math.round(i / 2) <> (i / 2)) {
+            var termNum = Number(instructionsArray[i]);
+            var termString = termArray[termNum];
+            trace("termString: " + termString);
+            instructionsArray[i] = termString;
+        }
+        instructionsTextTemp += instructionsArray[i];
+    }
+    instructionsArray = instructionsTextTemp.split("$");
+    instructionsTextTemp = "";
+    for (var i = 0; i < instructionsArray.length; i++) {
+        if (Math.round(i/2)<>(i/2)) {
+            var colorNum = Number(instructionsArray[i]);
+            var colorString = colorSchemeArray[colorNum];
+            instructionsArray[i] = colorString;
+        }
+        instructionsTextTemp += instructionsArray[i];
+    }
+    instructionsTextField.htmlText = "<font color='#" + colorSchemeObject.colorTextBody + "'>" + instructionsTextTemp + "</font>";
+    instructionsTextField.autoSize = "left";
+    if (lessonMode) {
+        lessonbuttonClip._y = instructionsTextField._y+instructionsTextField._height+(lessonbuttonClip._height/2);
+    }
+    function_Report("instructions_Display", "end", 0);
+} 
+
+function item_Display() {
+	function_Report("item_Display", "begin", 0);
+	// compute spacing parameters
+	var displayWidth = itemArea._width;
+	var displayHeight = itemArea._height;
+	var displayWidth_noSpacing = displayWidth - ((selectionTotal - 1) * itemSpacing);
+	trace("displayWidth: " + displayWidth);
+	trace("displayWidth_noSpacing: " + displayWidth_noSpacing);
+	//var itemWidth = Math.floor(displayWidth_noSpacing/selectionTotal);
+	//itemSpacing = Math.floor(displayWidth-(itemWidth*selectionTotal))/(selectionTotal-1);
+	//find total width of items at initial size, find maximum height of items
+	var itemsData = items_GetData(100);
+	trace("itemsData.widthTotal: " + itemsData.widthTotal);
+	var itemScaleWidth = displayWidth_noSpacing / itemsData.widthTotal;
+	var itemScaleHeight = displayHeight / itemsData.heightMax;
+	trace("itemScaleWidth: " + itemScaleWidth);
+	trace("itemScaleHeight: " + itemScaleHeight);
+	var tempScale = ((itemScaleWidth < itemScaleHeight) ? itemScaleWidth : itemScaleHeight) * 100;
+	trace("tempScale: " + tempScale);
+	var itemScale = Math.floor(((itemScaleWidth < itemScaleHeight) ? itemScaleWidth : itemScaleHeight) * 100);
+	trace("itemScale: " + itemScale);
+	itemsData = items_GetData(itemScale);
+	trace("itemsData.widthTotal: " + itemsData.widthTotal);
+	var scaleDelta = (itemsData.widthTotal < displayWidth_noSpacing) ? 1 : -1;
+	trace("scaleDelta: " + scaleDelta);
+	var flag = true;
+	var counter = 0;
+	helpClip.helpTextField.text += "item_Display while\r";
+	while (flag) {
+		counter++;
+		itemsData = items_GetData(itemScale);
+		trace("SCALE " + itemScale + "%: " + itemsData.widthTotal);
+		if (scaleDelta == 1) {
+			if ((itemsData.widthTotal > displayWidth_noSpacing) or (itemsData.heightMax > displayHeight)) {
+				itemScale += -scaleDelta;
+				flag = false;
+			}
+		} else {
+			if ((itemsData.widthTotal < displayWidth_noSpacing) and (itemsData.heightMax < displayHeight)) {
+				flag = false;
+			}
+		}
+		if (flag) {
+			itemScale += scaleDelta;
+		}
+		if (counter > 100) {
+			flag = false;
+		}
+	}
+	helpClip.helpTextField.text += "item_Display counter: " + counter + "\r";
+	
+	helpClip.helpTextField.text += "SCALE: " + itemScale + "\r";
+	helpClip.helpTextField.text += "scaleDelta: " + scaleDelta + "\r";
+	helpClip.helpTextField.text += "widthTotal: " + itemsData.widthTotal + "\r";
+	helpClip.helpTextField.text += "displayWidth: " + displayWidth_noSpacing + "\r";
+	helpClip.helpTextField.text += "heightMax: " + itemsData.heightMax + "\r";
+	helpClip.helpTextField.text += "displayHeight: " + displayHeight + "\r";
+	
+	itemsData = items_GetData(itemScale);
+	itemSpacingFinal = Math.floor((displayWidth - itemsData.widthTotal) / (selectionTotal - 1));
+	trace("itemSpacingFinal: " + itemSpacingFinal);
+	// scale and space items, program
+	var itemLeft = itemArea._x - (itemArea._width / 2);
+	for (var i = 0; i < selectionTotal; i++) {
+		itemObject = item_Get(selectionArray[i]);
+		trace("itemObject: " + itemObject);
+//		itemObject._alpha = 10;
+		itemObject._xscale = itemObject._yscale = itemScale;
+		var itemImageWidth = itemObject.imageWidth * (itemScale / 100);
+		var itemLabelWidth = itemObject.labelWidth;
+		var itemImageHeight = itemObject.imageHeight * (itemScale / 100);
+		itemObject.itemWidthScaled = (itemImageWidth > itemLabelWidth) ? itemImageWidth : itemLabelWidth;
+		itemObject.itemHeightScaled = itemImageHeight;
+		itemObject.xMin *= (itemScale / 100);
+		itemObject.xMax *= (itemScale / 100);
+		itemObject.yMin *= (itemScale / 100);
+		itemObject.yMax *= (itemScale / 100);
+		itemObject._x = itemLeft + (itemObject.itemWidthScaled / 2);
+		itemObject._y = Math.round(itemArea._y);
+		itemLabel_Display(itemObject, i);
+		itemLeft += itemObject.itemWidthScaled + itemSpacingFinal;
+		itemObject._visible = true;
+		itemObject.onRollOver = function() {
+			trace("roll over");
+			trace("flagMouseDown: "+flagMouseDown);
+			if (flagMouseDown<>true) {
+				selectedObject = this;
+				var componentNum = selectedObject._name.split("_")[1];
+				var componentName = "selectedObject."+"component_"+componentNum;
+				componentObject = eval(componentName);
+				trace(componentObject);
+			}
+		}
+		itemObject.onRollOut = function() {
+			selectedObject = (selectedObject == this) ? null : selectedObject;
+		}
+		itemObject.onPress = function() {
+//			if (not manipulationmodeFlag) {
+				drag_Start(this);
+//			}
+		}
+		itemObject.onRelease = itemObject.onReleaseOutside=function () {
+//			if (not manipulationmodeFlag) {
+				drag_Stop(this);
+//			}
+		}
+		itemObject.tabEnabled = false;
+	}
+	//set correct x,y position for all items
+	var itemLeft = itemArea._x - (itemArea._width / 2);
+	trace("selectionArray: " + selectionArray);
+	trace("rankOrder: " + rankOrder);
+	for (var i = 0; i < selectionTotal; i++) {
+		itemObject = item_Get(rankOrder[i]);
+		itemObject.correctX = itemLeft + (itemObject.itemWidthScaled / 2);
+		itemObject.correctY = Math.round(itemArea._y);
+		itemLeft += itemObject.itemWidthScaled + itemSpacingFinal;
+		trace(itemObject._x + "," + itemObject._y + " --> " + itemObject.correctX + "," + itemObject.correctY);
+	}
+	var itemHeightMax = itemsData.heightMax;
+	arrowClip._width = itemArea._width;
+	arrowClip._x = manipulationModeClip._x=itemArea._x;
+	trace("itemHeightMax: "+itemHeightMax);
+	trace("itemScale: "+itemScale);
+	trace("arrowClip._height: "+arrowClip._height);
+	trace("itemArea._y: "+itemArea._y);
+	arrowClip._y = manipulationModeClip._y = itemArea._y - (itemHeightMax / 2) - (arrowClip._height / 2) - 20;
+	rangebeginTextField._x = arrowClip._x - ((arrowClip._width / 2) * .85);
+	rangeendTextField._x = arrowClip._x + ((arrowClip._width / 2) * .85) - rangeendTextField._width;
+	rangebeginTextField._y = rangeendTextField._y = arrowClip._y - (rangebeginTextField._height / 2) - 1;
+	function_Report("item_Display", "end", 0);
+}
+
+function item_Duplicate(itemOriginal, itemDuplicateName) {
+	itemOriginal.duplicateMovieClip(itemDuplicateName, level++);
+}
+
+function item_Fade(dragObject, fadeStatus) {
+	for (var i = 0; i<selectionTotal; i++) {
+		var itemObject = item_Get(selectionArray[i]);
+		if (itemObject<>dragObject) {
+			if (fadeStatus) {
+				item_FadeOut(itemObject);
+			} else {
+				item_FadeIn(itemObject);
+			}
+		}
+	}
+}
+
+function item_FadeIn(itemObject) {
+	itemObject.createEmptyMovieClip("fadeClip", level++);
+	delete this.onEnterFrame;
+	itemObject.fadeClip.onEnterFrame = function() {
+		this._parent._alpha += 3;
+		if (this._parent._alpha>=100) {
+			this._parent._alpha = 100;
+			if (rationaleMode) {
+				if (myRoot.rationalebuttonClip._visible == false) {
+					rationaleButton_Update();
+				}
+				myRoot.rationalebuttonClip._visible = true;
+			}
+			this.removeMovieClip();
+		}
+	}
+}
+
+function item_FadeOut(itemObject) {
+	itemObject.createEmptyMovieClip("fadeClip", level++);
+	itemObject.fadeClip.onEnterFrame = function() {
+		this._parent._alpha -= 3;
+		if (this._parent._alpha<50) {
+			this.removeMovieClip();
+		}
+	}
+}
+
+function item_Get(itemNum) {
+	var itemName = "item_" + itemNum;
+	var itemObject = eval(itemName);
+	return itemObject;
+}
+
+function item_RepositionSetup(dragObject) {
+	var itemLeft = itemArea._x-(itemArea._width/2);
+	for (var i = 0; i<selectionTotal; i++) {
+		itemObject = item_Get(selectionArray[i]);
+		if (itemObject<>dragObject) {
+			delete itemObject.onEnterFrame;
+		}
+		itemObject.newX = itemLeft + (itemObject.itemWidthScaled / 2);
+		itemLeft += itemObject.itemWidthScaled + itemSpacingFinal;
+	}
+	for (var i = 0; i<selectionTotal; i++) {
+		itemObject = item_Get(selectionArray[i]);
+		if (itemObject._x<>itemObject.newX) {
+		}
+		if ((itemObject.newX<>itemObject._x) and (itemObject.newX<>null)) {
+			if (itemObject<>dragObject) {
+				itemObject.directionMult = (itemObject.newX>itemObject._x) ? 1 : -1;
+				var threshhold = (dragObject.itemWidthScaled + itemSpacingFinal) / 4;
+				trace("threshhold #2: " + threshhold);
+				itemObject.itemThreshhold = dragObject._x+(itemObject.directionMult*offsetRatio*threshhold);
+				// if dragObject is too close to itemObject, pop itemObject past dragObject
+				if (itemObject.directionMult == 1) {
+					if ((itemObject._x<itemObject.itemThreshhold) and (Math.abs(dragObject._x-itemObject._x)<threshhold)) {
+						trace("jumping #1: "+(itemObject.directionMult*(threshhold+5)));
+						itemObject._x = dragObject._x+(itemObject.directionMult*(threshhold+5));
+						if (itemObject._x>itemObject.newX) {
+							itemObject._x = itemObject.newX;
+						}
+					}
+				} else {
+					if ((itemObject._x>itemObject.itemThreshhold) and (Math.abs(dragObject._x-itemObject._x)<threshhold)) {
+						trace("jumping #2: "+(itemObject.directionMult*(threshhold+5)));
+						itemObject._x = dragObject._x+(itemObject.directionMult*(threshhold+5));
+						if (itemObject._x<itemObject.newX) {
+							itemObject._x = itemObject.newX;
+						}
+					}
+				}
+				if (Math.abs(itemObject._x-itemObject.newX)>itemDeltaX) {
+					itemObject.onEnterFrame = function() {
+						item_Reposition(this);
+					}
+				} else {
+					itemObject._x = itemObject.newX;
+					delete itemObject.onEnterFrame;
+					itemObject.newX = null;
+				}
+			}
+		}
+	}
+}
+
+function item_Reposition(itemObject) {
+	itemObject._x += (itemObject.directionMult*itemDeltaX);
+	if (Math.abs(itemObject._x-itemObject.newX)<(itemDeltaX*.51)) {
+		itemObject._x = itemObject.newX;
+		itemObject.newX = null;
+		delete itemObject.onEnterFrame;
+	}
+}
+
+// select items to be ranked
+function item_Select() {
+	function_Report("item_Select", "begin", 0);
+	variable_Report("item_Select", "referenced", "selectionData,itemTotal");
+	// use user's answers if any, otherwise select random items and order randomly
+	selectionArray = [];
+	if (selectionData <> String(selectionData)) {
+		trace("not a string");
+		var flagRequired = false;
+		var flagPool = false;
+		selectionTotal = (selectionData > 0) ? selectionData : selectionDefault;
+		trace("selectionTotal: " + selectionTotal);
+	} else {
+		trace("string");
+		var selectionDataArray = selectionData.split(delim_1);
+		selectionTotal = (Number(selectionDataArray[0]) > 0) ? selectionDataArray[0] : selectionDefault;
+		var requiredArray = selectionDataArray[1].split(delim_0);
+		var flagRequired = (requiredArray[0].length > 0) ? true : false;
+		var poolArray = selectionDataArray.slice(2);
+		var flagPool = (poolArray[0].length > 0) ? true : false;
+	}
+	selectionTotal = (selectionTotal < itemTotal) ? selectionTotal : itemTotal;
+	if ((selectionTotal == itemTotal) or ((not flagRequired) and (not flagPool))) {
+		requiredArray = ["0-" + (itemTotal - 1)];
+		flagRequired = true;
+	}
+	trace("flagRequired: " + flagRequired);
+	trace("flagPool: " + flagPool);
+	if (flagRequired) {
+		selectionArray = selectionData_Process(requiredArray);
+		selectionArray = array_Reduce(selectionArray);
+		if (not flagPool) {
+			poolArray = ["0/" + itemTotal + ":" + "0-" + (itemTotal - 1)];
+			flagPool = true;
+		}
+	}
+	var selectionSubtotal = selectionArray.length;
+	var selectionDeficit = (selectionTotal - selectionSubtotal);
+	trace("selectionSubtotal: " + selectionSubtotal);
+	trace("selectionDeficit: " + selectionDeficit);
+	//process pools
+	if ((selectionDeficit > 0) and (flagPool)) {
+		var poolRequiredArray = [];
+		for (i = 0; i < poolArray.length; i++) {
+			poolArray[i] = poolArray[i].split(":");
+			poolArray[i][0] = poolArray[i][0].split("/");
+			poolArray[i][1] = poolArray[i][1].split(delim_1);
+			poolArray[i][1] = selectionData_Process(poolArray[i][1]);
+			if (poolArray[i][0][0].length == 0) {
+				poolArray[i][0][0] = 0;
+			}
+			if (poolArray[i][0][1].length == 0) {
+				poolArray[i][0][1] = poolArray[i][1].length;
+			}
+			trace(poolArray[i][0][0] + "/" + poolArray[i][0][1] + ":" + poolArray[i][1]);
+			if (poolArray[i][0][0] > 0) {
+				var tempArray = array_Choose(poolArray[i][1],poolArray[i][0][0]);
+				poolRequiredArray = poolRequiredArray.concat(tempArray);
+			}
+			poolRequiredArray = array_Reduce(poolRequiredArray);
+			var requiredTotal = poolRequiredArray.length;
+			if (selectionDeficit < requiredTotal) {
+				poolRequiredArray = array_Choose(poolRequiredArray,selectionDeficit);
+			}
+		}
+		selectionArray = selectionArray.concat(poolRequiredArray);
+		selectionArray = array_Reduce(selectionArray);
+		var selectionSubtotal = selectionArray.length;
+		selectionDeficit = selectionTotal - selectionSubtotal;
+		trace("selectionDeficit: " + selectionDeficit);
+		if (selectionSubtotal < selectionTotal) {
+			var flag = true;
+			while (flag) {	//choose optional items, make sure there are enough even after duplicates are eliiminated
+				var poolOptionalArray = [];
+				for (i = 0; i < poolArray.length; i++) {
+					tempArray = array_Choose(poolArray[i][1],(poolArray[i][0][1] - poolArray[i][0][0]));
+					trace("tempArray: " + tempArray);
+					poolOptionalArray = poolOptionalArray.concat(tempArray);
+				}
+				trace("poolOptionalArray: " + poolOptionalArray);
+				var selectionTempArray = (selectionArray.length > 0) ? selectionArray.concat(poolOptionalArray) : poolOptionalArray;
+				selectionTempArray = array_Reduce(selectionTempArray);
+				trace("selectionTotal: " + selectionTotal);
+				trace("selectionTempArray.length: " + selectionTempArray.length);
+				if (selectionTempArray.length >= selectionTotal) {
+					flag = false;
+				}
+			}
+			flag = true
+			while (flag) {
+				var poolOptionalTempArray = array_Choose(poolOptionalArray,selectionDeficit);
+				selectionTempArray = selectionArray.concat(poolOptionalTempArray);
+				selectionTempArray = array_Reduce(selectionTempArray);
+				if (selectionTempArray.length == selectionTotal) {
+					flag = false;
+				}
+			}
+			poolOptionalArray = array_Choose(poolOptionalArray,selectionDeficit);
+			trace("poolOptionalArray: " + poolOptionalArray);
+			selectionArray = selectionArray.concat(poolOptionalTempArray);
+		}
+	}
+	selectionArray = array_Choose(selectionArray,selectiontotal);
+	trace("selectionArray: " + selectionArray);
+	trace("rankOrder: " + rankOrder);
+	rankOrder_Prune();
+	trace("selectionArray: " + selectionArray);
+	trace("rankOrder: " + rankOrder);
+	var grade = 100;
+	while (grade > .66) {
+		selectionArray = array_Choose(rankOrder,selectionTotal);
+		grade = grade_Get();
+		trace("grade: " + grade);
+	}
+	variable_Report("item_Select", "defined", "selectionArray,selectionTotal");
+	function_Report("item_Select", "end", 0);
+}
+
+function items_Activate(activationStatus) {
+	for (var i = 0; i<selectionTotal; i++) {
+		itemObject = item_Get(selectionArray[i]);
+		if (activationStatus) {
+			itemObject.onRollOver = function() {
+				selectedObject = this;
+			};
+			itemObject.onRollOut = function() {
+				selectedObject = (selectedObject == this) ? null : selectedObject;
+			};
+			itemObject.onPress = function() {
+				drag_Start(this);
+			};
+			itemObject.onRelease = itemObject.onReleaseOutside=function () {
+				drag_Stop(this);
+			}
+			itemObject.tabEnabled = false;
+		} else {
+			delete itemObject.onPress;
+			delete itemObject.onRelease;
+			delete itemObject.onReleaseOutside;
+		}
+	}
+}
+
+function items_GetData (itemScale) {
+	var widthTotal = 0;
+	var heightMax = 0;
+	for (var i = 0; i < selectionTotal; i++) {
+		var itemObject = item_Get(selectionArray[i]);
+		itemObject._xscale = itemObject._yscale = 100;
+		var itemImageWidth = itemObject.imageWidth * (itemScale / 100);
+		var itemImageHeight = itemObject.imageHeight * (itemScale / 100);
+		var itemLabelWidth = itemObject.labelWidth;
+		trace("itemImageWidth: " + itemImageWidth);
+		trace("itemLabelWidth: " + itemLabelWidth);
+		trace("itemImageHeight: " + itemImageHeight);
+		widthTotal += (itemImageWidth > itemLabelWidth) ? itemImageWidth : itemLabelWidth;
+		trace("widthTotal: " + widthTotal);
+		heightMax = (itemImageHeight > heightMax) ? itemImageHeight : heightMax;
+		trace("heightMax: " + heightMax);
+	}
+	return {widthTotal:widthTotal,heightMax:heightMax};
+}
+
+function itemArea_Set() {
+	trace("bigN._y: "+bigN._y);
+	trace("bigN._height / 2: "+(bigN._height/2));
+	if (lessonMode) {
+		var itemAreaTop = lessonbuttonClip._y + (lessonbuttonClip._height/2) + arrowClip._height + 25;
+	} else {
+		var itemAreaTop = instructionsTextField._y + instructionsTextField._height + arrowClip._height + 30;
+	}
+	var itemAreaBottom = tryagainButtonClip._y-(tryagainButtonClip._height/2)-labelHeight;
+	var itemAreaHeight = itemAreaBottom-itemAreaTop;
+	var itemAreaY = itemAreaTop+(itemAreaHeight/2);
+	trace("itemAreaBottom: "+itemAreaBottom);
+	trace("itemAreaHeight: "+itemAreaHeight);
+	trace("itemAreaY: "+itemAreaY);
+	itemArea._width = myRoot_width-10;
+	trace("itemArea._width: " + itemArea._width);
+	itemArea._height = itemAreaHeight;
+	trace("itemArea._height: "+itemArea._height);
+	itemArea._y = itemAreaY;
+	trace("iteamArea._y: "+iteamArea._y);
+}
+
+
+function itemFeedback_Display(itemObject, itemNum) {
+	function_Report("itemFeedback_Display", "begin", 1);
+	variable_Report("itemFeedback_Display", "referenced", "itemFeedback?");
+	trace("itemObject: "+itemObject);
+	var labelObject = itemObject.labelTextField;
+	trace("labelObject: "+labelObject);
+	if (labelObject.htmlText<>"") {
+		labelObject.htmlText += "\r";
+	}
+	trace("itemLabels: "+itemLabels);
+	trace("itemObject.itemValueIndex: "+itemObject.itemValueIndex);
+	if (cyclicMode) {
+		labelObject.htmlText += itemlabelTextStyleHTML + string_Parse(itemLabels[itemObject.itemValueIndex][1]) + "</font>";
+	} else {
+		labelObject.htmlText += itemlabelTextStyleHTML + string_Parse(itemLabels[selectionArray[itemNum]][1]) + "</font>";
+	}
+	labelObject.autoSize = "center";
+	labelObject._x = -(labelObject._width / 2);
+//	labelObject.setTextFormat(itemlabelFormat);
+	function_Report("itemFeedback_Display", "end", 1);
+}
+
+function itemHitArea_Create(itemObject) {
+	itemObject.createEmptyMovieClip("itemHitArea", level++);
+	itemObject.itemHitArea.beginFill(0x000000, 0);
+	itemObject.itemHitArea.lineStyle(1, 0x000000, 0);
+	itemObject.itemHitArea.moveTo(itemObject.xMin, itemObject.yMin);
+	itemObject.itemHitArea.lineTo(itemObject.xMax, itemObject.yMin);
+	itemObject.itemHitArea.lineTo(itemObject.xMax, itemObject.yMax);
+	itemObject.itemHitArea.lineTo(itemObject.xMin, itemObject.yMax);
+	itemObject.itemHitArea.endFill();
+}
+
+function itemLabel_Display(itemObject, itemNum) {
+	function_Report("itemLabel_Display", "begin", 1);
+	variable_Report("itemLabel_Display", "referenced", "selectionArray");
+	// itemObject.itemWidth = itemObject._width;
+	var labelWidth = itemObject.labelWidth;
+	var labelName = "labelTextField";
+	itemObject.createTextField(labelName, level++, 0, 0, 50, 20);
+	var labelObject = eval("itemObject."+labelName);
+	labelObject._xscale = labelObject._yscale=(100/itemObject._xscale)*100;
+	labelObject.embedFonts = true;
+	labelObject.html = true;
+	labelObject.htmlText = itemlabelTextStyleHTML + string_Parse(itemLabels[selectionArray[itemNum]][0]) + "</font>";
+	trace("htmlText: " + labelObject.htmlText);
+	labelObject.multiline = true;
+	labelObject.autoSize = "center";
+	labelObject.selectable = false;
+	var itemWidthPlus = itemObject.itemWidthScaled + itemSpacingFinal - 10;
+	if (labelWidth > itemWidthPlus) {
+		labelObject._xscale *= (itemWidthPlus / labelWidth);
+	}
+	var flag = true;
+
+	var xOld = 0;
+	helpClip.helpTextField.text += "itemLabel_Display while\r";
+	while (flag) {
+		labelObject._x = -(labelObject._width / 2);
+		if (labelObject._x == xOld) {
+			flag = false;
+		} else {
+			xOld = labelObject._x;
+		}
+	}
+	labelObject._y = itemObject.imageHeight / 2;
+	function_Report("itemLabel_Display", "end", 1);
+}
+
+function itemLabels_Setup() {
+	function_Report("itemLabels_Setup", "begin", 0);
+	var labelName = "labelTextField";
+	myRoot.createTextField(labelName, level++, 0, -100, 500, 100);
+	var labelObject = eval(labelName);
+	trace("labelObject: " + labelObject);
+	labelObject.embedFonts = true;
+	var labelWidthMax = 0;
+	var labelHeightMax = 0;
+	for (var i = 0; i<itemLabels.length; i++) {
+		trace("i: "+i);
+		labelObject.html = true;
+		trace("itemLabels.length: " + itemLabels.length);
+		labelObject.htmlText = itemlabelTextStyleHTML + itemLabels[i][0] + "\n" + itemLabels[i][1] + "</font>";
+		labelObject.multiline = true;
+		labelObject.autoSize = "center";
+		trace("labelObject._width: "+labelObject._width);
+		var labelWidthPrevious = 0;
+		var labelWidthCurrent = 1;
+		helpClip.helpTextField.text += "itemLabels_Setup while\r";
+		while (labelWidthCurrent <> labelWidthPrevious) {
+			labelWidthPrevious = labelWidthCurrent;
+			labelWidthCurrent = labelObject._width;
+			trace("labelWidthPrevious: "+labelWidthPrevious);
+			trace("labelWidthCurrent: "+labelWidthCurrent);
+		}
+		var itemName = "item_" + i;
+		var itemObject = eval(itemName);
+		itemObject.labelWidth = labelObject._width;
+		if (labelObject._width > labelWidthMax) {
+			labelWidthMax = labelObject._width;
+		}
+		if (labelObject._height > labelHeightMax) {
+			labelHeightMax = labelObject._height;
+		}
+	}
+	trace("labelObject.text: "+labelObject.text);
+	labelWidth = labelWidthMax;
+	trace("labelWidth (Original): "+labelWidth);
+	labelHeight = ((itemLabels[i][0].length == 0) and (itemLabels[i][1].length == 0)) ? 0 : labelHeightMax;
+	trace("labelHeight: "+labelHeight);
+	labelObject.removeTextField();
+	variable_Report("itemLabels_Setup", "defined", "labelWidth,labelHeight");
+	function_Report("itemLabels_Setup", "end", 0);
+}
+
+function itemValueIndex_Get(itemValue) {
+	function_Report("itemValueIndex_Get", "begin", 2);
+	variable_Report("itemValueIndex_Get", "referenced", "itemValues");
+	trace("itemValue: "+itemValue);
+	trace("itemValues: "+itemValues);
+	for (var i = 0; i<itemValues.length; i++) {
+		if (itemValues[i]>itemValue) {
+			break;
+		}
+	}
+	i -= 1;
+	trace("i: "+i);
+	function_Report("itemValueIndex_Get", "end", 2);
+	return i;
+}
+
+function lesson_Display() {
+	lock_Toggle(true, 20000, 50);
+	if (lessonFlag) {
+		trace("displaying lesson pages");
+		lessonObject._visible = false;
+		trace("hiding: " + lessonObject);
+		var lessonName = "lesson_" + lessonPage;
+		lessonObject = eval(lessonName);
+		lessonObject._visible = true;
+		trace("displaying: " + lessonObject);
+	} else {
+		trace("loading lesson pages");
+		lessonFlag = true;
+		var lessonDepth = 26000;
+		myRoot.attachMovie("lessonClip", "lesson_1", lessonDepth);
+		lessonPageTotal = lesson_1._totalframes;
+		var buttonbarWidth = 10;
+		var buttonbarHeight = 30;
+		var lessonHeightMax = 0;
+		var lessonWidthAllowed = myRoot_width * .95;
+		var lessonHeightAllowed = myRoot_height * .95;
+		for (var i = 0; i < lessonPageTotal; i++) {
+			lesson_1.gotoAndStop(i + 1);
+			var boundsObject = lesson_1.getBounds(lesson_1);
+			var lessonWidth = boundsObject.xMax - boundsObject.xMin;
+			var lessonHeight = boundsObject.yMax - boundsObject.yMin;
+
+			lessonWidth = (lessonWidth > lessonWidthAllowed) ? lessonWidthAllowed : lessonWidth;
+			lessonHeight = (lessonHeight > lessonHeightAllowed) ? lessonHeightAllowed : lessonHeight;
+			lessonHeightMax = (lessonHeight > lessonHeightMax) ? lessonHeight : lessonHeightMax;
+		}
+		lesson_1.lessonBottom = ((myRoot_height + lessonHeightMax) / 2) - 15;
+		
+		for (var i = 0; i < lessonPageTotal; i++) {
+			var lessonName = "lesson_" + (i + 1);
+
+			if (i > 0) {
+				myRoot.attachMovie("lessonClip",lessonName,lessonDepth + i);
+			}
+			
+			lessonObject = eval(lessonName);
+			
+			lessonObject.gotoAndStop(i + 1);
+			lessonObject.lessonBottom = lesson_1.lessonBottom;
+			lessonObject._visible = false;
+			
+			//create buttonBar
+			lessonObject.createEmptyMovieClip("buttonBar", level++);
+
+			//create buttonBarBox
+			lessonObject.buttonBar.createEmptyMovieClip("buttonBarBox", level++);
+			lessonObject.buttonBar.buttonBarBox._x = lessonObject.buttonBar.buttonBarBox._y = 0;
+			lessonObject.buttonBar.buttonBarBox.beginFill(0xEECCBB, 100);
+			lessonObject.buttonBar.buttonBarBox.lineStyle(0, 0x000000, 0);
+			lessonObject.buttonBar.buttonBarBox.moveTo(0, 0);
+			lessonObject.buttonBar.buttonBarBox.lineTo(buttonbarWidth, 0);
+			lessonObject.buttonBar.buttonBarBox.lineTo(buttonbarWidth, buttonbarHeight);
+			lessonObject.buttonBar.buttonBarBox.lineTo(0, buttonbarHeight);
+			lessonObject.buttonBar.buttonBarBox.endFill();
+
+			//set up closeButton
+			lessonObject.buttonBar.attachMovie("closeButton2","buttonClose",level++);
+			lessonObject.buttonBar.buttonClose.onRelease = function () {
+				this._parent._parent._visible = false;
+				if (myRoot.locked <> true) {
+					myRoot.lock_Toggle(false);
+				} else {
+					myRoot.lock_Toggle(true,10000,0);
+				}
+			}
+			lessonobject.buttonBar.buttonClose.tabEnabled = false;
+			if (lessonPageTotal > 1) {
+				with (lessonObject.buttonBar) {
+					attachMovie("previousButton","buttonPrevious",level++);
+					attachMovie("nextButton","buttonNext",level++);
+				}
+			}
+			lessonObject.boundsObject = lessonObject.getBounds(lessonObject);
+			trace(lessonObject.boundsObject.xMin + "," + lessonObject.boundsObject.xMax + "," + lessonObject.boundsObject.yMin + "," + lessonObject.boundsObject.yMax);
+			trace(lessonObject._height);
+			
+			//position lessonObject
+			lessonObject._x = (myRoot_width / 2) - (lessonObject.boundsObject.xMax + lessonObject.boundsObject.xMin)/2;
+			lessonObject._y = lessonObject.lessonBottom - lessonObject.boundsObject.yMax;
+
+			//position buttonBar
+			lessonObject.buttonBar._x = lessonObject.boundsObject.xMin;
+			lessonObject.buttonBar._y = lessonObject.boundsObject.yMax;
+			var barWidth = lessonObject.boundsObject.xMax - lessonObject.boundsObject.xMin;
+			lessonObject.buttonBar.buttonBarBox._width = barWidth;
+
+			//position buttonClose
+			lessonObject.buttonBar.buttonClose._x = lessonObject.buttonBar.buttonBarBox._width - (lessonObject.buttonBar.buttonClose._width / 2) - 10;
+			lessonObject.buttonBar.buttonClose._y = lessonObject.buttonBar.buttonBarBox._y + (lessonObject.buttonBar.buttonBarBox._height / 2) - 1;
+			lessonObject.buttonBar.buttonClose.tabEnabled = false;
+
+			if (lessonPageTotal > 1) {
+				//create page number button clip
+				lessonObject.buttonBar.createEmptyMovieClip("pagenumClip",level++);
+				
+				//create page number buttons
+				for (var j = 0; j < lessonPageTotal; j++) {
+					pagenumObject = lessonObject.buttonBar.pagenumClip.createEmptyMovieClip("pagenum_" + (j + 1),level++);
+					
+					pagenumObject.createEmptyMovieClip("button",level++);
+					pagenumObject.button.lineStyle(0,0x000000,0);
+					pagenumObject.button.buttonColor = (j == i) ? 0x00FF00 : 0x009900;
+					pagenumObject.button.beginFill(pagenumObject.button.buttonColor,50);
+					draw_Circle(pagenumObject.button,0,0,10);
+					pagenumObject.button.endFill();
+					pagenumObject._x = (pagenumObject.button._width / 2) + ((pagenumObject.button._width + 5) * j);
+					pagenumObject._y = 0;
+					
+					if (j <> i) {
+						pagenumObject.button.onRollOver = function () {
+							this.colorObject = new Color(this);
+							this.colorObject.setRGB(0xFFFF00);
+						}
+						pagenumObject.button.onRollOut = pagenumObject.button.onDragOut = function () {
+							this.colorObject = new Color(this);
+							this.colorObject.setRGB(this.buttonColor);
+						}
+						pagenumObject.button.onRelease = function () {
+							this.pagenum = Number(this._parent._name.split("_")[1]);
+							trace("pagenum: " + this.pagenum);
+							myRoot.lessonPage = this.pagenum;
+							myRoot.lesson_Display();
+						}
+						pagenumObject.button.tabEnabled = false;
+					}
+					
+					//create page number
+					pagenumObject.createTextField("pagenumTextField",level++,0,0,150,50);
+					with (pagenumObject.pagenumTextField) {
+						html = false;
+						selectable = false;
+						multiline = false;
+						wordWrap = false;
+						embedFonts = true;
+						text = j + 1;
+						setTextFormat(pagenumFormat);
+						if (j == i) {
+	//						textColor = 0x00FF00;
+						}
+						autoSize = "left";
+						_x = -(_width / 2);
+						_y = -(_height / 2);
+					}
+				}
+				lessonObject.buttonBar.pagenumClip._x = (lessonObject.buttonBar.buttonBarBox._width - lessonObject.buttonBar.pagenumClip._width) / 2;
+				lessonObject.buttonBar.pagenumClip._y = lessonObject.buttonBar.buttonBarBox._y + (lessonObject.buttonBar.buttonBarBox._height / 2) - 1;
+	
+				//position buttonPrevious
+				lessonObject.buttonBar.buttonPrevious._x = lessonObject.buttonBar.pagenumClip._x - 25;
+				lessonObject.buttonBar.buttonPrevious._y = buttonbarHeight / 2;
+				lessonObject.buttonBar.buttonPrevious.tabEnabled = false;
+	
+				//position buttonNext
+				lessonObject.buttonBar.buttonNext._x = lessonObject.buttonBar.pagenumClip._x + lessonObject.buttonBar.pagenumClip._width + 25;
+				lessonObject.buttonBar.buttonNext._y = buttonbarHeight / 2;
+				lessonObject.buttonBar.buttonNext.tabEnabled = false;
+			}
+
+			//create lessonBorder
+			lessonObject.createEmptyMovieClip("lessonBorder", level++);
+			lessonObject.lessonBorder._x = lessonObject.boundsObject.xMin;
+			lessonObject.lessonBorder._y = lessonObject.boundsObject.yMin;
+			lessonObject.lessonBorder.beginFill(0x000000, 0);
+			lessonObject.lessonBorder.lineStyle(5, 0xCC6633, 100);
+			lessonObject.lessonBorder.moveTo(0, 0);
+			lessonObject.lessonBorder.lineTo(lessonObject.boundsObject.xMax - lessonObject.boundsObject.xMin, 0);
+			lessonObject.lessonBorder.lineTo(lessonObject.boundsObject.xMax - lessonObject.boundsObject.xMin, lessonObject.boundsObject.yMax - lessonObject.boundsObject.yMin + buttonbarHeight);
+			lessonObject.lessonBorder.lineTo(0, lessonObject.boundsObject.yMax - lessonObject.boundsObject.yMin + buttonbarHeight);
+			lessonObject.lessonBorder.endFill();
+		}
+		lesson_Display();
+	}
+	if (lessonPage > 1) {
+		var buttonColor = new Color(lessonObject.buttonBar.buttonPrevious);
+		lessonObject.buttonBar.buttonColor.setRGB(0x009900);
+		lessonObject.buttonBar.buttonPrevious.onRollOver = function () {
+			this.colorObject = new Color(this);
+			this.colorObject.setRGB(0xFFFF00);
+		}
+		lessonObject.buttonBar.buttonPrevious.onRollOut = lessonObject.buttonBar.buttonPrevious.onDragOut = function () {
+			this.colorObject = new Color(this);
+			this.colorObject.setRGB(0x009900);
+		}
+		lessonObject.buttonBar.buttonPrevious.onRelease = function () {
+			myRoot.lessonPage--;
+			myRoot.lesson_Display();
+		}
+	} else {
+		lessonObject.buttonBar.buttonPrevious._alpha = 30;
+		lessonObject.buttonBar.buttonPrevious.enabled = false;
+		var buttonColor = new Color(lessonObject.buttonBar.buttonPrevious);
+		buttonColor.setRGB(0x000000);
+	}
+	if (lessonPage < lessonPageTotal) {
+		var buttonColor = new Color(lessonObject.buttonBar.buttonNext);
+		buttonColor.setRGB(0x009900);
+		lessonObject.buttonBar.buttonNext.onRollOver = function () {
+			this.colorObject = new Color(this);
+			this.colorObject.setRGB(0xFFFF00);
+		}
+		lessonObject.buttonBar.buttonNext.onRollOut = lessonObject.buttonBar.buttonNext.onDragOut = function () {
+			this.colorObject = new Color(this);
+			this.colorObject.setRGB(0x009900);
+		}
+		lessonObject.buttonBar.buttonNext.onRelease = function () {
+			myRoot.lessonPage++;
+			myRoot.lesson_Display();
+		}
+	} else {
+		lessonObject.buttonBar.buttonNext._alpha = 30;
+		lessonObject.buttonBar.buttonNext.enabled = false;
+		var buttonColor = new Color(lessonObject.buttonBar.buttonNext);
+		buttonColor.setRGB(0x000000);
+	}
+}
+
+function lesson_Remove() {
+	lessonFlag = false;
+	for (var i = 0; i < lessonPageTotal; i++) {
+		var lessonName = "lesson_" + (i + 1);
+		var lessonObject = eval(lessonName);
+		lessonObject.removeMovieClip();
+	}
+	lessonPage = 1;
+}
+
+function lock_Toggle(lockStatus, lockLevel, lockAlpha) {
+	if (lockStatus) {
+		if (lockClip == null) {
+			myRoot.createEmptyMovieClip("lockClip", lockLevel);
+			lockClip.beginFill("0x" + colorSchemeObject.colorBackground);
+			lockClip.moveTo(0, 0);
+			lockClip.lineTo(myRoot_width, 0);
+			lockClip.lineTo(myRoot_width, myRoot_height);
+			lockClip.lineTo(0, myRoot_height);
+			lockClip.lineTo(0, 0);
+			lockClip.endFill();
+			lockClip.onRelease = function() {
+				// do nothing, capture all mouse clicks
+			}
+			lockClip.tabEnabled = false;
+			lockClip.useHandCursor = false;
+		} else {
+			lockClip._visible = true;
+		}
+		lockClip._alpha = lockAlpha;
+		lockClip.swapDepths(lockLevel);
+	} else {
+		if (locked) {
+			lockClip._alpha = lockAlpha;
+			lockClip.swapDepths(lockLevel);
+		} else {
+			lockClip._visible = false;
+		}
+	}
+}
+
+function manipulationMode_Display() {
+	if (Key.isDown(Key.SHIFT)) {
+		manipulationmodeFlag = true;
+		manipulationModeClip.modeTextField.text = "Manipulating";
+		manipulationModeClip.instructionsTextField.text = "Use mouse to manipulate items";
+	} else {
+		manipulationmodeFlag = false;
+		manipulationModeClip.modeTextField.text = "Sorting";
+		manipulationModeClip.instructionsTextField.text = "Hold SHIFT to manipulate";
+	}
+}
+
+function math_convertRealToFraction(numInput) {
+	function_Report("math_convertRealToFraction", "begin", 2);
+	if ((numInput > .111) and (numInput < .112)) {
+		trace("1/9");
+	}
+	trace("numInput(before): " + numInput);
+	numInput = math_computeCloseEnough(numInput);
+	trace("numInput(after): " + numInput);
+	if (fractionType>0) {
+		var errorFlag = false;
+		var numBig = null;
+		// var numInput = 111/1031;
+		// var numInput = 2553/23713;
+		// var numInput = 5/11103;
+		// var numInput = 779/103;
+		trace("---");
+		trace("numInput: "+numInput);
+		var decimalString = String(numInput).split(".")[1];
+		trace("decimalString: "+decimalString);
+		var decimalPlaces = decimalString.length;
+		trace("decimalPlaces: "+decimalPlaces);
+		trace("===");
+		if (decimalPlaces<13) {
+			trace("DECIMAL TYPE: non-repeating");
+			var eulerArray = [numInput*Math.pow(10, decimalPlaces), Math.pow(10, decimalPlaces)];
+		} else {
+			trace("DECIMAL TYPE: unknown (not non-repeating");
+			var digitsArray = math_computeRepeatingDigits(numInput);
+			var digitsNonRepeating = digitsArray.digitsNonRepeating;
+			trace("digitsNonRepeating: "+digitsNonRepeating);
+			var digitsRepeating = digitsArray.digitsRepeating;
+			trace("digitsRepeating: "+digitsRepeating);
+			if (digitsNonRepeating == 0) {
+				trace("DECIMAL TYPE: simple repeating");
+				var eulerArray = [(numInput*Math.pow(10, digitsRepeating))-numInput, Math.pow(10, digitsRepeating)-1];
+			} else {
+				trace("DECIMAL TYPE: unknown (not simple repeating)");
+				var numMult = numInput*Math.pow(10, digitsNonRepeating);
+				var digitsArray2 = math_computeRepeatingDigits(numMult);
+				var digitsNonRepeating2 = digitsArray2.digitsNonRepeating;
+				trace("digitsNonRepeating2: "+digitsNonRepeating2);
+				var digitsRepeating2 = digitsArray2.digitsRepeating;
+				trace("digitsRepeating2: "+digitsRepeating2);
+				if ((digitsNonRepeating<6) and (digitsRepeating2<6)) {
+					trace("DECIMAL TYPE: ugly repeating");
+					var euler_1 = Math.pow(10, digitsNonRepeating+digitsRepeating2)-Math.pow(10, digitsNonRepeating);
+					euler_1 = math_computeCloseEnough(euler_1);
+					trace("numInput: "+numInput);
+					trace("euler_1: "+euler_1);
+					var euler_0 = numInput*euler_1;
+					trace("euler_0: "+euler_0);
+					euler_0 = math_computeCloseEnough(euler_0);
+					var eulerArray = [euler_0, euler_1];
+				} else {
+					trace("DECIMAL TYPE: brute force");
+					var eulerArray = null;
+					var whole = Math.floor(numInput);
+					var remainder = numInput - Math.floor(numInput);
+					trace("remainder: "+remainder);
+					if (remainder > .005) {
+						var remainderMult = 1000;
+					} else {
+						var remainderMult = 1;
+					}
+					remainder = remainder / remainderMult;
+					trace(1 / remainder);
+					var divisorFloor = Math.floor(1/remainder);
+					var divisorCeiling = Math.ceil(1/remainder);
+					divisorCeiling = (divisorCeiling == divisorFloor) ? divisorFloor + 1 : divisorCeiling;
+					trace("divisorFloor: "+divisorFloor);
+					trace("divisorCeiling: "+divisorCeiling);
+					var flag = true;
+					var counter = 1;
+					helpClip.helpTextField.text += "math_convertRealToFraction while\r";
+					while (flag) {
+						for (i = (divisorFloor * counter); i < (divisorCeiling * counter); i++) {
+							// trace("i: " + i);
+							var temp = numInput * i;
+							var tempRounded = Math.round(temp);
+							var tempDif = Math.abs(tempRounded - temp);
+							if (tempDif < .00001) {
+								temp = tempRounded;
+								flag = false;
+							} else {
+								counter++;
+								if (counter > 999999) {
+									flag = false;
+									errorFlag = true;
+								}
+							}
+							if (flag == false) {
+								break;
+							}
+						}
+					}
+					if (errorFlag == false) {
+						var eulerArray = [temp, i];
+					}
+				}
+			}
+		}
+		trace("eulerArray: "+eulerArray);
+	}
+	if ((errorFlag) or (fractionType == 0)) {
+		var myFractionString = math_computeFixedDigits(numInput, fixedDigits);
+	} else {
+		var eulerDiv = math_computeEuler(eulerArray[0], eulerArray[1]);
+		trace("eulerDiv: "+eulerDiv);
+		trace("eulerArray: "+eulerArray);
+		var numerator = math_computeCloseEnough(eulerArray[0]/eulerDiv);
+		trace("numerator: "+numerator);
+		var denominator = math_computeCloseEnough(eulerArray[1]/eulerDiv);
+		trace("denominator: "+numerator);
+		if (denominator == 1) {
+			var myFractionString = numerator;
+		} else {
+			if (fractionType == 2) {
+				var whole = Math.floor(numerator/denominator);
+				numerator = numerator-(whole*denominator);
+				var myFractionString = (whole>0) ? whole+" " : "";
+				myFractionString += numerator+"/"+denominator;
+			} else {
+				var myFractionString = numerator+"/"+denominator;
+			}
+		}
+		trace("myFractionString: "+myFractionString);
+	}
+	function_Report("math_convertRealToFraction", "end", 2);
+	return myFractionString;
+}
+
+function math_computeCloseEnough(numInput) {
+	function_Report("math_computeCloseEnough", "begin", 3);
+	for (var i = 0; i<14; i++) {
+		var mult = Math.pow(10, i);
+		var numMult = numInput*mult;
+		trace("numMult: "+numMult);
+		if (Math.abs(numMult-Math.round(numMult))<.0001) {
+			break;
+		}
+	}
+	if (i<14) {
+		numInput = Math.round(numInput*Math.pow(10, i))/Math.pow(10, i);
+		trace("rounding to: " + numInput);
+	}
+	function_Report("math_computeCloseEnough", "end", 3);
+	return numInput;
+}
+
+function math_computeEuler(eulerArray_0, eulerArray_1) {
+	eulerArray_0 = math_computeCloseEnough(eulerArray_0);
+	eulerArray_1 = math_computeCloseEnough(eulerArray_1);
+	trace("eulerArray_0: " + eulerArray_0);
+	trace("eulerArray_1: " + eulerArray_1);
+	eulerArray = (eulerArray_0 > eulerArray_1) ? [eulerArray_0,eulerArray_1] : [eulerArray_1,eulerArray_0];
+	trace("eulerArray sorted: "+eulerArray);
+	helpClip.helpTextField.text += "math_computeEuler while\r";
+	while (eulerArray[1]>0) {
+		var numDiv = Math.floor(eulerArray[0]/eulerArray[1]);
+		var eulerNew = Math.round(eulerArray[0]-(numDiv*eulerArray[1]));
+		eulerArray.push(eulerNew);
+		trace("eulerArray: "+eulerArray);
+		eulerArray.shift();
+		trace("eulerArray: "+eulerArray);
+	}
+	return eulerArray[0];
+}
+
+function math_computeFixedDigits(numInput, numDigits) {
+	numInput *= Math.pow(10, numDigits);
+	numInput = Math.round(numInput);
+	numInput /= Math.pow(10, numDigits);
+	return numInput;
+}
+
+function math_computeRepeatingDigits(numInput) {
+	function_Report("math_computeRepeatingDigits", "begin", 1);
+	for (var i = 1; i<14; i++) {
+		var mult = Math.pow(10, i);
+		var numMult = numInput*mult;
+		var numDif = numMult-numInput;
+		var numDif = math_computeCloseEnough(numDif);
+		trace("numDif: "+numDif);
+		var decimalStringDif = String(numDif).split(".")[1];
+		var decimalPlacesDif = (decimalStringDif.length>0) ? decimalStringDif.length : 0;
+		trace("decimalPlacesDif: "+decimalPlacesDif);
+		if (decimalPlacesDif<13) {
+			break;
+		}
+	}
+	function_Report("math_computeRepeatingDigits", "end", 1);
+	return {digitsNonRepeating:decimalPlacesDif, digitsRepeating:i};
+}
+
+function myRoot_Setup() {
+	myRoot = this;
+	myRoot_width = myRoot._width;
+	myRoot_height = myRoot._height;
+}
+
+// display the terms that describe the range
+function rangeLabels_Display() {
+	function_Report("rangeLabels_Display", "begin", 0);
+	var termName = "rankingTerms_"+rankNum;
+	termArray = eval(termName);
+	termArray = toArray_Convert(termArray, delim_0, delim_1, true);
+	for (var i = 0; i < dynamicItem_rankingTerms.length; i++) {
+		termArray.push(dynamicItem_rankingTerms[i]);
+	}
+	if (cyclicMode) {
+		// //////////////////////////////////////////////////
+		// labelArray.push(cyclicArray[cyclicStart][0]);
+		termArray.push(itemLabels[cyclicStart][1]);
+		trace("termArray: " + termArray);
+		trace("itemLabels: " + itemLabels);
+		trace("cyclicStart: " + cyclicStart);
+		// //////////////////////////////////////////////////
+	}
+	rangebeginTextField.text = termArray[0];
+	rangebeginTextField.autoSize = "left";
+	rangeendTextField.text = termArray[1];
+	rangeendTextField.autoSize = "right";
+	function_Report("rangeLabels_Display", "end", 0);
+}
+
+// choose a rankOrder
+function rank_Select() {
+	function_Report("rank_Select", "begin", 0);
+	if (rankNum == null) {
+		if (rankArray[1] <> undefined) {
+			var rankIndex = Math.floor(Math.random() * rankArray.length);
+			if (rankArray[rankIndex][0] <> undefined) {
+				rankNum = rankArray[rankIndex][0];
+			} else {
+				rankNum = rankArray[0];
+			}
+		} else {
+			rankNum = rankArray;
+			var rankIndex = 0;
+		}
+	} else {
+		var rankIndex = 0;
+	}
+	if (rankArray[rankIndex].length > 1) {
+		itemLabels = eval("itemLabels_" + rankArray[rankIndex][1]);
+	} else {
+		itemLabels = itemLabels_0;
+	}
+	if (itemLabels == null) {
+		itemLabels = [];
+	}
+	itemLabels = toArray_Convert(itemLabels,delim_0, delim_1, false);
+	trace("itemLabels: " + itemLabels);
+	if (rankArray[rankIndex].length > 2) {
+		itemValues = eval("itemValues_" + rankArray[rankIndex][2]);
+	} else {
+		itemValues = itemValues_0;
+	}
+	itemValues = toArray_Convert(itemValues,delim_0, delim_1, false);
+	for (var i = 0; i < itemValues.length; i++) {
+		if (String(Number(itemValues[i])) == itemValues[i]) {
+			itemValues[i] = Number(itemValues[i]);
+		}
+	}
+	rankOrder = eval("rank_" + rankNum);
+	rankOrder = toArray_Convert(rankOrder, delim_0, delim_1, false);
+	trace("rankOrder: " + rankOrder);
+	// when rankOrder is not an array (is 1 or -1), create numerical or reverse numerical rankOrder
+	rankType = 1;
+	if (rankOrder[1] == null) {
+		rankType = (data_Test(rankOrder)) ? Number(String(rankOrder)) : 1;
+		trace("rankType: " + rankType);
+		if (rankType == 1) {
+			trace("rankType equals 1");
+		}
+		if (rankType == -1) {
+			trace("rankType equals -1");
+		}
+		if (rankType != 1) {
+			trace("rankType does not equal 1");
+		}
+		if (rankType != -1) {
+			trace("rankType does not equal -1");
+		}
+
+		rankOrder = new Array();
+		for (var i = 0; i < itemTotal; i++) {
+			rankOrder.push(i);
+		}
+		if (rankType == -1) {
+			rankOrder.reverse();
+		}
+	}
+	variable_Report("rank_Select", "defined", "itemLabels,itemValues,rankNum,rankOrder,rankArray,rankType");
+	function_Report("rank_Select", "end", 0);
+}
+
+function rankOrder_Cycle() {
+	function_Report("rankOrder_Cycle", "begin", 0);
+	variable_Report("rankOrder_Cycle", "referenced", "cyclicStart,rankOrder,itemValues");
+	if (dynamicMode) {
+		trace("dynamicMode");
+		var flag = true;
+		var counter = 0;
+		helpClip.helpTextField.text += "rankOrder_Cycle while #1\r";
+		while (flag) {
+			counter++;
+			var itemName = "item_" + rankOrder[0];
+			var itemObject = eval(itemName);
+			trace("rankType: " + rankType);
+			trace("cyclicStart: " + cyclicStart);
+			trace("itemValues[cs]: " + itemValues[cyclicStart]);
+			var value_1 = (rankType == 1) ? itemObject.itemValue : itemValues[cyclicStart];
+			var value_2 = (rankType == -1) ? itemObject.itemValue : itemValues[cyclicStart];
+			trace("value_1: " + value_1);
+			trace("value_2: " + value_2);
+			if (value_1 < value_2) {
+				rankOrder.push(rankOrder.shift());
+				trace("new rankOrder: " + rankOrder);
+			} else {
+				flag = false;
+			}
+			if (counter == selectionTotal) {
+				flag = false;
+			}
+		}
+	} else {
+		helpClip.helpTextField.text += "rankOrder_Cycle while #2\r";
+		while (rankOrder[0]<>cyclicStart) {
+			rankOrder.push(rankOrder.shift());
+		}
+	}
+	variable_Report("rankOrder_Cycle", "defined", "rankOrder");
+	function_Report("rankOrder_Cycle", "end", 0);
+}
+
+// remove unused items from rankOrder
+function rankOrder_Prune() {
+	function_Report("rankOrder_Prune", "begin", 0);
+	var rankLength = rankOrder.length;
+	for (var i = (rankLength-1); i>=0; i--) {
+		var flagFound = false;
+		for (var j = 0; j<selectionTotal; j++) {
+			if (rankOrder[i] == selectionArray[j]) {
+				flagFound = true;
+			}
+		}
+		if (!flagFound) {
+			rankOrder.splice(i, 1);
+		}
+	}
+	function_Report("rankOrder_Prune", "end", 0);
+}
+
+function rationale_Display() {
+	rationaleClip.removeMovieClip();
+	rationale_Display_Part1();
+}
+
+function rationale_Display_Part1() {
+	function_Report("rationale_Display_Part1", "begin", 1);
+	myRoot.createEmptyMovieClip("rationaleClip", level++);
+	rationaleClip.createEmptyMovieClip("backgroundClip", level++);
+	with (rationaleClip.backgroundClip) {
+		beginFill("0x" + colorSchemeObject.colorBackground, 100);
+		lineStyle(0, 0x0000FF, 0);
+		moveTo(0, 0);
+		lineTo(myRoot_width, 0);
+		lineTo(myRoot_width, myRoot_height);
+		lineTo(0, myRoot_height);
+		endFill();
+	}
+	rationaleClip.backgroundClip.tabEnabled = false;
+	rationaleClip.createEmptyMovieClip("activityClip", level++);
+	rationaleClip.activityClip._xscale = rationaleClip.activityClip._yscale=75;
+	rationaleClip.activityClip.createEmptyMovieClip("backgroundClip", level++);
+	with (rationaleClip.activityClip.backgroundClip) {
+		beginFill(0xFFFFFF, 0);
+		lineStyle(1, 0x0000FF, 0);
+		moveTo(0, 0);
+		lineTo(myRoot_width, 0);
+		lineTo(myRoot_width, myRoot_height);
+		lineTo(0, myRoot_height);
+		endFill();
+	}
+	rationaleClip.activityClip.tabEnabled = false;
+	rationaleClip.activityClip.createTextField("instructionsTextField", level++, myRoot.instructionsTextField._x, myRoot.instructionsTextField._y, myRoot.instructionsTextField._width, 500);
+	with (rationaleClip.activityClip.instructionsTextField) {
+		setTextFormat(instructionsFormat);
+		html = true;
+		selectable = false;
+		multiline = true;
+		wordWrap = true;
+		embedFonts = true;
+		htmlText = myRoot.instructionsTextField.htmlText;
+		autoSize = "left";
+	}
+	rationaleClip.activityClip.attachMovie("arrowClip", "arrowClip", level++);
+	with (rationaleClip.activityClip.arrowClip) {
+		_x = arrowClip._x;
+		_y = arrowClip._y-10;
+		_xscale = _yscale = arrowClip._xscale;
+		_alpha = arrowClip._alpha;
+	}
+	rationaleClip.activityClip.createTextField("rangebeginTextField", level++, rangebeginTextField._x, rangebeginTextField._y-10, myRoot.rangebeginTextField._width, 500);
+	with (rationaleClip.activityClip.rangebeginTextField) {
+		html = false;
+		selectable = false;
+		multiline = false;
+		wordWrap = false;
+		embedFonts = true;
+		htmlText = rangebeginTextField.text;
+		autoSize = "left";
+		setTextFormat(instructionsFormat);
+	}
+	rationaleClip.activityClip.createTextField("rangeendTextField", level++, myRoot.rangeendTextField._x, myRoot.rangeendTextField._y-10, myRoot.rangeendTextField._width, 500);
+	with (rationaleClip.activityClip.rangeendTextField) {
+		html = false;
+		selectable = false;
+		multiline = false;
+		wordWrap = false;
+		embedFonts = true;
+		htmlText = myRoot.rangeendTextField.text;
+		autoSize = "right";
+		setTextFormat(instructionsFormat);
+	}
+	if (dynamicMode) {
+		dynamicItemPath = rationaleClip.activityClip;
+		var itemObject = eval("item_" + dynamicItemNum);
+		rationaleClip.activityClip.attachMovie("item_"+dynamicItemNum, "item_0", level++,itemObject);
+	} else {
+		for (i=0; i<selectionTotal; i++) {
+			var itemName = "item_"+selectionArray[i];
+			var itemObject = eval(itemName);
+			var rationaleItemName = "rationaleClip.activityClip."+itemName;
+			rationaleClip.activityClip.attachMovie(itemName, itemName, level++, itemObject);
+		}
+		rationale_Display_Part2();
+	}
+	function_Report("rationale_Display_Part1", "end", 1);
+}
+
+function rationale_Display_Part2() {
+	function_Report("rationale_Display_Part2", "begin", 1);
+	var yMax = 0;
+	for (i=0; i<selectionTotal; i++) {
+		var itemName = "item_" + selectionArray[i];
+		var itemObject = eval(itemName);
+		var rationaleItemName = "rationaleClip.activityClip." + itemName;
+		var rationaleItemObject = eval(rationaleItemName);
+		rationaleItemObject._xscale = itemObject._xscale;
+		rationaleItemObject._yscale = itemObject._yscale;
+		if (locked) {
+			rationaleItemObject._x = itemObject.correctX;
+			rationaleItemObject._y = itemObject.correctY - 25;
+		} else {
+			rationaleItemObject._x = (data_Test(itemObject.newX)) ? itemObject.newX : itemObject._x;
+			rationaleItemObject._y = itemObject._y - 25;
+		}
+		delete rationaleItemObject.onPress;
+		delete rationaleItemObject.onRelease;
+		delete rationaleItemObject.onReleaseOutside;
+		delete rationaleItemObject.onRollOver;
+		delete rationaleItemObject.onRollOut;
+		delete rationaleItemObject.onEnterFrame;
+		itemLabel_Display(rationaleItemObject, i);
+		if (locked) {
+			itemFeedback_Display(rationaleItemObject, i);
+		}
+		var boundsObject = rationaleItemObject.getBounds(rationaleClip);
+		if (boundsObject.yMax>yMax) {
+			yMax = boundsObject.yMax;
+		}
+	}
+	rationaleClip.createEmptyMovieClip("rationaleBackgroundClip", level++);
+//	with (rationaleClip.rationaleBackgroundClip) {
+		rationaleClip.rationaleBackgroundClip.beginFill(0xFFFFFF, 100);
+		rationaleClip.rationaleBackgroundClip.lineStyle(0, 0x0000FF, 0);
+		rationaleClip.rationaleBackgroundClip.moveTo(50, yMax+30);
+		rationaleClip.rationaleBackgroundClip.lineTo(myRoot_width-50, yMax+30);
+		rationaleClip.rationaleBackgroundClip.lineTo(myRoot_width-50, myRoot_height-40);
+		rationaleClip.rationaleBackgroundClip.lineTo(50, myRoot_height-40);
+		rationaleClip.rationaleBackgroundClip.endFill();
+//	}
+	rationaleClip.createTextField("rationaleTextField", level+2, 50, yMax+30, myRoot_width-100, myRoot_height-yMax-30-40);
+	if (locked) {
+		rationaleClip.rationaleTextField.type = "dynamic";
+		rationaleClip.rationaleTextField.selectable = false;
+	} else {
+		rationaleClip.rationaleTextField.type = "input";
+		rationaleClip.rationaleTextField.selectable = true;
+	}
+	rationaleClip.rationaleTextField.multiline = true;
+	rationaleClip.rationaleTextField.wordWrap = true;
+	rationaleClip.rationaleTextField.embedFonts = true;
+	rationaleClip.rationaleTextField.text = "hello";
+	rationaleClip.rationaleTextField.border = true;
+	rationaleClip.rationaleTextField.setTextFormat(inputFormat);
+	rationaleClip.rationaleTextField.onChanged = function(textObject) {
+		myRoot.rationaleString = this.text;
+	}
+	rationaleClip.createTextField("instructionsTextField", level++, 0, rationaleClip.rationaleTextField._y-20, myRoot_width, 200);
+	rationaleClip.instructionsTextField.html = true;
+	rationaleClip.instructionsTextField.selectable = false;
+	rationaleClip.instructionsTextField.multiline = false;
+	rationaleClip.instructionsTextField.wordWrap = false;
+	rationaleClip.instructionsTextField.embedFonts = true;
+	if (locked) {
+		rationaleClip.instructionsTextField.htmlText = rationaleinstructionsTextStyleHTML + "Explanation of correct ranking (shown above)" + "</font>";
+	} else {
+		rationaleClip.instructionsTextField.htmlText = rationaleinstructionsTextStyleHTML + "Type your rationale in the text box below, then click the Continue button" + "</font>";
+	}
+//	rationaleClip.instructionsTextField.setTextFormat(itemlabelFormat);
+	rationaleClip.instructionsTextField.autoSize = "center";
+	rationaleClip.attachMovie("continueButton", "continueButton", level++);
+	rationaleClip.continueButton._x = myRoot_width/2;
+	rationaleClip.continueButton._y = rationaleClip._height-30;
+	rationaleClip.continueButton.onRelease = function() {
+		myRoot.rationaleButton_Update();
+		this._parent._visible = false;
+	}
+	rationaleClip.continueButton.tabEnabled = false;
+	rationale_Display_Part3();
+	function_Report("rationale_Display_Part2", "end", 1);
+}
+
+function rationale_Display_Part3() {
+	function_Report("rationale_Display_Part3", "begin", 1);
+	for (i=0; i<selectionTotal; i++) {
+		var itemName = "item_"+selectionArray[i];
+		var itemObject = eval(itemName);
+		var rationaleItemName = "rationaleClip.activityClip."+itemName;
+		var rationaleItemObject = eval(rationaleItemName);
+		if (not locked) {
+			if (data_Test(itemObject.newX)) {
+				trace("alert 1");
+				rationaleItemObject._x = itemObject.newX;
+			} else {
+				trace("alert 2");
+				rationaleItemObject._x = itemObject._x;
+			}
+		}
+	}
+	rationaleClip.activityClip._x = (myRoot_width/2)-(rationaleClip.activityClip._width/2);
+	rationaleClip.backgroundClip.onRelease = function() {}
+	rationaleClip.backgroundClip.useHandCursor = false;
+	rationaleClip.timeStart = new Date();
+	rationaleClip.onEnterFrame = function() {
+		this.timeCurrent = new Date();
+		if ((this.timeCurrent.getTime()-this.timeStart.getTime())>0) {
+			Selection.setFocus(myRoot.rationaleClip.rationaleTextField);
+			Selection.setSelection(-1, -1);
+			if (myRoot.locked) {
+//				this.rationaleTextField.text = myRoot.explanationText;
+				this.rationaleTextField.html = true;
+				this.rationaleTextField.htmlText = myRoot.explanationText;
+			} else {
+				this.rationaleTextField.html = false;
+				if (myRoot.rationaleString.length>0) {
+					this.rationaleTextField.text = myRoot.rationaleString;
+				} else {
+					this.rationaleTextField.text = "";
+				}
+			}
+			Selection.setSelection(this.rationaleTextField.length, this.rationaleTextField.length);
+			myRoot.rationaleClip.rationaleTextField.setTextFormat(inputFormat);
+			delete this.onEnterFrame;
+		}
+	}
+	rationaleClip.swapDepths(25000);
+	function_Report("rationale_Display_Part3", "end", 1);
+}
+
+function rationaleButton_Update() {
+	response_Set();
+	rationalebuttonClip.rationalepreviewClip.rationaleTextField.text = rationaleString;
+	if (rationaleString == "") {
+		rationalebuttonClip.statusTextField.htmlText = "<b><font color=\"#FF0000\">incomplete - click here to enter</font></b>";
+		rationalebuttonClip.timeStart = new Date();
+		rationalebuttonClip.blinkStatus = true;
+		rationalebuttonClip.blinkCount = 0;
+		rationalebuttonClip.onEnterFrame = function() {
+			this.timeCurrent = new Date();
+			if ((this.timeCurrent.getTime()-this.timeStart.getTime())>300) {
+				this.blinkCount++;
+				this.blinkStatus = !this.blinkStatus;
+				if ((this.blinkStatus) or (this.blinkCount == 10)) {
+					rationalebuttonClip.statusTextField.htmlText = "<p align='center'><b><font color=\"#FF0000\">incomplete - click here to enter</font></b></p>";
+				} else {
+					rationalebuttonClip.statusTextField.htmlText = "<p align='center'><b><font color=\"#FF8800\">incomplete - click here to enter</font></b></p>";
+				}
+				if (this.blinkCount == 10) {
+					delete this.onEnterFrame;
+				} else {
+					this.timeStart = new Date();
+				}
+			}
+		};
+	} else {
+		rationalebuttonClip.statusTextField.htmlText = "<b><font color=\"#00AA00\">complete - click here to edit</font></b>";
+		delete rationalebuttonClip.onEnterFrame;
+	}
+}
+
+function response_Set() {
+	function_Report("response_Set", "begin", 0);
+	var orderString = selectionArray.join(responsedelim_0);
+	// var rationaleStringURL = escape(rationaleString);
+	var rationaleStringURL = rationaleString;
+	trace("dynamicString: " + dynamicString);
+	constantArray = toArray_Convert(constantString,responsedelim_0,responsedelim_1,true);
+	trace("constantString: " + constantString);
+	trace("constantArray: " + constantArray);
+	dynamicParamArray = dynamicParamArray_Construct(dynamicString.split(responsedelim_1));
+	response = grade_Get() + responsedelim_1 + orderString + responsedelim_1 + rankNum + responsedelim_1 + cyclicStart + responsedelim_1 + rationaleStringURL + responsedelim_1 + constantString + responsedelim_1 + dynamicString;
+	trace("response: " + response);
+	helpClip.helpTextField.text += "response: " + response + "\r";
+	function_Report("response_Set", "end", 0);
+}
+
+function selectionData_Process(inputArray) {
+//	trace("inputArray: " + inputArray);
+	var outputArray = [];
+	for (var i = 0; i < inputArray.length; i++) {
+		var tempArray = inputArray[i].split("-");
+		if (tempArray.length > 1) {
+//			trace(tempArray);
+			for (var j = tempArray[0]; j <= tempArray[1]; j++) {
+				outputArray.push(j);
+			}
+		} else {
+//			trace(tempArray);
+			outputArray.push(Number(inputArray[i]));
+		}
+//		trace(outputArray);
+	}
+	return outputArray;
+}
+
+function string_Parse(dataInput) {
+	var htmltagArray = ["<a href","<a target","</a>","<b>","</b>","<br>","<font","</font>","<img","<i>","</i>","<li>","</li>","<p>","<p align>","<p class>","<span","<textformat","<u>","</u>"];
+	trace("old string: " + dataInput);
+	if (dataInput.split("<").length > 1) {
+		var textString = "";
+		var counter = 0;
+		while (counter < dataInput.length) {
+			if (dataInput.charAt(counter) == "<") {
+				var flag = false;
+				for (var i = 0; i < htmltagArray.length; i++) {
+					if (dataInput.substr(counter,htmltagArray[i].length) == htmltagArray[i]) {
+						flag = true;
+						break;
+					}
+				}
+				if (flag) {
+					textString += htmltagArray[i];
+					counter += htmltagArray[i].length;
+				} else {
+					textString += "&lt;";
+					counter += 1;
+				}
+			} else {
+				textString += dataInput.charAt(counter);
+				counter += 1;
+			}
+		}
+		dataInput = textString;
+		trace("new string: " + dataInput);
+	}
+	return dataInput;
+}
+
+function toArray_Convert(dataInput, delim_0, delim_1, flagForceConvert) {
+	if (dataInput[1] == undefined) {
+		// if dataInput IS NOT an array...
+		var temp = dataInput.split(delim_1);
+		if (temp.length > 1) {
+			for (var i = 0; i < temp.length; i++) {
+				temp[i] = temp[i].split(delim_0);
+				if (temp[i].length == undefined) {
+					var temp2 = new Array();
+					temp2.push(temp[i]);
+					temp[i] = temp2;
+				}
+			}
+			dataInput = temp;
+		} else {
+			// if dataInput IS an array...
+			var temp = dataInput.split(delim_0);
+			if (temp.length <> undefined) {
+				dataInput = temp;
+			} else if (flagForceConvert) {
+				temp = new Array();
+				temp.push(dataInput);
+				dataInput = temp;
+			}
+		}
+	}
+	return dataInput;
+}
+
+function function_Report(functionName, functionStatus, functionLevel) {
+	var functionString = "";
+	for (var i = 0; i<functionLevel; i++) {
+		functionString += "  ";
+	}
+	if (functionStatus<>"end") {
+		functionString += "FUNCTION ";
+	} else {
+		functionString += "---------";
+	}
+	functionString += functionStatus+" "+functionName;
+	trace(functionString);
+	if (functionStatus == "end") {
+		trace("");
+	}
+}
+
+function variable_Report(functionName, variableStatus, variableData) {
+	trace("");
+	trace("VARIABLES ("+functionName+") "+variableStatus);
+	var variableArray = variableData.split(responsedelim_0);
+	for (var i = 0; i<variableArray.length; i++) {
+		if (!data_Test(variableArray[i])) {
+			trace("!!! WARNING !!!");
+		}
+		trace(""+variableArray[i]+": "+eval(variableArray[i]));
+	}
+	trace("");
+}
+
+function keyDown_Setup() {
+	keyListener_Down = new Object();
+	keyListener_Down.onKeyDown = function() {
+		trace("DOWN -> Code: "+Key.getCode()+"\tACSII: "+Key.getAscii()+"\tKey: "+chr(Key.getAscii()));
+		if ((Key.getCode() == Key.SHIFT) and ((lockClip._visible == false) or (lockClip == null))) {
+			flagShiftDown = true;
+			manipulationMode_Display();
+			Key.removeListener(keyListener_Down);
+			Key.addListener(keyListener_Up);
+		}
+	}
+}
+
+function keyUp_Setup() {
+	keyListener_Up = new Object();
+	keyListener_Up.onKeyUp = function() {
+		trace("UP -> Code: "+Key.getCode()+"\tACSII: "+Key.getAscii()+"\tKey: "+chr(Key.getAscii()));
+		if ((Key.getCode() == Key.SHIFT) and ((lockClip._visible == false) or (lockClip == null))) {
+			flagShiftDown = false;
+			manipulationMode_Display();
+			componentObject.stopDragging();
+			Key.removeListener(keyListener_Up);
+			Key.addListener(keyListener_Down);
+		}
+	}
+}
+
+function keyListener_Setup() {
+	function_Report("keyListener_Setup", "begin", 0);
+	keyListener = new Object();
+	keyListener.onKeyDown = function() {
+		trace("keyDown");
+		if ((not flagDragging) and (Key.getCode() == Key.SHIFT) and ((lockClip._visible == false) or (lockClip == null))) {
+			flagShiftDown = true;
+			manipulationMode_Display();
+		}
+	  if (Key.isDown(Key.CONTROL) and Key.isDown(Key.LEFT) and Key.isDown(Key.RIGHT) and (not eduMode)) {
+		  clipboard_Options();
+	  }
+	}
+	keyListener.onKeyUp = function() {
+		trace("keyUp");
+		if ((not flagDragging) and (Key.getCode() == Key.SHIFT) and ((lockClip._visible == false) or (lockClip == null))) {
+			flagShiftDown = false;
+			manipulationMode_Display();
+			componentObject.stopDragging();
+		}
+	}
+	Key.addListener(keyListener);
+	function_Report("keyListener_Setup", "end", 0);
+}
+
+
+
+function mouseListener_Setup() {
+	function_Report("mouseListener_Setup", "begin", 0);
+	mouseListener = new Object();
+	mouseListener.onMouseDown = function() {
+		flagMouseDown = true;
+	}
+	mouseListener.onMouseUp = function() {
+		flagMouseDown = false;
+	}
+	Mouse.addListener(mouseListener);
+	function_Report("mouseListener_Setup", "end", 0);
+}
+
+//background color, base text color (instructions, labels), text highlight #1, text highlight #2, etc.
+colorScheme_0 = {colorBackground:"FFFFFF",colorTextBody:"000000",colorTextTitle:"666666",colorTextHighlight1:"FF0000",colorTextHighlight2:"0000FF",colorTextHighlight3:"33AA33",colorTextHighlight4:"9900FF"};
+colorScheme_1 = {colorBackground:"000000",colorTextBody:"FFFFFF",colorTextTitle:"999999",colorTextHighlight1:"FF6666",colorTextHighlight2:"66AAFF",colorTextHighlight3:"33DD33",colorTextHighlight4:"CC66FF"};
+
+lessonPage = 1;
+
+delim_0 = ";";
+delim_1 = "|";
+responsedelim_0 = ",";
+responsedelim_1 = ";";
+
+clipboardlabelFormat = new TextFormat();
+clipboardlabelFormat.font = "Arial Narrow";
+clipboardlabelFormat.size = 13;
+clipboardlabelFormat.bold = true;
+clipboardlabelFormat.align = "left";
+
+clipboardinputFormat = new TextFormat();
+clipboardinputFormat.font = "Arial Narrow";
+clipboardinputFormat.size = 13;
+clipboardinputFormat.bold = false;
+clipboardinputFormat.align = "left";
+
+clipboardwarningFormat = new TextFormat();
+clipboardwarningFormat.font = "Arial Narrow";
+clipboardwarningFormat.size = 11;
+clipboardwarningFormat.bold = false;
+clipboardwarningFormat.italic = true;
+clipboardwarningFormat.color = 0xFF0000;
+clipboardwarningFormat.align = "left";
+
+inputFormat = new TextFormat();
+inputFormat.font = "Verdana";
+inputFormat.size = 14;
+inputFormat.color = 0x000000;
+inputFormat.align = "left";
+
+instructionsFormat = new TextFormat();
+instructionsFormat.font = "Verdana";
+instructionsFormat.size = 16;
+instructionsFormat.color = 0x000000;
+instructionsFormat.align = "left";
+
+itemlabelFormat = new TextFormat();
+itemlabelFormat.font = "Verdana";
+itemlabelFormat.size = 14;
+itemlabelFormat.bold = true;
+itemlabelFormat.align = "center";
+
+pagenumFormat = new TextFormat();
+pagenumFormat.font = "Verdana";
+pagenumFormat.size = 12;
+pagenumFormat.bold = true;
+pagenumFormat.align = "left";
+
+rankFormat = new TextFormat();
+rankFormat.font = "Verdana";
+rankFormat.size = 18;
+rankFormat.bold = true;
+
+itemDeltaX = 10;
+offsetRatio = .35;
+selectionDefault = 5;
+gradeOptionDefault = 1;
+
+activity_Initialize();
+
+stop();
