@@ -1,0 +1,258 @@
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+// STAY OUT!!! - DO NOT CHANGE ANY CODE THAT FOLLOWS
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+function item_Initialize() {
+	initializationFlag = (myRoot.dynamicParamArray == null) ? true : false;
+	dynamicParamArray = myRoot.dynamicParamArray;
+	var itemNum = Number(this._name.split("_")[1]);
+	if (itemNum == 0) {
+		myRoot.helpClip.helpTextField.text += "itemNum: " + itemNum + "\r";
+		item_Spawn();
+		constantArray = item_Customize("constants",itemNum,itemObject);
+		if (not initializationFlag) {
+			trace("restoring constants: " + myRoot.constantArray);
+			var counter = 0;
+			for (var name in constantArray) {
+				trace("restoring [" + name + "]: " + myRoot.constantArray[counter]);
+				constantArray[name] = myRoot.constantArray[counter];
+				if (String(Number(constantArray[name])) == constantArray[name]) {
+					constantArray[name] = Number(constantArray[name]);
+				}
+				counter++;
+			}
+		}
+		//add custom ranking terms to dynamicItem_rankingTerms
+		item_Customize("rankingterms",itemNum,itemObject,constantArray);
+		myRoot.dynamicItem_rankingTerms = new Array();
+		for (var i = 0; i < rankingTerms.length; i++) {
+			myRoot.dynamicItem_rankingTerms.push(rankingTerms[i]);
+		}
+		//build myRoot.constantString
+		myRoot.constantString = "";
+		constantstringArray = new Array();
+		for (var name in constantArray) {
+			constantstringArray.push(constantArray[name]);
+		}
+		for (var i = 0; i < constantstringArray.length; i++) {
+			myRoot.constantString += constantstringArray[i];
+			myRoot.constantString += (i < (constantstringArray.length - 1)) ? myRoot.responsedelim_0 : "";
+		}
+		param_Set();
+		if (myRoot.dynamicItemPath == myRoot) {
+			myRoot.activity_LaunchEnd();
+			// continue with activity setup
+		} else {
+			myRoot.rationale_Display_Part2();
+		}
+	}
+}
+
+function item_Spawn() {
+	myRoot.function_Report("item_Spawn", "begin", 2);
+	if (initializationFlag) {
+		myRoot.selectionArray = new Array();
+	}
+	selectionTotal = myRoot.selectionTotal;
+	for (var i = 0; i < selectionTotal; i++) {
+		var itemName = "item_" + i;
+		var itemObject = eval("myRoot." + itemName);
+		if (i > 0) {
+			myRoot.dynamicItemPath.attachMovie(("item_" + myRoot.dynamicItemNum), itemName, myRoot.level++, itemObject);
+		}
+		itemName = String(myRoot.dynamicItemPath) + "." + itemName;
+		var itemObject = eval(itemName);
+		if (initializationFlag) {
+			myRoot.selectionArray.push(i);
+		}
+	}
+	myRoot.itemTotal = selectionTotal;
+	myRoot.variable_Report("item_Spawn", "defined", "selectionArray,selectionTotal,itemTotal");
+	myRoot.function_Report("item_Spawn", "end", 2);
+}
+
+function param_Set() {
+	myRoot.function_Report("param_Set", "begin", 2);
+	myRoot.variable_Report("param_Set", "referenced", "");
+	myRoot.helpClip.helpTextField.text += "OriginIndex: " + myRoot.dynamicItem_OriginIndex + "\r";
+	myRoot.helpClip.helpTextField.text += "eduMode: " + myRoot.eduMode + "\r";
+	myRoot.helpClip.helpTextField.text += "dynamicMode: " + myRoot.dynamicMode + "\r";
+	myRoot.helpClip.helpTextField.text += "cyclicMode: " + myRoot.cyclicMode + "\r";
+	myRoot.helpClip.helpTextField.text += "rationaleMode: " + myRoot.rationaleMode + "\r";
+	myRoot.helpClip.helpTextField.text += "interactionMode: " + myRoot.interactionMode + "\r";
+	myRoot.helpClip.helpTextField.text += "lessonMode: " + myRoot.lessonMode + "\r";
+	myRoot.helpClip.helpTextField.text += "explanationMode: " + myRoot.explanationMode + "\r";
+	myRoot.helpClip.helpTextField.text += "itemSpacing: " + myRoot.itemSpacing + "\r";
+	myRoot.helpClip.helpTextField.text += "colorScheme: " + myRoot.colorScheme + "\r";
+	myRoot.helpClip.helpTextField.text += "fractionType: " + myRoot.fractionType + "\r";
+	myRoot.helpClip.helpTextField.text += "fixedDigits: " + myRoot.fixedDigits + "\r";
+	myRoot.helpClip.helpTextField.text += "itemAreaFlexible: " + myRoot.itemAreaFlexible + "\r";
+	myRoot.helpClip.helpTextField.text += "selectionData: " + myRoot.selectionData + "\r";
+	myRoot.helpClip.helpTextField.text += "gradeOption: " + myRoot.gradeOption + "\r";
+	myRoot.helpClip.helpTextField.text += "rankData: " + myRoot.rankData + "\r";
+	myRoot.helpClip.helpTextField.text += "rank_0: " + myRoot.rank_0 + "\r";
+	myRoot.helpClip.helpTextField.text += "labels_0: " + myRoot.labels_0 + "\r";
+	myRoot.helpClip.helpTextField.text += "rank_1: " + myRoot.rank_1 + "\r";
+	myRoot.helpClip.helpTextField.text += "labels_1: " + myRoot.labels_1 + "\r";
+	paramArray = new Array();
+	// generate parameters for all items
+	for (var i = 0; i < selectionTotal; i++) {
+		var itemName = "item_" + i;
+		itemName = String(myRoot.dynamicItemPath) + "." + itemName;
+		var itemObject = eval(itemName);
+		var flag = true;
+		myRoot.helpClip.helpTextField.text += "\rDYNAMIC param_Set while #1\r";
+		while (flag) {
+			flag = false;
+			var itemParamArray = item_Customize("parameters",i,itemObject,itemParamArray);
+			if (not initializationFlag) {
+				var paramCounter = 0;
+				for (var name in itemParamArray) {
+					itemParamArray[name] = myRoot.dynamicParamArray[i][paramCounter];
+					paramCounter++;
+				}
+			}
+			// make sure there are no dups
+			for (var i2 = 0; i2 < i; i2++) {
+				var item2Name = "item_" + i2;
+				var item2Object = eval("myRoot." + item2Name);
+				myRoot.helpClip.helpTextField.text += i2 + ") " + itemParamArray.itemValue + " : " + paramArray[i2].itemValue + "\r";
+				if (itemParamArray.itemValue == paramArray[i2].itemValue) {
+					trace(itemParamArray.itemValue + " , " + paramArray[i2].itemValue);
+					flag = true;
+					break;
+				}
+			}
+		}
+		paramArray.push(itemParamArray);
+	}
+	trace("*** CONSTANTS AND PARAMS ***");
+	paramFullArray = new Array(selectionTotal);
+	for (var i = 0; i < selectionTotal; i++) {
+		paramFullArray[i] = new Array();
+		for (var name in constantArray) {
+			paramFullArray[i][name] = constantArray[name];
+			trace("adding constant [" + name + "]: " + paramFullArray[i][name]);
+		}
+		for (name in paramArray[i]) {
+			paramFullArray[i][name] = paramArray[i][name];
+			trace("adding param [" + name + "]: " + paramFullArray[i][name]);
+		}
+	}
+	myRoot.rank_Select();
+	paramArray.sort(sortOrder);
+	paramFullArray.sort(sortOrder);
+	// incorporate parameters into display
+	dynamicParamArray = new Array(selectionTotal);
+	itemLabelArray = new Array(selectionTotal);
+	for (var i = 0; i < selectionTotal; i++) {
+		var itemName = "item_"+i;
+		itemName = String(myRoot.dynamicItemPath) + "." + itemName;
+		var itemObject = eval(itemName);
+		itemStartingLabel = itemFeedbackLabel = "";
+		item_Customize("display",i,itemObject,paramFullArray[i]);
+		itemObject.itemValue = paramArray[i].itemValue;
+		itemObject.itemValueIndex = myRoot.itemValueIndex_Get(paramArray[i].itemValue);
+		itemObject.imageWidth = itemObject._width;
+		itemObject.imageHeight = itemObject._height;
+		var boundsObject = itemObject.getBounds(this);
+		itemObject.xMin = boundsObject.xMin;
+		itemObject.xMax = boundsObject.xMax;
+		itemObject.yMin = boundsObject.yMin;
+		itemObject.yMax = boundsObject.yMax;
+		if (_parent.hitAreaForced) {
+			myRoot.itemHitArea_Create(itemObject);
+		}
+		itemLabelArray[i] = [itemStartingLabel,itemFeedbackLabel];
+	}
+	
+	dynamicString_Build();
+	
+	if (myRoot.cyclicMode) {
+		myRoot.cyclic_Setup();
+		myRoot.rankOrder_Cycle();
+	}
+	for (var i = 0; i < itemLabelArray.length; i++) {
+		myRoot.itemLabels.push(new Array());
+		for (var j = 0; j < itemLabelArray[i].length; j++) {
+			myRoot.itemLabels[i].push(itemLabelArray[i][j]);
+		}
+	}
+	for (var i = 0; i < selectionTotal; i++) {
+		trace("itemValue: " + paramArray[i].itemValue);
+	}
+	myRoot.itemLabels_Setup();
+	// scramble until initial grade meets requirements
+	flag = true;
+	if (initializationFlag) {
+		trace("dynamic scramble");
+		myRoot.helpClip.helpTextField.text += "DYNAMIC param_Set while #2\r";
+		while (flag) {
+			flag = false;
+			var selectionArray = new Array();
+			for (var i = 0; i<paramArray.length; i++) {
+				selectionArray.splice(Math.floor(Math.random()*(i+1)), 0, myRoot.selectionArray[i]);
+			}
+			myRoot.selectionArray = selectionArray;
+			var grade = myRoot.grade_Get();
+			trace("new grade: " + grade);
+			// re-scramble if initial grade is too high
+			if (grade>.6666) {
+				flag = true;
+			}
+		}
+	}
+	myRoot.function_Report("param_Set", "end", 1);
+}
+
+function items_Update() {
+	paramArray = new Array();
+	for (var i = 0; i < selectionTotal; i++) {
+		var itemName = "item_"+i;
+		itemName = String(myRoot.dynamicItemPath) + "." + itemName;
+		var itemObject = eval(itemName);
+		var itemParamArray = item_Customize("parameters",i,itemObject,"updating");
+		paramArray.push(itemParamArray);
+	}
+	dynamicString_Build();
+}
+
+function dynamicString_Build() {
+	// build dynamicParamArray
+	dynamicParamArray = new Array(selectionTotal);
+	for (var i = 0; i < selectionTotal; i++) {
+		dynamicParamArray[i] = new Array();
+		for (var name in paramArray[i]) {
+			dynamicParamArray[i].push(paramArray[i][name])
+		}
+	}
+
+	// build dynamicString
+	myRoot.dynamicString = "";
+	myRoot.dynamicParamArray = new Array();
+	for (var i = 0; i < dynamicParamArray.length; i++) {
+		if (dynamicParamArray[i].length > 0) {
+			for (var j = 0; j < dynamicParamArray[i].length; j++) {
+				myRoot.dynamicString += dynamicParamArray[i][j];
+				myRoot.dynamicString += (j < (dynamicParamArray[i].length - 1)) ? myRoot.responsedelim_0 : "";
+			}
+		} else {
+			myRoot.dynamicString += dynamicParamArray[i];
+		}
+		myRoot.dynamicString += (i < (dynamicParamArray.length - 1)) ? myRoot.responsedelim_1 : "";
+	}
+}
+
+function sortOrder(a, b) {
+	var val1 = a.itemValue;
+	var val2 = b.itemValue;
+	if (val1 < val2) {
+		return -1;
+	} else if (val1 > val2) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+item_Initialize();
