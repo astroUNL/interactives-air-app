@@ -597,7 +597,7 @@ function drag_Start(dragObject) {
 		if (dragObject.newX == null) {
 			dragObject.newX = dragObject._x;
 		}
-		dragObject.startDrag(false, 0, dragObject._y, myRoot_width, dragObject._y);
+		dragObject.startDrag(false, 0, dragObject._y, itemArea._width, dragObject._y);
 		item_Fade(dragObject, true);
 		// record positions of undragged items
 		dragPosition_Set(dragObject);
