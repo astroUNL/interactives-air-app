@@ -1,0 +1,7 @@
+issues.txt
+interactives-air-app
+2020-01-30
+
+- The Kepler's 2nd Law and Kepler's 3rd Law ranking tasks allow the user to drag the items all the way to the right of the window (over the diagram). The fix is relatively simple and has already been applied to the Kepler's 1st Law ranking task -- see the commit message for de54433...9922 (2020-01-22) for details. However, I do not have the latest FLA source files for these questions. (The FLAs currently in this repository do not have the correct background pages.)
+
+- The Sun Paths / Celestial Sphere ranking task has had its explanation window disabled due to a serious bug. In some situations opening the explanation window causes the program to enter an infinite loop. See the commit message for 0969717...dc20ca (2020-01-17) for details.

@@ -1,0 +1,1 @@
+The explanation window was disabled as of commit 0969717...dc20ca (2020-01-17) due to a serious bug that could freeze the program. See the commit notes for more details.
