@@ -1,0 +1,22 @@
+changes.txt
+interactives-air-app
+2020-01-30
+
+2020-01-30 - v1.1
+- Updated the IntroConcepts / Scale ranking task so the user can not edit the object names on the background page.
+- Updated Kepler's 1st Law ranking task so that the user can not drag the items all the way to the right of the screen.
+- Updated the Moon Phases / Phase Order ranking task so that background pages are accessible in graded mode.
+- Updated the following ranking tasks to fix problems with time input on the background pages:
+	+ Moon Phases / Earth Times
+	+ Moon Phases / Earth Times 3D
+	+ Moon Phases / Meridian Times
+	+ Moon Phases / Rising Setting Times
+	+ Moon Phases / Flat Horizon View, Same Phase
+	+ Moon Phases / Flat Horizon View, Same Start Time
+	+ Moon Phases / Flat Horizon View, All Differences
+- Updated the following ranking tasks to fix input problems on the background pages:
+	+ Sun Paths / Rising and Setting Azimuths A
+	+ Sun Paths / Rising and Setting Azimuths B
+	+ Sun Paths / Noontime Altitude
+	+ Sun Paths / Celestial Sphere
+- Disabled the explanation page on the Sun Paths / Celestial Sphere ranking task to avoid a potential program freezing bug.
