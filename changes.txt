@@ -3,6 +3,7 @@ interactives-air-app
 2020-01-30
 
 2020-01-30 - v1.1
+- Added app icons.
 - Updated the IntroConcepts / Scale ranking task so the user can not edit the object names on the background page.
 - Updated Kepler's 1st Law ranking task so that the user can not drag the items all the way to the right of the screen.
 - Updated the Moon Phases / Phase Order ranking task so that background pages are accessible in graded mode.
