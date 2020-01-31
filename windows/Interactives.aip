@@ -9,10 +9,10 @@
     <ROW Property="ARPCOMMENTS" Value="This file installs the astro.unl.edu Interactives astronomy education program." ValueLocId="*"/>
     <ROW Property="ARPURLINFOABOUT" Value="http://astro.unl.edu"/>
     <ROW Property="Manufacturer" Value="AstroUNL"/>
-    <ROW Property="ProductCode" Value="1033:{C46E2FEF-DA82-445E-87B1-9A418BEB5C99} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{982EE0E8-6211-476A-AE58-9CEF3647A56D} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Interactives"/>
-    <ROW Property="ProductVersion" Value="1.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.1" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{54464826-174D-4D25-BC82-9DBA0D5B7F0F}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -44,6 +44,8 @@
     <ROW Directory="evolution_Dir" Directory_Parent="files_Dir" DefaultDir="EVOLUT~1|evolution"/>
     <ROW Directory="files_Dir" Directory_Parent="APPDIR" DefaultDir="files"/>
     <ROW Directory="gravity_Dir" Directory_Parent="files_Dir" DefaultDir="gravity"/>
+    <ROW Directory="icons.iconset_Dir" Directory_Parent="icons_Dir" DefaultDir="ICONS~1.ICO|icons.iconset"/>
+    <ROW Directory="icons_Dir" Directory_Parent="APPDIR" DefaultDir="icons"/>
     <ROW Directory="kepler_Dir" Directory_Parent="files_Dir" DefaultDir="kepler"/>
     <ROW Directory="lookback_Dir" Directory_Parent="files_Dir" DefaultDir="lookback"/>
     <ROW Directory="luminosity_Dir" Directory_Parent="files_Dir" DefaultDir="LUMINO~1|luminosity"/>
@@ -107,6 +109,7 @@
     <ROW Component="_Ecliptic.swf" ComponentId="{26E3BD28-F53A-47E4-A595-E3A3769FA3D9}" Directory_="sunpaths_Dir" Attributes="0" KeyPath="_Ecliptic.swf" Type="0"/>
     <ROW Component="app_abso_mag_1.pdf" ComponentId="{B7E089C8-1A83-4EEB-A2B8-00C9068D2F5D}" Directory_="paper_7_Dir" Attributes="0" KeyPath="app_abso_mag_1.pdf" Type="0"/>
     <ROW Component="application.xml" ComponentId="{46BA6089-4D93-4AEB-A90A-F67115B0818C}" Directory_="AIR_Dir" Attributes="0" KeyPath="application.xml" Type="0"/>
+    <ROW Component="icon_128x128.png" ComponentId="{14566FA7-1725-4D19-BA26-63A9D550BAE6}" Directory_="icons.iconset_Dir" Attributes="0" KeyPath="icon_128x128.png" Type="0"/>
     <ROW Component="interactives.xml" ComponentId="{2F926E8E-5184-489E-9B43-5C0050B3BE56}" Directory_="files_Dir" Attributes="0" KeyPath="interactives.xml" Type="0"/>
     <ROW Component="main.swf" ComponentId="{4F6B3642-9538-4153-A895-03BD267133D5}" Directory_="APPDIR" Attributes="0" KeyPath="main.swf" Type="0"/>
     <ROW Component="planetGroups.swf" ComponentId="{6E81933F-52A5-4A45-8DB4-69ED48083E19}" Directory_="scale_Dir" Attributes="0" KeyPath="planetGroups.swf" Type="0"/>
@@ -264,6 +267,10 @@
     <ROW File="hash" Component_="application.xml" FileName="hash" Attributes="0" SourcePath="..\output\Interactives\META-INF\AIR\hash" SelfReg="false"/>
     <ROW File="signatures.xml" Component_="signatures.xml" FileName="SIGNAT~1.XML|signatures.xml" Attributes="0" SourcePath="..\output\Interactives\META-INF\signatures.xml" SelfReg="false"/>
     <ROW File="mimetype" Component_="main.swf" FileName="mimetype" Attributes="0" SourcePath="..\output\Interactives\mimetype" SelfReg="false"/>
+    <ROW File="icon_128x128.png" Component_="icon_128x128.png" FileName="ICON_1~1.PNG|icon_128x128.png" Attributes="0" SourcePath="..\output\Interactives\icons\icons.iconset\icon_128x128.png" SelfReg="false"/>
+    <ROW File="icon_16x16.png" Component_="icon_128x128.png" FileName="ICON_1~2.PNG|icon_16x16.png" Attributes="0" SourcePath="..\output\Interactives\icons\icons.iconset\icon_16x16.png" SelfReg="false"/>
+    <ROW File="icon_32x32.png" Component_="icon_128x128.png" FileName="ICON_3~1.PNG|icon_32x32.png" Attributes="0" SourcePath="..\output\Interactives\icons\icons.iconset\icon_32x32.png" SelfReg="false"/>
+    <ROW File="icon_48x48.png" Component_="icon_128x128.png" FileName="ICON_4~1.PNG|icon_48x48.png" Attributes="0" SourcePath="..\output\Interactives\icons\icons.iconset\icon_48x48.png" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -380,6 +387,7 @@
     <ROW Feature_="MainFeature" Component_="application.xml"/>
     <ROW Feature_="MainFeature" Component_="signatures.xml"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="icon_128x128.png"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
